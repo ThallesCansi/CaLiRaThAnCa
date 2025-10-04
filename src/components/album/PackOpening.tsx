@@ -38,7 +38,9 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
       setIsOpening(true);
       setShowConfetti(true);
       
-      const stickers = mockStickers(5, pack.rarity);
+      const stickers: Sticker[] = (pack.stickers && pack.stickers.length > 0)
+        ? pack.stickers
+        : mockStickers(5, pack.rarity);
       
       // Reveal stickers one by one
       let index = 0;
@@ -139,7 +141,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
               </h2>
               
               <div className="grid grid-cols-5 gap-4">
-                {Array.from({ length: 5 }).map((_, i) => (
+                {Array.from({ length: revealedStickers.length || (pack.stickers?.length ?? 5) }).map((_, i) => (
                   <motion.div
                     key={i}
                     initial={{ scale: 0, rotateY: -180 }}
@@ -167,7 +169,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
                 ))}
               </div>
               
-              {revealedStickers.length === 5 && (
+              {revealedStickers.length === (pack.stickers?.length ?? 5) && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

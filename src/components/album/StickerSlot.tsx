@@ -1,10 +1,14 @@
 import { motion } from "framer-motion";
 import type { StickerSlot as StickerSlotType } from "@/types/album";
 import { cn } from "@/lib/utils";
+import type { Sticker } from "@/types/album";
+import { useState } from "react";
 
 interface StickerSlotProps {
   slot: StickerSlotType;
   onClick?: () => void;
+  onDropSticker?: (slot: StickerSlotType, sticker: Sticker) => void;
+  draggedSticker?: Sticker;
 }
 
 const rarityColors = {
@@ -14,73 +18,131 @@ const rarityColors = {
   legendary: "from-yellow-400 to-yellow-600",
 };
 
-export const StickerSlot = ({ slot, onClick }: StickerSlotProps) => {
+export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: StickerSlotProps) => {
   const hasSticker = slot.sticker !== null;
   const isPolygon = slot.shape === "polygon" && slot.points && slot.points.length >= 3;
   const clipPath = isPolygon
     ? `polygon(${slot.points!.map((p) => `${p.x}% ${p.y}%`).join(", ")})`
     : undefined;
+  const canDrop = Boolean(onDropSticker) && !hasSticker;
+  const [isOver, setIsOver] = useState(false);
+  const [rejectKey, setRejectKey] = useState(0);
+
+  const accepts = (sticker: Sticker) => {
+    const hasIdRule = slot.acceptsStickerIds !== undefined;
+    const hasCatRule = slot.acceptsCategories !== undefined;
+    if (!hasIdRule && !hasCatRule) return false; // sem regra => rejeita por padrão
+    if (hasIdRule && !slot.acceptsStickerIds!.includes(sticker.id)) return false;
+    if (hasCatRule && !slot.acceptsCategories!.includes(sticker.category)) return false;
+    return true;
+  };
+
+  // Deterministic slight angle (-3 to 3 deg) based on slot id when no angle provided
+  const computeAngle = () => {
+    if (typeof slot.angle === "number") return slot.angle;
+    let hash = 0;
+    for (let i = 0; i < slot.id.length; i++) hash = (hash * 31 + slot.id.charCodeAt(i)) | 0;
+    return ((hash % 7) - 3); // -3..3
+  };
+
+  const willAccept = !!draggedSticker && accepts(draggedSticker);
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      whileHover={hasSticker ? { scale: 1.05, rotate: [0, -2, 2, 0] } : { scale: 1 }}
+      whileHover={{ scale: 1.03 }}
       transition={{ delay: slot.position * 0.05 }}
       onClick={onClick}
       className={cn(
-        "relative aspect-[3/4] rounded-lg border-2 transition-all cursor-pointer",
+        "relative aspect-[3/4] rounded-lg transition-all",
         hasSticker
-          ? "border-primary bg-card shadow-sticker"
-          : "border-dashed border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
+          ? "border-0 shadow-none"
+          : cn(
+              "border border-dashed border-muted-foreground/30",
+              // removemos mudanças de cor; mantemos apenas leve feedback de over
+              isOver && "border-muted-foreground/50"
+            ),
+        draggedSticker ? (willAccept ? "cursor-copy" : "cursor-not-allowed") : "cursor-pointer"
       )}
       style={{
         ...(slot.x !== undefined && slot.y !== undefined
           ? {
-              position: "absolute",
+              position: "absolute" as const,
               left: `${slot.x}%`,
               top: `${slot.y}%`,
               width: slot.width ? `${slot.width}%` : undefined,
               height: slot.height ? `${slot.height}%` : undefined,
             }
           : {}),
-        // Clip poligonal opcional
         clipPath,
         WebkitClipPath: clipPath,
       }}
+      onDragOver={(e) => {
+        if (!canDrop) return;
+        // Só impedir o default (permitir drop) se a figurinha atual for aceita
+        if (draggedSticker && accepts(draggedSticker)) {
+          e.preventDefault();
+          setIsOver(true);
+        } else {
+          setIsOver(false);
+        }
+      }}
+      onDragLeave={() => setIsOver(false)}
+      onDrop={(e) => {
+        if (!canDrop) return;
+        e.preventDefault();
+        setIsOver(false);
+        const data = e.dataTransfer.getData("application/json");
+        if (!data) return;
+        try {
+          const sticker: Sticker = JSON.parse(data);
+          if (!accepts(sticker)) {
+            setRejectKey((k) => k + 1);
+            return;
+          }
+          onDropSticker?.(slot, sticker);
+        } catch {}
+      }}
     >
+      {/* Overlay temporário para visualizar o contorno/área do slot */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-md"
+        style={{
+          background: "rgba(37, 99, 235, 0.22)", // azul com transparência
+          clipPath,
+          WebkitClipPath: clipPath,
+        }}
+      />
       {hasSticker ? (
         <motion.div
           initial={{ rotateY: -180, opacity: 0, scale: 0.8 }}
           animate={{ rotateY: 0, opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
-          className="w-full h-full p-2"
+          className="relative z-10 w-full h-full"
         >
-          <motion.div
-            className={cn(
-              "w-full h-full rounded-md bg-gradient-to-br flex items-center justify-center text-4xl relative overflow-hidden",
-              rarityColors[slot.sticker.rarity]
-            )}
-            whileHover={{ scale: 1.1 }}
-          >
-            {/* Efeito holográfico para legendary */}
-            {slot.sticker.rarity === "legendary" && (
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          <motion.div className="w-full h-full">
+            {typeof slot.sticker!.image === "string" && /^(\/|https?:)/.test(slot.sticker!.image as string) ? (
+              <img
+                src={slot.sticker!.image as string}
+                alt={slot.sticker!.name || "sticker"}
+                className="w-full h-full object-cover pointer-events-none select-none"
+                draggable={false}
               />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-4xl">
+                <span>{slot.sticker!.image as any}</span>
+              </div>
             )}
-            <span className="relative z-10">{slot.sticker.image}</span>
           </motion.div>
-          <div className="absolute bottom-1 left-1 right-1 bg-black/70 rounded px-2 py-1">
-            <p className="text-[10px] text-white font-semibold truncate">
-              {slot.sticker.name}
-            </p>
-          </div>
         </motion.div>
       ) : (
-        <div className="w-full h-full flex items-center justify-center">
+        <motion.div
+          key={`reject-${rejectKey}`}
+          className="relative z-10 w-full h-full flex items-center justify-center"
+          animate={rejectKey > 0 ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
+          transition={{ duration: 0.35 }}
+        >
           <motion.span
             animate={{ opacity: [0.3, 0.5, 0.3] }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -88,19 +150,18 @@ export const StickerSlot = ({ slot, onClick }: StickerSlotProps) => {
           >
             ?
           </motion.span>
-          {/* contorno auxiliar para visualizar a forma poligonal quando não há figurinha */}
           {isPolygon && (
             <div
               className="pointer-events-none absolute inset-0 rounded-md"
               style={{
-                outline: "2px dashed rgba(150,150,150,0.3)",
+                outline: "2px dashed rgba(150, 150, 150, 0.95)",
                 outlineOffset: "-2px",
                 clipPath,
                 WebkitClipPath: clipPath,
               }}
             />
           )}
-        </div>
+        </motion.div>
       )}
     </motion.div>
   );

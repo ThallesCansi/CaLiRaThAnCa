@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AlbumSidebar } from "@/components/album/AlbumSidebar";
 import Index from "./pages/Index";
 import Games from "./pages/Games";
+import GameEmbed from "./pages/GameEmbed";
 import Collection from "./pages/Collection";
 import Achievements from "./pages/Achievements";
 import Friends from "./pages/Friends";
@@ -21,6 +22,7 @@ const AppContent = () => (
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/games" element={<Games />} />
+        <Route path="/games/play" element={<GameEmbed />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/friends" element={<Friends />} />

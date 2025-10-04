@@ -1,11 +1,13 @@
-import type { AlbumPage as AlbumPageType } from "@/types/album";
+import type { AlbumPage as AlbumPageType, Sticker, StickerSlot as StickerSlotType } from "@/types/album";
 import { StickerSlot } from "./StickerSlot";
 
 interface AlbumPageProps {
   page: AlbumPageType;
+  onDropSticker?: (slot: StickerSlotType, sticker: Sticker) => void;
+  draggedSticker?: Sticker;
 }
 
-export const AlbumPage = ({ page }: AlbumPageProps) => {
+export const AlbumPage = ({ page, onDropSticker, draggedSticker }: AlbumPageProps) => {
   return (
     <div 
       className="w-full h-full bg-card rounded-lg relative overflow-hidden"
@@ -20,7 +22,7 @@ export const AlbumPage = ({ page }: AlbumPageProps) => {
       {/* Layout absoluto para as figurinhas customizadas */}
       <div className="relative z-10 w-full h-full">
         {page.slots.map((slot) => (
-          <StickerSlot key={slot.id} slot={slot} />
+          <StickerSlot key={slot.id} slot={slot} onDropSticker={onDropSticker} draggedSticker={draggedSticker} />
         ))}
       </div>
     </div>
