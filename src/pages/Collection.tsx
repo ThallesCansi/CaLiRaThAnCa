@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useAlbumStore } from "@/store/albumStore";
 import { StickerSlot } from "@/components/album/StickerSlot";
@@ -6,16 +7,31 @@ const Collection = () => {
   const pages = useAlbumStore((state) => state.pages);
   const initializeAlbum = useAlbumStore((state) => state.initializeAlbum);
   
-  // Inicializar o álbum caso não tenha sido inicializado
-  if (pages.length === 0) {
-    initializeAlbum();
-  }
+  // Inicializar o álbum no mount
+  useEffect(() => {
+    if (pages.length === 0) {
+      initializeAlbum();
+    }
+  }, [pages.length, initializeAlbum]);
 
-  const progress = useAlbumStore((state) => state.getProgress());
+  const progress = useMemo(() => {
+    const totalSlots = pages.reduce((acc, page) => acc + page.slots.length, 0);
+    const filledSlots = pages.reduce(
+      (acc, page) => acc + page.slots.filter((slot) => slot.sticker !== null).length,
+      0
+    );
+    
+    return {
+      totalStickers: totalSlots,
+      collectedStickers: filledSlots,
+      completionPercentage: totalSlots > 0 ? (filledSlots / totalSlots) * 100 : 0,
+    };
+  }, [pages]);
 
-  const allCollectedStickers = pages
-    .flatMap((page) => page.slots)
-    .filter((slot) => slot.sticker !== null);
+  const allCollectedStickers = useMemo(
+    () => pages.flatMap((page) => page.slots).filter((slot) => slot.sticker !== null),
+    [pages]
+  );
 
   return (
     <div className="p-8">
