@@ -14,26 +14,30 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const AppContent = () => (
+  <div className="flex min-h-screen w-full">
+    <AlbumSidebar />
+    <main className="flex-1">
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/collection" element={<Collection />} />
+        <Route path="/achievements" element={<Achievements />} />
+        <Route path="/friends" element={<Friends />} />
+        <Route path="/tutorial" element={<Tutorial />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </main>
+  </div>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="flex min-h-screen w-full">
-          <AlbumSidebar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/games" element={<Games />} />
-              <Route path="/collection" element={<Collection />} />
-              <Route path="/achievements" element={<Achievements />} />
-              <Route path="/friends" element={<Friends />} />
-              <Route path="/tutorial" element={<Tutorial />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
+        <AppContent />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
