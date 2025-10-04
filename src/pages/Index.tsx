@@ -23,7 +23,7 @@ const Index = () => {
 
   useEffect(() => {
     initializeAlbum();
-  }, [initializeAlbum]);
+  }, []);
 
   const handleOpenCover = () => {
     setShowCover(false);

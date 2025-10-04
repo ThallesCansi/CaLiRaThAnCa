@@ -1,12 +1,27 @@
 import { Book, Trophy, Users, Gamepad2, HelpCircle, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useMemo } from "react";
 import { useAlbumStore } from "@/store/albumStore";
 import { Progress } from "@/components/ui/progress";
 
 export const AlbumSidebar = () => {
-  const progress = useAlbumStore((state) => state.getProgress());
+  const pages = useAlbumStore((state) => state.pages);
+  const availablePacks = useAlbumStore((state) => state.availablePacks);
   const games = useAlbumStore((state) => state.games);
   const achievements = useAlbumStore((state) => state.achievements);
+
+  const { totalStickers, collectedStickers, completionPercentage } = useMemo(() => {
+    const total = pages.reduce((acc, page) => acc + page.slots.length, 0);
+    const filled = pages.reduce(
+      (acc, page) => acc + page.slots.filter((slot) => slot.sticker !== null).length,
+      0
+    );
+    return {
+      totalStickers: total,
+      collectedStickers: filled,
+      completionPercentage: total ? (filled / total) * 100 : 0,
+    };
+  }, [pages]);
 
   const navItems = [
     { to: "/", icon: Book, label: "Álbum" },
@@ -37,11 +52,11 @@ export const AlbumSidebar = () => {
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span>Progresso</span>
-            <span className="font-semibold">{Math.round(progress.completionPercentage)}%</span>
+            <span className="font-semibold">{Math.round(completionPercentage)}%</span>
           </div>
-          <Progress value={progress.completionPercentage} className="h-2" />
+          <Progress value={completionPercentage} className="h-2" />
           <p className="text-xs text-sidebar-foreground/60">
-            {progress.collectedStickers} / {progress.totalStickers} figurinhas
+            {collectedStickers} / {totalStickers} figurinhas
           </p>
         </div>
       </div>
@@ -72,7 +87,7 @@ export const AlbumSidebar = () => {
         <div className="flex items-center justify-between text-sm">
           <span className="text-sidebar-foreground/70">Pacotes</span>
           <span className="font-semibold bg-sidebar-accent px-2 py-1 rounded">
-            {progress.packs.length}
+            {availablePacks.length}
           </span>
         </div>
         <div className="flex items-center justify-between text-sm">
