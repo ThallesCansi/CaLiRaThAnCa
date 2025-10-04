@@ -4,6 +4,13 @@ import { StickerSlot } from "@/components/album/StickerSlot";
 
 const Collection = () => {
   const pages = useAlbumStore((state) => state.pages);
+  const initializeAlbum = useAlbumStore((state) => state.initializeAlbum);
+  
+  // Inicializar o álbum caso não tenha sido inicializado
+  if (pages.length === 0) {
+    initializeAlbum();
+  }
+
   const progress = useAlbumStore((state) => state.getProgress());
 
   const allCollectedStickers = pages

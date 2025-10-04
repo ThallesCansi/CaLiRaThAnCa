@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAlbumStore } from "@/store/albumStore";
-import { AlbumPage } from "@/components/album/AlbumPage";
+import { FlipBook, type FlipBookHandle } from "@/components/album/FlipBook";
 import { PackOpening } from "@/components/album/PackOpening";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Package } from "lucide-react";
@@ -11,7 +11,7 @@ import { toast } from "sonner";
 const Index = () => {
   const [showCover, setShowCover] = useState(true);
   const [openingPack, setOpeningPack] = useState<Pack | null>(null);
-  const [direction, setDirection] = useState(0);
+  const flipBookRef = useRef<FlipBookHandle>(null);
   
   const pages = useAlbumStore((state) => state.pages);
   const currentPage = useAlbumStore((state) => state.currentPage);
@@ -30,17 +30,15 @@ const Index = () => {
   };
 
   const handleNextPage = () => {
-    if (currentPage < pages.length - 1) {
-      setDirection(1);
-      setCurrentPage(currentPage + 1);
-    }
+    flipBookRef.current?.flipNext();
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 0) {
-      setDirection(-1);
-      setCurrentPage(currentPage - 1);
-    }
+    flipBookRef.current?.flipPrev();
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   const handlePackComplete = (stickers: Sticker[]) => {
@@ -70,22 +68,6 @@ const Index = () => {
     setOpeningPack(null);
   };
 
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-  };
 
   return (
     <>
@@ -144,44 +126,29 @@ const Index = () => {
                 </motion.div>
               )}
 
-              {/* Album Pages */}
-              <div className="flex-1 flex items-center justify-center p-8 relative overflow-hidden">
+              {/* Album Pages - FlipBook */}
+              <div className="flex-1 flex items-center justify-center p-4 relative overflow-hidden">
                 <Button
                   onClick={handlePrevPage}
-                  disabled={currentPage === 0}
                   variant="ghost"
                   size="icon"
-                  className="absolute left-4 z-10 h-12 w-12"
+                  className="absolute left-4 z-50 h-12 w-12 bg-background/80 backdrop-blur-sm hover:bg-background"
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </Button>
 
-                <div className="w-full max-w-4xl h-[600px] relative">
-                  <AnimatePresence initial={false} custom={direction}>
-                    <motion.div
-                      key={currentPage}
-                      custom={direction}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{
-                        x: { type: "spring", stiffness: 300, damping: 30 },
-                        opacity: { duration: 0.2 },
-                      }}
-                      className="absolute inset-0"
-                    >
-                      <AlbumPage page={pages[currentPage]} />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
+                <FlipBook
+                  ref={flipBookRef}
+                  pages={pages}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
 
                 <Button
                   onClick={handleNextPage}
-                  disabled={currentPage === pages.length - 1}
                   variant="ghost"
                   size="icon"
-                  className="absolute right-4 z-10 h-12 w-12"
+                  className="absolute right-4 z-50 h-12 w-12 bg-background/80 backdrop-blur-sm hover:bg-background"
                 >
                   <ChevronRight className="h-6 w-6" />
                 </Button>
@@ -190,7 +157,7 @@ const Index = () => {
               {/* Page indicator */}
               <div className="text-center p-4">
                 <p className="text-sm text-muted-foreground">
-                  Página {currentPage + 1} de {pages.length}
+                  Páginas {currentPage + 1}-{Math.min(currentPage + 2, pages.length)} de {pages.length}
                 </p>
               </div>
             </div>

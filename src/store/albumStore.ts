@@ -24,21 +24,74 @@ interface AlbumState {
 const createMockData = () => {
   const pages: AlbumPage[] = [];
   
-  // Create 10 pages with 6 slots each
-  for (let i = 0; i < 10; i++) {
-    const pageSlots = Array.from({ length: 6 }, (_, j) => ({
-      id: `slot-${i}-${j}`,
-      pageId: `page-${i}`,
-      position: j,
-      sticker: null,
-    }));
-    
+  // Criar páginas do álbum com layout customizado para imagens A4
+  // Página 1 - Layout Grid Padrão
+  pages.push({
+    id: 'page-1',
+    pageNumber: 1,
+    title: 'Introdução',
+    description: 'Bem-vindo ao álbum!',
+    theme: 'light',
+    slots: [
+      { id: 'slot-1-1', pageId: 'page-1', position: 0, sticker: null, x: 10, y: 25, width: 25, height: 30 },
+      { id: 'slot-1-2', pageId: 'page-1', position: 1, sticker: null, x: 40, y: 25, width: 25, height: 30 },
+      { id: 'slot-1-3', pageId: 'page-1', position: 2, sticker: null, x: 70, y: 25, width: 25, height: 30 },
+      { id: 'slot-1-4', pageId: 'page-1', position: 3, sticker: null, x: 10, y: 60, width: 25, height: 30 },
+      { id: 'slot-1-5', pageId: 'page-1', position: 4, sticker: null, x: 40, y: 60, width: 25, height: 30 },
+      { id: 'slot-1-6', pageId: 'page-1', position: 5, sticker: null, x: 70, y: 60, width: 25, height: 30 },
+    ],
+  });
+
+  // Página 2 - Layout com figurinhas horizontais
+  pages.push({
+    id: 'page-2',
+    pageNumber: 2,
+    title: 'Aventuras',
+    description: 'Momentos épicos',
+    theme: 'light',
+    slots: [
+      { id: 'slot-2-1', pageId: 'page-2', position: 0, sticker: null, x: 5, y: 15, width: 40, height: 25 },
+      { id: 'slot-2-2', pageId: 'page-2', position: 1, sticker: null, x: 55, y: 15, width: 40, height: 25 },
+      { id: 'slot-2-3', pageId: 'page-2', position: 2, sticker: null, x: 5, y: 45, width: 40, height: 25 },
+      { id: 'slot-2-4', pageId: 'page-2', position: 3, sticker: null, x: 55, y: 45, width: 40, height: 25 },
+      { id: 'slot-2-5', pageId: 'page-2', position: 4, sticker: null, x: 30, y: 75, width: 40, height: 20 },
+    ],
+  });
+
+  // Página 3 - Layout assimétrico
+  pages.push({
+    id: 'page-3',
+    pageNumber: 3,
+    title: 'Coleção Especial',
+    description: 'Figurinhas raras',
+    theme: 'dark',
+    slots: [
+      { id: 'slot-3-1', pageId: 'page-3', position: 0, sticker: null, x: 5, y: 10, width: 30, height: 40 },
+      { id: 'slot-3-2', pageId: 'page-3', position: 1, sticker: null, x: 40, y: 10, width: 25, height: 35 },
+      { id: 'slot-3-3', pageId: 'page-3', position: 2, sticker: null, x: 70, y: 10, width: 25, height: 35 },
+      { id: 'slot-3-4', pageId: 'page-3', position: 3, sticker: null, x: 40, y: 55, width: 55, height: 35 },
+    ],
+  });
+
+  // Adicionar mais 7 páginas com layouts variados
+  for (let i = 4; i <= 10; i++) {
+    const isEven = i % 2 === 0;
     pages.push({
       id: `page-${i}`,
-      pageNumber: i + 1,
-      title: `Fase ${i + 1}`,
-      description: `Coleção de figurinhas da fase ${i + 1}`,
-      slots: pageSlots,
+      pageNumber: i,
+      title: `Capítulo ${i}`,
+      description: `Coleção ${i}`,
+      theme: isEven ? 'light' : 'dark',
+      slots: Array.from({ length: 6 }, (_, j) => ({
+        id: `slot-${i}-${j}`,
+        pageId: `page-${i}`,
+        position: j,
+        sticker: null,
+        x: 10 + (j % 3) * 30,
+        y: 20 + Math.floor(j / 3) * 40,
+        width: 25,
+        height: 30,
+      })),
     });
   }
   
