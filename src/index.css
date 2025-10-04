@@ -126,3 +126,54 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Custom utility classes for album effects */
+  .bg-gradient-album {
+    background: var(--gradient-album);
+  }
+
+  .bg-gradient-holographic {
+    background: var(--gradient-holographic);
+  }
+
+  .bg-gradient-success {
+    background: var(--gradient-success);
+  }
+
+  .shadow-pack {
+    box-shadow: var(--shadow-pack);
+  }
+
+  .shadow-sticker {
+    box-shadow: var(--shadow-sticker);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Shine animation for pack opening */
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(200%) translateY(200%) rotate(45deg);
+    }
+  }
+
+  .animate-shine {
+    animation: shine 3s infinite;
+  }
+
+  /* Page flip styles */
+  .flip-book {
+    margin: 0 auto;
+  }
+
+  .page {
+    background-color: hsl(var(--card));
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+}

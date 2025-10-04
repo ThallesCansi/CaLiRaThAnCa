@@ -14,6 +14,10 @@ export interface StickerSlot {
   pageId: string;
   position: number;
   sticker: Sticker | null;
+  x?: number; // Posição X personalizada (para layouts A4 customizados)
+  y?: number; // Posição Y personalizada
+  width?: number; // Largura customizada
+  height?: number; // Altura customizada
 }
 
 export interface AlbumPage {
@@ -21,7 +25,9 @@ export interface AlbumPage {
   pageNumber: number;
   title: string;
   description?: string;
+  backgroundImage?: string; // URL da imagem A4 de fundo
   slots: StickerSlot[];
+  theme?: "light" | "dark"; // Tema da página para contraste
 }
 
 export interface Pack {
