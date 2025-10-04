@@ -16,6 +16,10 @@ const rarityColors = {
 
 export const StickerSlot = ({ slot, onClick }: StickerSlotProps) => {
   const hasSticker = slot.sticker !== null;
+  const isPolygon = slot.shape === "polygon" && slot.points && slot.points.length >= 3;
+  const clipPath = isPolygon
+    ? `polygon(${slot.points!.map((p) => `${p.x}% ${p.y}%`).join(", ")})`
+    : undefined;
 
   return (
     <motion.div
@@ -30,8 +34,8 @@ export const StickerSlot = ({ slot, onClick }: StickerSlotProps) => {
           ? "border-primary bg-card shadow-sticker"
           : "border-dashed border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
       )}
-      style={
-        slot.x !== undefined && slot.y !== undefined
+      style={{
+        ...(slot.x !== undefined && slot.y !== undefined
           ? {
               position: "absolute",
               left: `${slot.x}%`,
@@ -39,8 +43,11 @@ export const StickerSlot = ({ slot, onClick }: StickerSlotProps) => {
               width: slot.width ? `${slot.width}%` : undefined,
               height: slot.height ? `${slot.height}%` : undefined,
             }
-          : undefined
-      }
+          : {}),
+        // Clip poligonal opcional
+        clipPath,
+        WebkitClipPath: clipPath,
+      }}
     >
       {hasSticker ? (
         <motion.div
@@ -81,6 +88,18 @@ export const StickerSlot = ({ slot, onClick }: StickerSlotProps) => {
           >
             ?
           </motion.span>
+          {/* contorno auxiliar para visualizar a forma poligonal quando não há figurinha */}
+          {isPolygon && (
+            <div
+              className="pointer-events-none absolute inset-0 rounded-md"
+              style={{
+                outline: "2px dashed rgba(150,150,150,0.3)",
+                outlineOffset: "-2px",
+                clipPath,
+                WebkitClipPath: clipPath,
+              }}
+            />
+          )}
         </div>
       )}
     </motion.div>

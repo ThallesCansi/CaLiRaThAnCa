@@ -8,11 +8,13 @@ interface AlbumPageProps {
 export const AlbumPage = ({ page }: AlbumPageProps) => {
   return (
     <div 
-      className="w-full h-full bg-card rounded-lg shadow-2xl relative overflow-hidden"
+      className="w-full h-full bg-card rounded-lg relative overflow-hidden"
       style={{
         backgroundImage: page.backgroundImage ? `url(${page.backgroundImage})` : undefined,
-        backgroundSize: "cover",
+        // Exibir a imagem inteira sem cortes e centralizada
+        backgroundSize: "contain",
         backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Layout absoluto para as figurinhas customizadas */}

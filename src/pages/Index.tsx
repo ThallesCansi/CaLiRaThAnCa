@@ -113,12 +113,7 @@ const Index = () => {
             </Button>
           </div>
 
-          {/* Page indicator */}
-          <div className="text-center p-4">
-            <p className="text-sm text-muted-foreground">
-              Página {currentPage + 1} de {pages.length}
-            </p>
-          </div>
+          {/* Page indicator removed as requested */}
         </div>
       </div>
 

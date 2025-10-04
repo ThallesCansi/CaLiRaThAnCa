@@ -18,6 +18,11 @@ export interface StickerSlot {
   y?: number; // Posição Y personalizada
   width?: number; // Largura customizada
   height?: number; // Altura customizada
+  // Forma do slot. Padrão: retângulo usando x/y/width/height
+  shape?: "rect" | "polygon";
+  // Para shape = 'polygon': vértices em porcentagem relativos à caixa do slot (0–100)
+  // Ex.: points: [{x:0,y:0},{x:100,y:0},{x:80,y:100},{x:0,y:100}]
+  points?: Array<{ x: number; y: number }>;
 }
 
 export interface AlbumPage {
