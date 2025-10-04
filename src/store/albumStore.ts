@@ -43,8 +43,7 @@ const createMockData = () => {
   pages.push({
     id: 'page-1',
     pageNumber: 1,
-    title: 'Introdução',
-    description: 'Bem-vindo ao álbum!',
+    title: '',
     theme: 'light',
     slots: [
       { id: 'slot-1-1', pageId: 'page-1', position: 0, sticker: null, x: 10, y: 25, width: 25, height: 30 },
@@ -60,8 +59,7 @@ const createMockData = () => {
   pages.push({
     id: 'page-2',
     pageNumber: 2,
-    title: 'Aventuras',
-    description: 'Momentos épicos',
+    title: '',
     theme: 'light',
     slots: [
       { id: 'slot-2-1', pageId: 'page-2', position: 0, sticker: null, x: 5, y: 15, width: 40, height: 25 },
@@ -76,8 +74,7 @@ const createMockData = () => {
   pages.push({
     id: 'page-3',
     pageNumber: 3,
-    title: 'Coleção Especial',
-    description: 'Figurinhas raras',
+    title: '',
     theme: 'dark',
     slots: [
       { id: 'slot-3-1', pageId: 'page-3', position: 0, sticker: null, x: 5, y: 10, width: 30, height: 40 },
@@ -93,8 +90,7 @@ const createMockData = () => {
     pages.push({
       id: `page-${i}`,
       pageNumber: i,
-      title: `Capítulo ${i}`,
-      description: `Coleção ${i}`,
+      title: '', // Sem título - apenas imagem
       theme: isEven ? 'light' : 'dark',
       slots: Array.from({ length: 6 }, (_, j) => ({
         id: `slot-${i}-${j}`,
@@ -108,6 +104,15 @@ const createMockData = () => {
       })),
     });
   }
+  
+  // VERSO DO ÁLBUM - Página final única (sem slots)
+  pages.push({
+    id: 'page-verso',
+    pageNumber: 11,
+    title: '',
+    theme: 'dark',
+    slots: [], // Verso não tem slots de figurinhas
+  });
   
   return pages;
 };
