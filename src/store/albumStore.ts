@@ -24,7 +24,21 @@ interface AlbumState {
 const createMockData = () => {
   const pages: AlbumPage[] = [];
   
-  // Criar páginas do álbum com layout customizado para imagens A4
+  // CAPA DO ÁLBUM - Página única (sem slots)
+  // Para adicionar mais páginas com imagens dos designers:
+  // 1. Coloque as imagens em src/assets/pages/
+  // 2. Importe a imagem no topo deste arquivo
+  // 3. Adicione a página aqui com backgroundImage apontando para a imagem
+  // 4. Configure os slots com posições x, y, width, height onde as figurinhas devem aparecer
+  pages.push({
+    id: 'page-0',
+    pageNumber: 0,
+    title: 'Arena do Clima',
+    theme: 'dark',
+    backgroundImage: '/src/assets/pages/capa.jpg',
+    slots: [], // Capa não tem slots de figurinhas
+  });
+  
   // Página 1 - Layout Grid Padrão
   pages.push({
     id: 'page-1',
