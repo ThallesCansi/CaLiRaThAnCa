@@ -11,7 +11,7 @@ const Collection = () => {
   const initializeAlbum = useAlbumStore((state) => state.initializeAlbum);
   const [selectedSticker, setSelectedSticker] = useState<Sticker | null>(null);
   
-  // Inicializar o álbum no mount
+  // Initialize album on mount
   useEffect(() => {
     if (pages.length === 0) {
       initializeAlbum();
@@ -50,26 +50,26 @@ const Collection = () => {
         onClose={() => setSelectedSticker(null)} 
       />
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Minha Coleção</h1>
+        <h1 className="text-4xl font-bold mb-2">My Collection</h1>
         <p className="text-muted-foreground">
-          {totalStickers} figurinha(s) no total: {progress.collectedStickers} coladas no álbum, {unplacedStickers.length} não coladas
-          ({Math.round(progress.completionPercentage)}% do álbum completo)
+          {totalStickers} sticker(s) total: {progress.collectedStickers} placed in album, {unplacedStickers.length} unplaced
+          ({Math.round(progress.completionPercentage)}% album complete)
         </p>
       </div>
 
       {totalStickers === 0 ? (
         <div className="text-center py-20">
           <div className="text-6xl mb-4">📦</div>
-          <h2 className="text-2xl font-bold mb-2">Nenhuma figurinha ainda</h2>
+          <h2 className="text-2xl font-bold mb-2">No stickers yet</h2>
           <p className="text-muted-foreground">
-            Complete jogos para ganhar pacotes e começar sua coleção!
+            Complete games to earn packs and start your collection!
           </p>
         </div>
       ) : (
         <>
           {allCollectedStickers.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">Coladas no Álbum</h2>
+              <h2 className="text-2xl font-bold mb-4">Placed in Album</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
                 {allCollectedStickers.map((slot, index) => (
                   <motion.div
@@ -110,7 +110,7 @@ const Collection = () => {
 
           {unplacedStickers.length > 0 && (
             <div>
-              <h2 className="text-2xl font-bold mb-4">Não Coladas (Aguardando)</h2>
+              <h2 className="text-2xl font-bold mb-4">Unplaced (Waiting)</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
                 {unplacedStickers.map((sticker, index) => (
                   <motion.div

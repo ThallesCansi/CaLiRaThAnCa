@@ -5,26 +5,26 @@ const Tutorial = () => {
   const steps = [
     {
       icon: Gamepad2,
-      title: "Jogue e Divirta-se",
-      description: "Complete os minigames disponíveis para desbloquear pacotes de figurinhas.",
+      title: "Play and Have Fun",
+      description: "Complete the available minigames to unlock sticker packs.",
       color: "from-blue-500 to-blue-600",
     },
     {
       icon: Package,
-      title: "Abra seus Pacotes",
-      description: "Rasque o pacote virtual e descubra quais figurinhas você ganhou!",
+      title: "Open Your Packs",
+      description: "Tear open the virtual pack and discover which stickers you won!",
       color: "from-purple-500 to-purple-600",
     },
     {
       icon: Book,
-      title: "Complete o Álbum",
-      description: "As figurinhas são coladas automaticamente no álbum. Navegue pelas páginas e veja sua coleção crescer!",
+      title: "Complete the Album",
+      description: "Stickers are automatically placed in the album. Browse through the pages and watch your collection grow!",
       color: "from-green-500 to-green-600",
     },
     {
       icon: Trophy,
-      title: "Desbloqueie Conquistas",
-      description: "Complete desafios especiais e ganhe conquistas exclusivas!",
+      title: "Unlock Achievements",
+      description: "Complete special challenges and earn exclusive achievements!",
       color: "from-yellow-500 to-yellow-600",
     },
   ];
@@ -33,9 +33,9 @@ const Tutorial = () => {
     <div className="p-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Como Funciona</h1>
+          <h1 className="text-4xl font-bold mb-4">How It Works</h1>
           <p className="text-xl text-muted-foreground">
-            Aprenda a usar o álbum de figurinhas digital em 4 passos simples!
+            Learn to use the digital sticker album in 4 simple steps!
           </p>
         </div>
 
@@ -58,7 +58,7 @@ const Tutorial = () => {
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-sm font-bold text-muted-foreground">
-                      PASSO {index + 1}
+                      STEP {index + 1}
                     </span>
                   </div>
                   <h2 className="text-2xl font-bold mb-2">{step.title}</h2>
@@ -75,10 +75,10 @@ const Tutorial = () => {
           transition={{ delay: 0.5 }}
           className="mt-12 bg-gradient-to-br from-primary/10 to-transparent rounded-xl p-8 border border-primary/20"
         >
-          <h3 className="text-2xl font-bold mb-3">💡 Dica Pro</h3>
+          <h3 className="text-2xl font-bold mb-3">💡 Pro Tip</h3>
           <p className="text-muted-foreground text-lg">
-            Quanto mais você joga, mais pacotes você ganha! Cada jogo tem sua própria recompensa única.
-            Complete todos os jogos para desbloquear a conquista "Mestre dos Jogos"!
+            The more you play, the more packs you earn! Each game has its own unique reward.
+            Complete all games to unlock the "Game Master" achievement!
           </p>
         </motion.div>
       </div>

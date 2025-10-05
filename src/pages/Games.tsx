@@ -59,12 +59,12 @@ const Games = () => {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-4xl font-bold mb-2">
-              {viewMode === 'games' ? 'Jogos Disponíveis' : 'Minha Coleção'}
+              {viewMode === 'games' ? 'Available Games' : 'My Collection'}
             </h1>
             <p className="text-muted-foreground">
               {viewMode === 'games'
-                ? 'Complete os jogos para desbloquear pacotes de figurinhas!'
-                : `Você tem ${collectedStickers.length} figurinhas coladas no álbum`
+                ? 'Complete games to unlock sticker packs!'
+                : `You have ${collectedStickers.length} stickers placed in the album`
               }
             </p>
           </div>
@@ -75,14 +75,14 @@ const Games = () => {
               onClick={() => setViewMode('games')}
             >
               <Play className="mr-2 h-4 w-4" />
-              Jogos
+              Games
             </Button>
             <Button
               variant={viewMode === 'collections' ? 'default' : 'outline'}
               onClick={() => setViewMode('collections')}
             >
               <Grid3X3 className="mr-2 h-4 w-4" />
-              Coleção
+              Collection
             </Button>
           </div>
         </div>
@@ -125,10 +125,10 @@ const Games = () => {
                 </div>
 
                 <div className="bg-muted/50 rounded-lg p-4 mb-4">
-                  <p className="text-sm font-semibold mb-1">Recompensa:</p>
+                  <p className="text-sm font-semibold mb-1">Reward:</p>
                   <p className="text-sm text-muted-foreground">{game.packReward.name}</p>
                   {game.completed && (
-                    <p className="text-xs text-green-600 mt-1">✓ Concluído - Pode jogar novamente</p>
+                    <p className="text-xs text-green-600 mt-1">✓ Completed - Can play again</p>
                   )}
                 </div>
 
@@ -138,7 +138,7 @@ const Games = () => {
                   variant={game.completed ? "secondary" : "default"}
                 >
                   <Play className="mr-2 h-4 w-4" />
-                  Jogar Agora
+                  Play Now
                 </Button>
               </div>
             </motion.div>
@@ -153,24 +153,24 @@ const Games = () => {
               className="text-center py-16"
             >
               <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Sua coleção está vazia</h3>
+              <h3 className="text-xl font-semibold mb-2">Your collection is empty</h3>
               <p className="text-muted-foreground mb-4">
-                Cole suas primeiras figurinhas no álbum para vê-las aqui!
+                Place your first stickers in the album to see them here!
               </p>
               <Button onClick={() => setViewMode('games')}>
                 <Play className="mr-2 h-4 w-4" />
-                Jogar para ganhar figurinhas
+                Play to earn stickers
               </Button>
             </motion.div>
           ) : (
             <>
-              {/* Estatísticas da coleção */}
+              {/* Collection statistics */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-card rounded-xl p-6 border border-border"
               >
-                <h3 className="text-lg font-semibold mb-4">Estatísticas da Coleção</h3>
+                <h3 className="text-lg font-semibold mb-4">Collection Statistics</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-primary">{collectedStickers.length}</div>
@@ -180,24 +180,24 @@ const Games = () => {
                     <div className="text-2xl font-bold text-yellow-500">
                       {collectedStickers.filter(item => item.sticker!.rarity === 'legendary').length}
                     </div>
-                    <div className="text-sm text-muted-foreground">Lendárias</div>
+                    <div className="text-sm text-muted-foreground">Legendary</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-purple-500">
                       {collectedStickers.filter(item => item.sticker!.rarity === 'epic').length}
                     </div>
-                    <div className="text-sm text-muted-foreground">Épicas</div>
+                    <div className="text-sm text-muted-foreground">Epic</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-blue-500">
                       {collectedStickers.filter(item => item.sticker!.rarity === 'rare').length}
                     </div>
-                    <div className="text-sm text-muted-foreground">Raras</div>
+                    <div className="text-sm text-muted-foreground">Rare</div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Figurinhas por categoria */}
+              {/* Stickers by category */}
               {Object.entries(stickersByCategory).map(([category, stickers], categoryIndex) => (
                 <motion.div
                   key={category}

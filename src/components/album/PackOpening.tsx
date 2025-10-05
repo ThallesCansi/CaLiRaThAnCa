@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import { Confetti } from "./Confetti";
 import { DraggableSticker } from "./DraggableSticker";
+import packImage from "@/assets/pack.png";
 
 interface PackOpeningProps {
   pack: Pack;
@@ -90,12 +91,17 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
                       }
                     : { y: [0, -10, 0] }
                 }
-                transition={{ 
+                  transition={{ 
                   duration: isTearing ? 0.6 : 2, 
                   repeat: isTearing ? 1 : Infinity 
                 }}
-                className="w-64 h-80 bg-gradient-holographic rounded-xl shadow-pack flex items-center justify-center text-6xl relative overflow-hidden"
+                className="w-64 h-80 rounded-xl shadow-pack flex items-center justify-center relative overflow-hidden"
               >
+                <img 
+                  src={packImage} 
+                  alt="Sticker Pack" 
+                  className="w-full h-full object-cover rounded-xl"
+                />
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent animate-shine" />
                 {isTearing && (
                   <>
@@ -112,12 +118,11 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
                     />
                   </>
                 )}
-                <span>📦</span>
               </motion.div>
               
               <div className="text-center space-y-2">
                 <h2 className="text-3xl font-bold text-white">{pack.name}</h2>
-                <p className="text-white/70">5 figurinhas surpresa!</p>
+                <p className="text-white/70">5 surprise stickers!</p>
               </div>
               
               <Button
@@ -127,7 +132,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
                 className="bg-gradient-album hover:shadow-glow transition-all"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
-                {isTearing ? "Abrindo..." : "Abrir Pacote"}
+                {isTearing ? "Opening..." : "Open Pack"}
               </Button>
             </motion.div>
           ) : (
@@ -138,7 +143,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
               className="space-y-8"
             >
               <h2 className="text-3xl font-bold text-center text-white">
-                Suas Novas Figurinhas!
+                Your New Stickers!
               </h2>
               
               <div className="grid grid-cols-5 gap-4">
@@ -172,7 +177,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
                   className="flex justify-center"
                 >
                   <Button onClick={onClose} size="lg" variant="secondary">
-                    Voltar ao Álbum
+                    Back to Album
                   </Button>
                 </motion.div>
               )}

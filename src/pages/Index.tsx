@@ -80,8 +80,8 @@ const Index = () => {
   const handlePackComplete = (stickers: Sticker[]) => {
     if (!openingPack) return;
     openPack(openingPack.id, stickers);
-    toast.success("Pacote aberto!", {
-      description: `${stickers.length} novas figurinhas disponíveis para colar. Arraste para o álbum!`,
+    toast.success("Pack opened!", {
+      description: `${stickers.length} new stickers available to place. Drag them to the album!`,
     });
   };
 
@@ -111,7 +111,7 @@ const Index = () => {
                 className="text-white font-semibold hover:underline flex items-center justify-center gap-2 mx-auto"
               >
                 <Package className="w-5 h-5" />
-                Você tem {availablePacks.length} pacote(s) para abrir!
+                You have {availablePacks.length} pack(s) to open!
               </button>
             </motion.div>
           )}
@@ -200,7 +200,7 @@ const Index = () => {
                 className="p-4 border-t bg-background/60"
               >
                 <div className="max-w-6xl mx-auto">
-                  <p className="text-sm mb-3 font-medium">Arraste as figurinhas abaixo para os espaços corretos no álbum:</p>
+                  <p className="text-sm mb-3 font-medium">Drag the stickers below to the correct spaces in the album:</p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {unplacedStickers.map((s) => (
                       <motion.div

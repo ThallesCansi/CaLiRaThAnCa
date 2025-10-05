@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useAlbumStore } from "@/store/albumStore";
 import { Lock } from "lucide-react";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 
 const Achievements = () => {
   const achievements = useAlbumStore((state) => state.achievements);
@@ -10,9 +10,9 @@ const Achievements = () => {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Conquistas</h1>
+        <h1 className="text-4xl font-bold mb-2">Achievements</h1>
         <p className="text-muted-foreground">
-          Desbloqueie conquistas completando desafios no álbum!
+          Unlock achievements by completing challenges in the album!
         </p>
       </div>
 
@@ -48,13 +48,13 @@ const Achievements = () => {
                 
                 {achievement.unlocked && achievement.unlockedAt && (
                   <p className="text-xs text-success font-semibold">
-                    Desbloqueada em {format(new Date(achievement.unlockedAt), "dd/MM/yyyy", { locale: ptBR })}
+                    Unlocked on {format(new Date(achievement.unlockedAt), "MM/dd/yyyy", { locale: enUS })}
                   </p>
                 )}
                 
                 {!achievement.unlocked && (
                   <p className="text-xs text-muted-foreground font-semibold">
-                    🔒 Bloqueada
+                    🔒 Locked
                   </p>
                 )}
               </div>

@@ -1,4 +1,4 @@
-import { Book, Trophy, Users, Gamepad2, HelpCircle, User } from "lucide-react";
+import { Book, Trophy, Gamepad2, HelpCircle, User, Library } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useMemo } from "react";
 import { useAlbumStore } from "@/store/albumStore";
@@ -37,11 +37,10 @@ export const AlbumSidebar = () => {
   }, [pages]);
 
   const navItems = [
-    { to: "/", icon: Book, label: "Álbum" },
-    { to: "/games", icon: Gamepad2, label: "Jogos" },
-    { to: "/collection", icon: Trophy, label: "Coleção" },
-    { to: "/achievements", icon: Trophy, label: "Conquistas" },
-    { to: "/friends", icon: Users, label: "Amigos" },
+    { to: "/", icon: Book, label: "Album" },
+    { to: "/games", icon: Gamepad2, label: "Games" },
+    { to: "/collection", icon: Library, label: "Collection" },
+    { to: "/achievements", icon: Trophy, label: "Achievements" },
     { to: "/tutorial", icon: HelpCircle, label: "Tutorial" },
   ];
 
@@ -91,19 +90,19 @@ export const AlbumSidebar = () => {
                     <User className="w-5 h-5 text-sidebar-accent-foreground" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-bold text-sm truncate">Colecionador</h3>
-                    <p className="text-xs text-sidebar-foreground/70">Nível 1</p>
+                    <h3 className="font-bold text-sm truncate">Collector</h3>
+                    <p className="text-xs text-sidebar-foreground/70">Level 1</p>
                   </div>
                 </div>
                 
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
-                    <span>Progresso</span>
+                    <span>Progress</span>
                     <span className="font-semibold">{Math.round(completionPercentage)}%</span>
                   </div>
                   <Progress value={completionPercentage} className="h-2" />
                   <p className="text-xs text-sidebar-foreground/60">
-                    {collectedStickers} / {totalStickers} figurinhas
+                    {collectedStickers} / {totalStickers} stickers
                   </p>
                 </div>
               </>
@@ -147,19 +146,19 @@ export const AlbumSidebar = () => {
         {open ? (
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-sidebar-foreground/70">Pacotes</span>
+              <span className="text-sidebar-foreground/70">Packs</span>
               <span className="font-semibold bg-sidebar-accent px-2 py-1 rounded">
                 {availablePacks.length}
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-sidebar-foreground/70">Conquistas</span>
+              <span className="text-sidebar-foreground/70">Achievements</span>
               <span className="font-semibold bg-sidebar-accent px-2 py-1 rounded">
                 {unlockedAchievements}/{achievements.length}
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-sidebar-foreground/70">Jogos</span>
+              <span className="text-sidebar-foreground/70">Games</span>
               <span className="font-semibold bg-sidebar-accent px-2 py-1 rounded">
                 {games.filter(g => g.completed).length}/{games.length}
               </span>

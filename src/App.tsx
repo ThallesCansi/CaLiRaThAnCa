@@ -10,7 +10,6 @@ import Games from "./pages/Games";
 import GameEmbed from "./pages/GameEmbed";
 import Collection from "./pages/Collection";
 import Achievements from "./pages/Achievements";
-import Friends from "./pages/Friends";
 import Tutorial from "./pages/Tutorial";
 import NotFound from "./pages/NotFound";
 
@@ -27,7 +26,6 @@ const AppContent = () => (
           <Route path="/games/play" element={<GameEmbed />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/achievements" element={<Achievements />} />
-          <Route path="/friends" element={<Friends />} />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
