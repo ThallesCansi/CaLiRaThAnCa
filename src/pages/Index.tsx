@@ -177,30 +177,6 @@ const Index = () => {
               </motion.div>
             )}
             
-            {/* Botão de pacote inicial na página 1 */}
-            {currentPage === 1 && !tutorialPackClaimed && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute top-[53%] left-[20%] -translate-x-1/2 z-40"
-              >
-                <Button
-                  onClick={() => {
-                    claimTutorialPack();
-                    toast.success("First mission pack unlocked!", {
-                      description: "Click the notification above to open your pack!",
-                    });
-                  }}
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 hover:scale-105 transition-all text-xl px-12 py-8 shadow-xl"
-                >
-                  <Package className="w-8 h-8 mr-3" />
-                  Start Mission
-                </Button>
-              </motion.div>
-            )}
-            
             {/* Overlay de loading ao arrastar */}
             <AnimatePresence>
               {draggedSticker && (
@@ -245,6 +221,13 @@ const Index = () => {
               draggedSticker={draggedSticker || undefined}
               onPlayGame={handlePlayGame}
               layoutSignal={unplacedStickers.length}
+              showTutorialButton={!tutorialPackClaimed}
+              onTutorialButtonClick={() => {
+                claimTutorialPack();
+                toast.success("First mission pack unlocked!", {
+                  description: "Click the notification above to open your pack!",
+                });
+              }}
             />
 
             <Button

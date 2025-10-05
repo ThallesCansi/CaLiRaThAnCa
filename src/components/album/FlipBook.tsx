@@ -14,6 +14,8 @@ interface FlipBookProps {
   disableFlipByClick?: boolean;
   onPlayGame?: (gameId: string) => void;
   layoutSignal?: number;
+  showTutorialButton?: boolean;
+  onTutorialButtonClick?: () => void;
 }
 
 export interface FlipBookHandle {
@@ -23,7 +25,7 @@ export interface FlipBookHandle {
 }
 
 export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
-  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker, disableFlipByClick = false, onPlayGame, layoutSignal }, ref) => {
+  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker, disableFlipByClick = false, onPlayGame, layoutSignal, showTutorialButton, onTutorialButtonClick }, ref) => {
     const bookRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     // Designer's exact dimensions: 1414x2000
@@ -123,6 +125,8 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
                 onDropSticker={onDropSticker} 
                 draggedSticker={draggedSticker}
                 onPlayGame={onPlayGame}
+                showTutorialButton={page.pageNumber === 1 && showTutorialButton}
+                onTutorialButtonClick={onTutorialButtonClick}
               />
             </div>
           ))}
