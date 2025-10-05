@@ -44,7 +44,7 @@ export const DraggableSticker = ({ sticker, onDragStart, onDragEnd }: DraggableS
       img.src = sticker.image;
       img.style.width = "100%";
       img.style.height = "100%";
-      img.style.objectFit = "cover";
+      img.style.objectFit = "contain";
       img.style.borderRadius = "8px";
       img.style.transform = "rotate(5deg)";
       dragImage.appendChild(img);
@@ -87,7 +87,7 @@ export const DraggableSticker = ({ sticker, onDragStart, onDragEnd }: DraggableS
               <img
                 src={sticker.image}
                 alt={sticker.name}
-                className="w-full h-full object-cover pointer-events-none select-none"
+                className="w-full h-full object-contain pointer-events-none select-none"
                 draggable={false}
               />
             ) : (

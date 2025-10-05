@@ -156,20 +156,20 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
               </h2>
               
               <div className="grid grid-cols-5 gap-4">
-                {Array.from({ length: stickersToReveal.length || 5 }).map((_, i) => (
+                {stickersToReveal.map((st, i) => (
                   <motion.div
-                    key={i}
+                    key={st.id}
                     initial={{ scale: 0, rotateY: -180 }}
                     animate={
-                      revealedStickers[i]
+                      i < revealedStickers.length
                         ? { scale: 1, rotateY: 0 }
                         : { scale: 0.8, rotateY: -180 }
                     }
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     className="relative"
                   >
-                    {revealedStickers[i] ? (
-                      <DraggableSticker sticker={revealedStickers[i]} />
+                    {i < revealedStickers.length ? (
+                      <DraggableSticker sticker={st} />
                     ) : (
                       <div className="aspect-[3/4] bg-gradient-to-br from-primary to-primary-glow rounded-lg shadow-pack flex items-center justify-center text-6xl">
                         <span className="text-white/30">?</span>

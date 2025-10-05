@@ -194,7 +194,7 @@ export const StickerModal = ({ sticker, open = false, onClose }: StickerModalPro
                 <img
                   src={sticker.image}
                   alt={sticker.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-[120px]">
