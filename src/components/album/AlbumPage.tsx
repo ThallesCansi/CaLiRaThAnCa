@@ -38,13 +38,15 @@ export const AlbumPage = ({ page, onDropSticker, draggedSticker, onPlayGame, sho
         ))}
         
         {/* Tutorial Button - escalável com a página */}
-        {showTutorialButton && (
+        {(page.pageNumber === 1 || showTutorialButton) && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             className="absolute z-50"
             style={{
+              // Para ajustar manualmente a posição/tamanho do botão, edite os percentuais abaixo:
+              // left/top controlam a posição; width/height controlam o tamanho relativo à página.
               left: '20%',
               top: '53%',
               transform: 'translate(-50%, -50%)',

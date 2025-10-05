@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { Achievement } from "@/types/album";
 import { sfx } from "@/utils/sfx";
 
@@ -13,32 +13,56 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
   const [show, setShow] = useState(false);
   const [current, setCurrent] = useState<Achievement | null>(null);
 
+  const hideTimerRef = useRef<number | null>(null);
+  const finalizeTimerRef = useRef<number | null>(null);
+
+  const clearTimers = () => {
+    if (hideTimerRef.current) {
+      clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = null;
+    }
+    if (finalizeTimerRef.current) {
+      clearTimeout(finalizeTimerRef.current);
+      finalizeTimerRef.current = null;
+    }
+  };
+
   useEffect(() => {
     if (!achievement) return;
 
-    // Capture the achievement locally so it persists even if the prop changes.
+    // Start/Restart notification
     setCurrent(achievement);
     setShow(true);
 
-    // Play achievement sound (customizável via /audios/achievement.*)
-    sfx.confetti();
+    // SFX
+    sfx.confetti?.();
 
-    // Auto close after 5 seconds
-    const timer = setTimeout(() => {
+    // Reset timers and schedule hide
+    clearTimers();
+    hideTimerRef.current = window.setTimeout(() => {
       setShow(false);
     }, 5000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimers();
+    };
   }, [achievement]);
 
   useEffect(() => {
     if (!show && current) {
-      const timer = setTimeout(() => {
+      // finalize and notify parent slightly after exit animation
+      if (finalizeTimerRef.current) clearTimeout(finalizeTimerRef.current);
+      finalizeTimerRef.current = window.setTimeout(() => {
         setCurrent(null);
         onClose();
       }, 500);
-      return () => clearTimeout(timer);
     }
+    return () => {
+      if (finalizeTimerRef.current) {
+        clearTimeout(finalizeTimerRef.current);
+        finalizeTimerRef.current = null;
+      }
+    };
   }, [show, current, onClose]);
 
   return (
