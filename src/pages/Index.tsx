@@ -94,6 +94,13 @@ const Index = () => {
     setDraggedSticker(null);
   };
 
+  const handlePlayGame = (gameId: string) => {
+    const game = useAlbumStore.getState().games.find(g => g.id === gameId);
+    if (game) {
+      window.open(game.url, '_blank');
+    }
+  };
+
 
   return (
     <>
@@ -120,7 +127,7 @@ const Index = () => {
           )}
 
           {/* Album Pages - FlipBook */}
-          <div className={`flex-1 flex items-center justify-center p-4 relative min-h-0 ${unplacedStickers.length > 0 ? 'lg:mr-56 xl:mr-64' : ''}`}>
+          <div className={`flex-1 flex items-center justify-center p-4 relative min-h-0 transition-all duration-300 ${unplacedStickers.length > 0 ? 'lg:mr-72 xl:mr-80' : ''}`}>
             {/* Indicação de virar página na capa */}
             {currentPage === 0 && (
               <motion.div
@@ -181,6 +188,7 @@ const Index = () => {
               onPageChange={handlePageChange}
               onDropSticker={handleDropSticker}
               draggedSticker={draggedSticker || undefined}
+              onPlayGame={handlePlayGame}
             />
 
             <Button

@@ -11,6 +11,7 @@ interface FlipBookProps {
   onDropSticker?: (slot: StickerSlot, sticker: Sticker) => void;
   draggedSticker?: Sticker;
   disableFlipByClick?: boolean;
+  onPlayGame?: (gameId: string) => void;
 }
 
 export interface FlipBookHandle {
@@ -20,7 +21,7 @@ export interface FlipBookHandle {
 }
 
 export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
-  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker, disableFlipByClick = false }, ref) => {
+  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker, disableFlipByClick = false, onPlayGame }, ref) => {
     const bookRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     // Designer's exact dimensions: 1414x2000
@@ -100,7 +101,12 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
         >
           {pages.map((page) => (
             <div key={page.id} className="page">
-              <AlbumPage page={page} onDropSticker={onDropSticker} draggedSticker={draggedSticker} />
+              <AlbumPage 
+                page={page} 
+                onDropSticker={onDropSticker} 
+                draggedSticker={draggedSticker}
+                onPlayGame={onPlayGame}
+              />
             </div>
           ))}
         </HTMLFlipBook>

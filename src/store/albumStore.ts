@@ -100,9 +100,9 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[4],
     slots: [
-      { id: 'slot-5-1', pageId: 'page-5', position: 0, sticker: null, x: 10, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0001'] },
-      { id: 'slot-5-2', pageId: 'page-5', position: 0, sticker: null, x: 65, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0002'] },
-      { id: 'slot-5-3', pageId: 'page-5', position: 0, sticker: null, x: 9, y: 70, width: 42, height: 22.5, acceptsStickerIds: ['sticker-0003'] },
+      { id: 'slot-5-1', pageId: 'page-5', position: 0, sticker: null, x: 10, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0001'], gameId: 'game-1' },
+      { id: 'slot-5-2', pageId: 'page-5', position: 0, sticker: null, x: 65, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0002'], gameId: 'game-1' },
+      { id: 'slot-5-3', pageId: 'page-5', position: 0, sticker: null, x: 9, y: 70, width: 42, height: 22.5, acceptsStickerIds: ['sticker-0003'], gameId: 'game-1' },
     ],
   });
 
@@ -113,9 +113,9 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[5],
     slots: [
-      { id: 'slot-6-1', pageId: 'page-6', position: 0, sticker: null, x: 5, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0004'] },
-      { id: 'slot-6-2', pageId: 'page-6', position: 0, sticker: null, x: 5, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0005'] },
-      { id: 'slot-6-3', pageId: 'page-6', position: 0, sticker: null, x: 61, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0006'] },
+      { id: 'slot-6-1', pageId: 'page-6', position: 0, sticker: null, x: 5, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0004'], gameId: 'game-1' },
+      { id: 'slot-6-2', pageId: 'page-6', position: 0, sticker: null, x: 5, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0005'], gameId: 'game-1' },
+      { id: 'slot-6-3', pageId: 'page-6', position: 0, sticker: null, x: 61, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0006'], gameId: 'game-2' },
     ],
   });
 
@@ -126,8 +126,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[6],
     slots: [
-      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 17, y: 69, width: 43, height: 22, acceptsStickerIds: ['sticker-0007'] },
-      { id: 'slot-7-2', pageId: 'page-7', position: 0, sticker: null, x: 78, y: 31.5, width: 22, height: 22, acceptsStickerIds: ['sticker-0008'] },
+      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 17, y: 69, width: 43, height: 22, acceptsStickerIds: ['sticker-0007'], gameId: 'game-2' },
+      { id: 'slot-7-2', pageId: 'page-7', position: 0, sticker: null, x: 78, y: 31.5, width: 22, height: 22, acceptsStickerIds: ['sticker-0008'], gameId: 'game-2' },
     ],
   });
 
@@ -138,8 +138,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[7],
     slots: [
-      { id: 'slot-7-2', pageId: 'page-7', position: 0, sticker: null, x: 0, y: 31.5, width: 22, height: 22, acceptsStickerIds: ['sticker-0008'] },
-      { id: 'slot-8-1', pageId: 'page-8', position: 0, sticker: null, x: 47, y: 57, width: 31, height: 31, acceptsStickerIds: ['sticker-0009'] },
+      { id: 'slot-7-2', pageId: 'page-7', position: 0, sticker: null, x: 0, y: 31.5, width: 22, height: 22, acceptsStickerIds: ['sticker-0008'], gameId: 'game-2' },
+      { id: 'slot-8-1', pageId: 'page-8', position: 0, sticker: null, x: 47, y: 57, width: 31, height: 31, acceptsStickerIds: ['sticker-0009'], gameId: 'game-2' },
     ],
   });
 
@@ -150,7 +150,7 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[8],
     slots: [
-      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 9, y: 66.5, width: 31, height: 29.5, acceptsStickerIds: ['sticker-00010'] },
+      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 9, y: 66.5, width: 31, height: 29.5, acceptsStickerIds: ['sticker-00010'], gameId: 'game-2' },
     ],
   });
 

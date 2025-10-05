@@ -28,6 +28,8 @@ export interface StickerSlot {
   // Restrições: só aceitar certas figurinhas
   acceptsStickerIds?: string[];
   acceptsCategories?: string[];
+  // Jogo necessário para ganhar essa figurinha
+  gameId?: string;
 }
 
 export interface AlbumPage {

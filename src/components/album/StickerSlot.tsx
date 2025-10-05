@@ -9,9 +9,10 @@ interface StickerSlotProps {
   onClick?: () => void;
   onDropSticker?: (slot: StickerSlotType, sticker: Sticker) => void;
   draggedSticker?: Sticker;
+  onPlayGame?: (gameId: string) => void;
 }
 
-export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: StickerSlotProps) => {
+export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker, onPlayGame }: StickerSlotProps) => {
   const hasSticker = slot.sticker !== null;
   const [isOver, setIsOver] = useState(false);
   const [rejectKey, setRejectKey] = useState(0);
@@ -28,10 +29,10 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
   const willAccept = !!draggedSticker && accepts(draggedSticker);
 
   const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    
     if (hasSticker) {
-      e.stopPropagation();
-      e.preventDefault();
-      
       // Disparar evento customizado para o modal global
       const customEvent = new CustomEvent('openStickerModal', {
         bubbles: false,
@@ -39,6 +40,9 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
         detail: { sticker: slot.sticker, slotId: slot.id }
       });
       document.dispatchEvent(customEvent);
+    } else if (slot.gameId && onPlayGame) {
+      // Slot vazio com jogo associado
+      onPlayGame(slot.gameId);
     }
   };
 
@@ -122,11 +126,12 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
           <motion.div
             key={`reject-${rejectKey}`}
             className={cn(
-              "relative w-full h-full border-2 rounded-lg flex items-center justify-center transition-colors",
+              "relative w-full h-full border-2 rounded-lg flex flex-col items-center justify-center transition-colors",
               isOver && willAccept
                 ? "border-green-400 bg-green-400/10 border-solid"
                 : "border-dashed border-muted-foreground/30",
-              isOver && !willAccept && "border-red-400 bg-red-400/10 border-solid"
+              isOver && !willAccept && "border-red-400 bg-red-400/10 border-solid",
+              slot.gameId && "hover:border-primary/50 hover:bg-primary/5"
             )}
             animate={isOver && !willAccept ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
             transition={{ duration: 0.35 }}
@@ -138,6 +143,16 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
             >
               ?
             </motion.span>
+            {slot.gameId && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0.4, 0.7, 0.4] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-[0.5rem] sm:text-xs text-center text-muted-foreground/50 mt-1 px-1"
+              >
+                Play to win
+              </motion.p>
+            )}
           </motion.div>
         )}
       </motion.div>

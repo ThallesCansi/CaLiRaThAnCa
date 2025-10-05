@@ -5,9 +5,10 @@ interface AlbumPageProps {
   page: AlbumPageType;
   onDropSticker?: (slot: StickerSlotType, sticker: Sticker) => void;
   draggedSticker?: Sticker;
+  onPlayGame?: (gameId: string) => void;
 }
 
-export const AlbumPage = ({ page, onDropSticker, draggedSticker }: AlbumPageProps) => {
+export const AlbumPage = ({ page, onDropSticker, draggedSticker, onPlayGame }: AlbumPageProps) => {
   return (
     <div 
       className="w-full h-full bg-card rounded-lg relative overflow-hidden"
@@ -22,7 +23,13 @@ export const AlbumPage = ({ page, onDropSticker, draggedSticker }: AlbumPageProp
       {/* Layout absoluto para as figurinhas customizadas */}
       <div className="relative z-10 w-full h-full">
         {page.slots.map((slot) => (
-          <StickerSlot key={slot.id} slot={slot} onDropSticker={onDropSticker} draggedSticker={draggedSticker} />
+          <StickerSlot 
+            key={slot.id} 
+            slot={slot} 
+            onDropSticker={onDropSticker} 
+            draggedSticker={draggedSticker}
+            onPlayGame={onPlayGame}
+          />
         ))}
       </div>
     </div>
