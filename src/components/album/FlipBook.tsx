@@ -41,7 +41,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
         const scaleByHeight = availH / PAGE_HEIGHT;
         
         // Usa a menor escala para garantir que cabe na tela, com multiplicador aumentado
-        const scale = Math.min(scaleByWidth, scaleByHeight) * 1.0; // usa 100% do espaço disponível
+        const scale = Math.min(scaleByWidth, scaleByHeight) * 0.85; // ocupa 85% do espaço disponível
         
         const finalW = Math.floor(PAGE_WIDTH * scale);
         const finalH = Math.floor(PAGE_HEIGHT * scale);
@@ -83,7 +83,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           flippingTime={800}
           usePortrait={false}
           startZIndex={0}
-          autoSize={true}
+          autoSize={false}
           clickEventForward={true}
           useMouseEvents={true}
           swipeDistance={30}
