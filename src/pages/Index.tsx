@@ -11,7 +11,6 @@ import { toast } from "sonner";
 
 const Index = () => {
   const [openingPack, setOpeningPack] = useState<Pack | null>(null);
-  const [recentStickers, setRecentStickers] = useState<Sticker[]>([]);
   const [draggedSticker, setDraggedSticker] = useState<Sticker | null>(null);
   const flipBookRef = useRef<FlipBookHandle>(null);
   
@@ -20,8 +19,10 @@ const Index = () => {
   const setCurrentPage = useAlbumStore((state) => state.setCurrentPage);
   const initializeAlbum = useAlbumStore((state) => state.initializeAlbum);
   const availablePacks = useAlbumStore((state) => state.availablePacks);
+  const unplacedStickers = useAlbumStore((state) => state.unplacedStickers);
   const addStickerToSlot = useAlbumStore((state) => state.addStickerToSlot);
   const openPack = useAlbumStore((state) => state.openPack);
+  const removeUnplacedSticker = useAlbumStore((state) => state.removeUnplacedSticker);
 
   useEffect(() => {
     initializeAlbum();
@@ -41,9 +42,7 @@ const Index = () => {
 
   const handlePackComplete = (stickers: Sticker[]) => {
     if (!openingPack) return;
-    // Em vez de auto-colar, disponibiliza para arrastar e soltar
-    setRecentStickers(stickers);
-    openPack(openingPack.id);
+    openPack(openingPack.id, stickers);
     toast.success("Pacote aberto!", {
       description: `${stickers.length} novas figurinhas disponíveis para colar. Arraste para o álbum!`,
     });
@@ -51,16 +50,8 @@ const Index = () => {
   };
 
   const handleDropSticker = (slot: any, sticker: Sticker) => {
-    // slot contém pageId e id
     addStickerToSlot(slot.pageId, slot.id, sticker);
-    // Remove apenas uma ocorrência deste sticker do tray (por id)
-    setRecentStickers((prev) => {
-      const idx = prev.findIndex((s) => s.id === sticker.id);
-      if (idx === -1) return prev;
-      const copy = [...prev];
-      copy.splice(idx, 1);
-      return copy;
-    });
+    removeUnplacedSticker(sticker.id);
     setDraggedSticker(null);
   };
 
@@ -118,7 +109,7 @@ const Index = () => {
 
           {/* Sticker Tray: figurinhas recém-obtidas para arrastar e soltar */}
           <AnimatePresence>
-            {recentStickers.length > 0 && (
+            {unplacedStickers.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -128,7 +119,7 @@ const Index = () => {
                 <div className="max-w-6xl mx-auto">
                   <p className="text-sm mb-3 font-medium">Arraste as figurinhas abaixo para os espaços corretos no álbum:</p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    {recentStickers.map((s) => (
+                    {unplacedStickers.map((s) => (
                       <motion.div
                         key={s.id}
                         initial={{ opacity: 0, y: 20, scale: 0.8 }}

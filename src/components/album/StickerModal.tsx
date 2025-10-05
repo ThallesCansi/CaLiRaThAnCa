@@ -32,20 +32,20 @@ export const StickerModal = ({ sticker, onClose }: StickerModalProps) => {
 
   return (
     <Dialog open={!!sticker} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl bg-background/95 backdrop-blur-xl border-2">
+      <DialogContent className="max-w-md bg-background/95 backdrop-blur-xl border-2">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+          <DialogTitle className="text-lg font-bold flex items-center gap-2">
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Sparkles className="w-6 h-6 text-yellow-500" />
+              <Sparkles className="w-5 h-5 text-yellow-500" />
             </motion.div>
             {sticker.name}
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6 p-4">
+        <div className="space-y-4 p-2">
           <motion.div
             initial={{ scale: 0.8, rotateY: -90, opacity: 0 }}
             animate={{ scale: 1, rotateY: 0, opacity: 1 }}

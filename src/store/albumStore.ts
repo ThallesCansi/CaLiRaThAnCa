@@ -5,6 +5,7 @@ import type { AlbumPage, Sticker, Pack, Achievement, PlayerProgress, Game } from
 interface AlbumState {
   pages: AlbumPage[];
   collectedStickers: Sticker[];
+  unplacedStickers: Sticker[]; // Figurinhas de pacotes abertos ainda não coladas
   availablePacks: Pack[];
   achievements: Achievement[];
   games: Game[];
@@ -14,7 +15,8 @@ interface AlbumState {
   // Actions
   addStickerToSlot: (pageId: string, slotId: string, sticker: Sticker) => void;
   addPack: (pack: Pack) => void;
-  openPack: (packId: string) => void;
+  openPack: (packId: string, stickers: Sticker[]) => void;
+  removeUnplacedSticker: (stickerId: string) => void;
   unlockAchievement: (achievementId: string) => void;
   completeGame: (gameId: string) => void;
   setCurrentPage: (page: number) => void;
@@ -213,6 +215,7 @@ export const useAlbumStore = create<AlbumState>()(
     (set, get) => ({
       pages: [],
       collectedStickers: [],
+      unplacedStickers: [],
       availablePacks: [],
       achievements: mockAchievements,
       games: mockGames,
@@ -290,10 +293,21 @@ export const useAlbumStore = create<AlbumState>()(
         }));
       },
       
-      openPack: (packId) => {
+      openPack: (packId, stickers) => {
         set((state) => ({
           availablePacks: state.availablePacks.filter((pack) => pack.id !== packId),
+          unplacedStickers: [...state.unplacedStickers, ...stickers],
         }));
+      },
+      
+      removeUnplacedSticker: (stickerId) => {
+        set((state) => {
+          const idx = state.unplacedStickers.findIndex((s) => s.id === stickerId);
+          if (idx === -1) return state;
+          const copy = [...state.unplacedStickers];
+          copy.splice(idx, 1);
+          return { unplacedStickers: copy };
+        });
       },
       
       unlockAchievement: (achievementId) => {
@@ -355,6 +369,7 @@ export const useAlbumStore = create<AlbumState>()(
       partialize: (state) => ({
         // NÃO persistir 'pages' para sempre recarregar layouts/imagens do código
         collectedStickers: state.collectedStickers,
+        unplacedStickers: state.unplacedStickers,
         availablePacks: state.availablePacks,
         achievements: state.achievements,
         games: state.games,

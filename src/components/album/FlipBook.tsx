@@ -41,14 +41,14 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
         let pageW = Math.min(widthByW, widthByH);
         let pageH = pageW / PAGE_AR;
 
-        // Apply a slight scale down to leave space for a tray below the album
-        const SCALE = 0.92;
+        // Apply a scale down to leave space for a tray below and prevent scrolling
+        const SCALE = 0.75;
         pageW = Math.floor(pageW * SCALE);
         pageH = Math.floor(pageH * SCALE);
 
-        // Clamp to reasonable bounds
-        const clampedW = Math.max(320 * PAGE_AR, Math.min(pageW, 1414));
-        const clampedH = Math.max(320, Math.min(pageH, 2000));
+        // Clamp to reasonable bounds - max 600px single page width
+        const clampedW = Math.max(280, Math.min(pageW, 600));
+        const clampedH = Math.max(320, Math.min(pageH, 850));
         setDims({ width: clampedW, height: clampedH });
       };
 

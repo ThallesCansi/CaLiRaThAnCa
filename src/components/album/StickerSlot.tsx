@@ -50,12 +50,15 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
   const willAccept = !!draggedSticker && accepts(draggedSticker);
 
   const handleClick = (e: React.MouseEvent) => {
-    // Se tem figurinha, abre o modal ao invés de propagar o clique
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  const handleStickerClick = (e: React.MouseEvent) => {
     if (hasSticker) {
       e.stopPropagation();
       setModalOpen(true);
-    } else if (onClick) {
-      onClick();
     }
   };
 
@@ -137,7 +140,8 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
           initial={{ rotateY: -180, opacity: 0, scale: 0.8 }}
           animate={{ rotateY: 0, opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
-          className="relative z-10 w-full h-full"
+          className="relative z-10 w-full h-full cursor-pointer"
+          onClick={handleStickerClick}
         >
           <motion.div 
             className="w-full h-full"
