@@ -16,16 +16,29 @@ export const StickerModal = ({ sticker, open = false, onClose }: StickerModalPro
   useEffect(() => {
     if (!open) return;
 
+    let rafId: number | null = null;
+    const clamp = (v: number) => Math.max(-1, Math.min(1, v));
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!cardRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-      const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-      setMousePosition({ x, y });
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const rect = cardRef.current!.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+        const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+        setMousePosition({ x: clamp(x), y: clamp(y) });
+      });
     };
 
+    const handleMouseLeave = () => setMousePosition({ x: 0, y: 0 });
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave as any);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave as any);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [open]);
 
   useEffect(() => {
@@ -41,8 +54,8 @@ export const StickerModal = ({ sticker, open = false, onClose }: StickerModalPro
 
   if (!sticker) return null;
 
-  const tiltX = mousePosition.y * 15;
-  const tiltY = mousePosition.x * -15;
+  const tiltX = mousePosition.y * 10;
+  const tiltY = mousePosition.x * -10;
 
   return (
     <AnimatePresence>
@@ -53,6 +66,7 @@ export const StickerModal = ({ sticker, open = false, onClose }: StickerModalPro
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[9999] flex items-center justify-center"
           onClick={onClose}
+          onMouseLeave={() => setMousePosition({ x: 0, y: 0 })}
         >
           {/* Backdrop com blur */}
           <motion.div

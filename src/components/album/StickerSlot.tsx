@@ -50,6 +50,9 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
           hasSticker ? "z-50" : "z-10"
         )}
         onClick={handleClick}
+        onMouseDown={(e) => { if (hasSticker) { e.stopPropagation(); e.preventDefault(); } }}
+        onPointerDown={(e) => { if (hasSticker) { e.stopPropagation(); e.preventDefault(); } }}
+        onTouchStart={(e) => { if (hasSticker) { e.stopPropagation(); e.preventDefault(); } }}
         data-sticker-slot
         style={{
           ...(slot.x !== undefined && slot.y !== undefined
@@ -106,6 +109,8 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
                 src={slot.sticker!.image}
                 alt={slot.sticker!.name}
                 className="w-full h-full object-cover"
+                draggable={false}
+                onDragStart={(e) => e.preventDefault()}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-4xl">

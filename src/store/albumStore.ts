@@ -323,7 +323,7 @@ export const useAlbumStore = create<AlbumState>()(
         );
 
         const freshPages = createMockData();
-        const mergedPages = freshPages.map((p) => ({
+        let mergedPages = freshPages.map((p) => ({
           ...p,
           slots: p.slots.map((s) => ({
             ...s,
@@ -331,12 +331,37 @@ export const useAlbumStore = create<AlbumState>()(
           })),
         }));
 
+        // Repopular slots a partir das figurinhas já coletadas
+        if (state.collectedStickers && state.collectedStickers.length > 0) {
+          const used = new Set<string>();
+          // Marcar as que já estão no layout (caso HMR)
+          mergedPages.forEach((p) =>
+            p.slots.forEach((s) => {
+              if (s.sticker) used.add(s.sticker.id);
+            })
+          );
+
+          for (const sticker of state.collectedStickers) {
+            if (used.has(sticker.id)) continue;
+            // Encontra um slot compatível vazio
+            outer: for (const p of mergedPages) {
+              const slot = p.slots.find(
+                (s) => !s.sticker && Array.isArray(s.acceptsStickerIds) && s.acceptsStickerIds.includes(sticker.id)
+              );
+              if (slot) {
+                slot.sticker = sticker;
+                used.add(sticker.id);
+                break outer;
+              }
+            }
+          }
+        }
+
         set({ pages: mergedPages, assetsVersion: currentV });
       },
       
       addStickerToSlot: (pageId, slotId, sticker) => {
         set((state) => {
-          // locate slot and validate acceptance rules if any
           const page = state.pages.find((p) => p.id === pageId);
           const slot = page?.slots.find((s) => s.id === slotId);
           if (!page || !slot) return state;
@@ -362,10 +387,25 @@ export const useAlbumStore = create<AlbumState>()(
           );
 
           const collectedStickers = [...state.collectedStickers, sticker];
-          if (collectedStickers.length === 1) {
-            get().unlockAchievement('ach-1');
+
+          // Determine if this page is now complete
+          const updatedPage = pages.find((p) => p.id === pageId)!;
+          const pageComplete = updatedPage.slots.length > 0 && updatedPage.slots.every((s) => s.sticker);
+
+          // Achievements updates
+          let achievements = state.achievements;
+          if (collectedStickers.length === 1 && !achievements.find((a) => a.id === 'ach-1')?.unlocked) {
+            achievements = achievements.map((a) =>
+              a.id === 'ach-1' ? { ...a, unlocked: true, unlockedAt: new Date() } : a
+            );
           }
-          return { pages, collectedStickers };
+          if (pageComplete && !achievements.find((a) => a.id === 'ach-2')?.unlocked) {
+            achievements = achievements.map((a) =>
+              a.id === 'ach-2' ? { ...a, unlocked: true, unlockedAt: new Date() } : a
+            );
+          }
+
+          return { pages, collectedStickers, achievements };
         });
       },
       
