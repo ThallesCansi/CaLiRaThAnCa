@@ -215,6 +215,7 @@ const Index = () => {
               onDropSticker={handleDropSticker}
               draggedSticker={draggedSticker || undefined}
               onPlayGame={handlePlayGame}
+              layoutSignal={unplacedStickers.length}
             />
 
             <Button
@@ -290,7 +291,7 @@ const Index = () => {
 
       {/* Game Modal */}
       <Dialog open={gameModalOpen} onOpenChange={setGameModalOpen}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-2">
+        <DialogContent className="w-[85vw] h-[70vh] max-w-[1100px] max-h-[80vh] p-2 sm:p-3 md:p-4">
           {currentGameUrl && (
             <iframe
               src={currentGameUrl}

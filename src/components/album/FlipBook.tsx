@@ -12,6 +12,7 @@ interface FlipBookProps {
   draggedSticker?: Sticker;
   disableFlipByClick?: boolean;
   onPlayGame?: (gameId: string) => void;
+  layoutSignal?: number;
 }
 
 export interface FlipBookHandle {
@@ -21,7 +22,7 @@ export interface FlipBookHandle {
 }
 
 export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
-  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker, disableFlipByClick = false, onPlayGame }, ref) => {
+  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker, disableFlipByClick = false, onPlayGame, layoutSignal }, ref) => {
     const bookRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     // Designer's exact dimensions: 1414x2000
@@ -64,12 +65,18 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
       
       // Força recálculo após um pequeno delay para garantir que container está no tamanho correto
       const timeoutId = setTimeout(compute, 100);
+      const timeoutUpdateId = setTimeout(() => {
+        try {
+          bookRef.current?.pageFlip()?.update();
+        } catch {}
+      }, 150);
       
       return () => {
         ro.disconnect();
         clearTimeout(timeoutId);
+        clearTimeout(timeoutUpdateId);
       };
-    }, [isMobile, draggedSticker]);
+    }, [isMobile, draggedSticker, layoutSignal]);
 
     useImperativeHandle(ref, () => ({
       flipNext: () => bookRef.current?.pageFlip()?.flipNext(),
