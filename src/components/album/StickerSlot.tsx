@@ -94,6 +94,11 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
 
   return (
     <>
+      <StickerModal 
+        sticker={slot.sticker} 
+        open={modalOpen}
+        onClose={() => setModalOpen(false)} 
+      />
       <motion.div
         className={cn(
           "relative aspect-[3/4] rounded-lg transition-all cursor-pointer",
@@ -151,7 +156,7 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
         }}
       >
         {hasSticker ? (
-          <div className="w-full h-full bg-background overflow-hidden">
+          <div className="w-full h-full bg-background overflow-hidden rounded-lg">
             {typeof slot.sticker!.image === "string" ? (
               <img
                 src={slot.sticker!.image}

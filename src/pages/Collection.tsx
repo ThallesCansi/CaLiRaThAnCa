@@ -77,6 +77,7 @@ const Collection = () => {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     whileHover={{ 
                       y: -8,
+                      scale: 1.05,
                       transition: { duration: 0.2 }
                     }}
                     transition={{ 
@@ -87,14 +88,18 @@ const Collection = () => {
                     className="cursor-pointer"
                     onClick={() => setSelectedSticker(slot.sticker)}
                   >
-                    <div className="relative group">
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
-                      >
-                        <StickerSlot slot={slot} />
-                      </motion.div>
+                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+                      {typeof slot.sticker!.image === "string" ? (
+                        <img
+                          src={slot.sticker!.image}
+                          alt={slot.sticker!.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-background to-muted">
+                          {slot.sticker!.image}
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 ))}
