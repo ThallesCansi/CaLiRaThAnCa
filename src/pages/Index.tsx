@@ -20,6 +20,7 @@ const Index = () => {
   const [globalModalOpen, setGlobalModalOpen] = useState(false);
   const [gameModalOpen, setGameModalOpen] = useState(false);
   const [currentGameUrl, setCurrentGameUrl] = useState<string>("");
+  const [currentGameId, setCurrentGameId] = useState<string>("");
   const flipBookRef = useRef<FlipBookHandle>(null);
   
   const pages = useAlbumStore((state) => state.pages);
@@ -33,6 +34,7 @@ const Index = () => {
   const removeUnplacedSticker = useAlbumStore((state) => state.removeUnplacedSticker);
   const lastUnlockedAchievement = useAlbumStore((state) => state.lastUnlockedAchievement);
   const clearLastUnlockedAchievement = useAlbumStore((state) => state.clearLastUnlockedAchievement);
+  const completeGame = useAlbumStore((state) => state.completeGame);
 
   useEffect(() => {
     initializeAlbum();
@@ -54,6 +56,26 @@ const Index = () => {
       document.removeEventListener('openStickerModal', handleOpenStickerModal as EventListener);
     };
   }, []);
+
+  // Event listener para detectar conclusão do jogo no modal
+  useEffect(() => {
+    if (!gameModalOpen) return;
+
+    const handler = (event: MessageEvent) => {
+      const sameOrigin = event.origin === window.location.origin || event.origin === "";
+      if (!event.data || !sameOrigin) return;
+
+      const data = event.data as any;
+      if (data.type === "GDEVELOP_EVENT" && data.action === "COMPLETED") {
+        completeGame(currentGameId);
+        toast.success("Game completed! Pack added.");
+        setGameModalOpen(false);
+      }
+    };
+
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, [gameModalOpen, currentGameId, completeGame]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -100,6 +122,7 @@ const Index = () => {
   const handlePlayGame = (gameId: string) => {
     const game = useAlbumStore.getState().games.find(g => g.id === gameId);
     if (game) {
+      setCurrentGameId(gameId);
       setCurrentGameUrl(game.url);
       setGameModalOpen(true);
     }
