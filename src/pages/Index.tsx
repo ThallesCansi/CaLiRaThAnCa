@@ -28,6 +28,20 @@ const Index = () => {
     initializeAlbum();
   }, []);
 
+  // Navegação com teclado (setas <- e ->)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        handleNextPage();
+      } else if (e.key === "ArrowLeft") {
+        handlePrevPage();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const handleNextPage = () => {
     flipBookRef.current?.flipNext();
   };
