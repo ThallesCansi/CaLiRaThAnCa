@@ -39,7 +39,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
       if (!el) return;
 
       const compute = () => {
-        const padding = 0; // sem padding para maximizar espaço
+        const padding = 40; // padding para evitar cortes
         const availW = Math.max(320, el.clientWidth - padding);
         const availH = Math.max(360, el.clientHeight - padding);
 
@@ -48,13 +48,8 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
         const scaleByWidth = availW / (PAGE_WIDTH * pagesWide);
         const scaleByHeight = availH / PAGE_HEIGHT;
 
-        const base = Math.min(scaleByWidth, scaleByHeight);
-        const MULTIPLIER = 4;
-        const MAX_SCALE = 3;
-        const MIN_SCALE = 2;
-        
-        // Usa a menor escala para garantir que cabe na tela, com multiplicador aumentado
-        const scale = Math.max(MIN_SCALE, Math.min(base * MULTIPLIER, MAX_SCALE));
+        // Usa sempre a menor escala para garantir que cabe completamente
+        const scale = Math.min(scaleByWidth, scaleByHeight);
         
         const finalW = Math.floor(PAGE_WIDTH * scale);
         const finalH = Math.floor(PAGE_HEIGHT * scale);
