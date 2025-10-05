@@ -22,11 +22,11 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
         // Ignore audio play errors (e.g., user hasn't interacted with page yet)
       });
 
-      // Auto close after 5 seconds
+      // Auto close after 8 seconds
       const timer = setTimeout(() => {
         setShow(false);
         setTimeout(onClose, 500);
-      }, 5000);
+      }, 8000);
 
       return () => clearTimeout(timer);
     }
