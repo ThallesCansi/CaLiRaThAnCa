@@ -34,7 +34,6 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
     return () => clearTimeout(timer);
   }, [achievement]);
 
-  // Clear parent state when animation completes
   useEffect(() => {
     if (!show && current) {
       const timer = setTimeout(() => {
