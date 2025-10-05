@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import type { StickerSlot as StickerSlotType } from "@/types/album";
 import { cn } from "@/lib/utils";
 import type { Sticker } from "@/types/album";
-import { useState, useEffect } from "react";
-import { StickerModal } from "./StickerModal";
+import { useState } from "react";
 
 interface StickerSlotProps {
   slot: StickerSlotType;
@@ -14,7 +13,6 @@ interface StickerSlotProps {
 
 export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: StickerSlotProps) => {
   const hasSticker = slot.sticker !== null;
-  const [modalOpen, setModalOpen] = useState(false);
   const [isOver, setIsOver] = useState(false);
   const [rejectKey, setRejectKey] = useState(0);
 
@@ -33,17 +31,19 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
     if (hasSticker) {
       e.stopPropagation();
       e.preventDefault();
-      setModalOpen(true);
+      
+      // Disparar evento customizado para o modal global
+      const customEvent = new CustomEvent('openStickerModal', {
+        bubbles: false,
+        cancelable: false,
+        detail: { sticker: slot.sticker, slotId: slot.id }
+      });
+      document.dispatchEvent(customEvent);
     }
   };
 
   return (
     <>
-      <StickerModal 
-        sticker={slot.sticker} 
-        open={modalOpen}
-        onClose={() => setModalOpen(false)} 
-      />
       <motion.div
         className={cn(
           "relative aspect-[3/4] rounded-lg transition-all cursor-pointer",
