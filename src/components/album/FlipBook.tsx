@@ -41,9 +41,9 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
         const scaleByHeight = availH / PAGE_HEIGHT;
 
         const base = Math.min(scaleByWidth, scaleByHeight);
-        const MULTIPLIER = 1.6;
-        const MAX_SCALE = 1.4;
-        const MIN_SCALE = 0.6;
+        const MULTIPLIER = 4;
+        const MAX_SCALE = 3;
+        const MIN_SCALE = 2;
         
         // Usa a menor escala para garantir que cabe na tela, com multiplicador aumentado
         const scale = Math.max(MIN_SCALE, Math.min(base * MULTIPLIER, MAX_SCALE));
