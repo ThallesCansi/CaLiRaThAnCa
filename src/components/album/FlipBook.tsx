@@ -32,7 +32,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
       if (!el) return;
 
       const compute = () => {
-        const padding = 10; // espaço mínimo
+        const padding = 0; // sem padding para maximizar espaço
         const availW = Math.max(320, el.clientWidth - padding);
         const availH = Math.max(360, el.clientHeight - padding);
 
@@ -40,8 +40,8 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
         const scaleByWidth = availW / (PAGE_WIDTH * 2); // duas páginas lado a lado
         const scaleByHeight = availH / PAGE_HEIGHT;
         
-        // Usa a menor escala para garantir que cabe na tela, com multiplicador para aumentar
-        const scale = Math.min(scaleByWidth, scaleByHeight) * 0.95; // usa 95% do espaço disponível
+        // Usa a menor escala para garantir que cabe na tela, com multiplicador aumentado
+        const scale = Math.min(scaleByWidth, scaleByHeight) * 1.3; // usa 130% do espaço calculado
         
         const finalW = Math.floor(PAGE_WIDTH * scale);
         const finalH = Math.floor(PAGE_HEIGHT * scale);
@@ -67,11 +67,11 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           ref={bookRef}
           width={dims.width}
           height={dims.height}
-          size="fixed"
-          minWidth={PAGE_WIDTH}
-          maxWidth={PAGE_WIDTH}
-          minHeight={PAGE_HEIGHT}
-          maxHeight={PAGE_HEIGHT}
+          size="stretch"
+          minWidth={320}
+          maxWidth={2400}
+          minHeight={360}
+          maxHeight={3200}
           maxShadowOpacity={0.3}
           showCover={true}
           mobileScrollSupport={true}
