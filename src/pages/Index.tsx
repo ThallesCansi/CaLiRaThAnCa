@@ -69,7 +69,6 @@ const Index = () => {
       if (data.type === "GDEVELOP_EVENT" && data.action === "COMPLETED") {
         completeGame(currentGameId);
         toast.success("Game completed! Pack added.");
-        setGameModalOpen(false);
       }
     };
 
