@@ -147,7 +147,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
               </h2>
               
               <div className="grid grid-cols-5 gap-4">
-                {Array.from({ length: revealedStickers.length || (pack.stickers?.length ?? 5) }).map((_, i) => (
+                {Array.from({ length: pack.stickers?.length ?? 5 }).map((_, i) => (
                   <motion.div
                     key={i}
                     initial={{ scale: 0, rotateY: -180 }}

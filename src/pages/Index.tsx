@@ -5,6 +5,7 @@ import { FlipBook, type FlipBookHandle } from "@/components/album/FlipBook";
 import { PackOpening } from "@/components/album/PackOpening";
 import { DraggableSticker } from "@/components/album/DraggableSticker";
 import { StickerModal } from "@/components/album/StickerModal";
+import { AchievementNotification } from "@/components/album/AchievementNotification";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Package } from "lucide-react";
 import type { Pack, Sticker } from "@/types/album";
@@ -27,6 +28,8 @@ const Index = () => {
   const addStickerToSlot = useAlbumStore((state) => state.addStickerToSlot);
   const openPack = useAlbumStore((state) => state.openPack);
   const removeUnplacedSticker = useAlbumStore((state) => state.removeUnplacedSticker);
+  const lastUnlockedAchievement = useAlbumStore((state) => state.lastUnlockedAchievement);
+  const clearLastUnlockedAchievement = useAlbumStore((state) => state.clearLastUnlockedAchievement);
 
   useEffect(() => {
     initializeAlbum();
@@ -244,6 +247,12 @@ const Index = () => {
           }}
         />
       )}
+
+      {/* Achievement notification */}
+      <AchievementNotification
+        achievement={lastUnlockedAchievement}
+        onClose={clearLastUnlockedAchievement}
+      />
     </>
   );
 };

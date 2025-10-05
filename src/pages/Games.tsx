@@ -5,12 +5,15 @@ import { Play, CheckCircle, BookOpen, Grid3X3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { StickerModal } from "@/components/album/StickerModal";
+import { AchievementNotification } from "@/components/album/AchievementNotification";
 import type { Sticker } from "@/types/album";
 
 const Games = () => {
   const games = useAlbumStore((state) => state.games);
   const addPack = useAlbumStore((state) => state.addPack);
   const pages = useAlbumStore((state) => state.pages);
+  const lastUnlockedAchievement = useAlbumStore((state) => state.lastUnlockedAchievement);
+  const clearLastUnlockedAchievement = useAlbumStore((state) => state.clearLastUnlockedAchievement);
   const navigate = useNavigate();
 
   // Estado para controlar o modal de figurinha
@@ -324,6 +327,12 @@ const Games = () => {
           </motion.div>
         </div>
       )}
+
+      {/* Achievement notification */}
+      <AchievementNotification
+        achievement={lastUnlockedAchievement}
+        onClose={clearLastUnlockedAchievement}
+      />
     </div>
   );
 };

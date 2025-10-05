@@ -5,12 +5,16 @@ import type { AlbumPage, Sticker, Pack, Achievement, PlayerProgress, Game } from
 interface AlbumState {
   pages: AlbumPage[];
   collectedStickers: Sticker[];
-  unplacedStickers: Sticker[]; // Figurinhas de pacotes abertos ainda não coladas
+  unplacedStickers: Sticker[];
   availablePacks: Pack[];
   achievements: Achievement[];
   games: Game[];
   currentPage: number;
   assetsVersion?: string;
+  packsOpened: number;
+  visitedPages: Set<number>;
+  stickerPlacementTimes: number[];
+  lastUnlockedAchievement: Achievement | null;
   
   // Actions
   addStickerToSlot: (pageId: string, slotId: string, sticker: Sticker) => void;
@@ -22,6 +26,7 @@ interface AlbumState {
   setCurrentPage: (page: number) => void;
   getProgress: () => PlayerProgress;
   initializeAlbum: () => void;
+  clearLastUnlockedAchievement: () => void;
 }
 
 const createMockData = () => {
@@ -271,23 +276,58 @@ const mockGames: Game[] = [
 const mockAchievements: Achievement[] = [
   {
     id: 'ach-1',
-    name: 'Primeira Figurinha',
-    description: 'Cole sua primeira figurinha no álbum',
+    name: 'First Steps',
+    description: 'Place your first sticker in the album',
     icon: '🌟',
     unlocked: false,
   },
   {
     id: 'ach-2',
-    name: 'Colecionador',
-    description: 'Complete uma página inteira',
+    name: 'Page Master',
+    description: 'Complete an entire page with stickers',
     icon: '📖',
     unlocked: false,
   },
   {
     id: 'ach-3',
-    name: 'Mestre dos Jogos',
-    description: 'Complete todos os jogos disponíveis',
+    name: 'Game Champion',
+    description: 'Complete all available games',
     icon: '🎮',
+    unlocked: false,
+  },
+  {
+    id: 'ach-4',
+    name: 'Lucky Opener',
+    description: 'Open 5 sticker packs',
+    icon: '🎁',
+    unlocked: false,
+  },
+  {
+    id: 'ach-5',
+    name: 'Rare Hunter',
+    description: 'Collect a rare or better sticker',
+    icon: '💎',
+    unlocked: false,
+  },
+  {
+    id: 'ach-6',
+    name: 'Album Explorer',
+    description: 'Visit all pages in the album',
+    icon: '🗺️',
+    unlocked: false,
+  },
+  {
+    id: 'ach-7',
+    name: 'Speed Collector',
+    description: 'Place 5 stickers within 5 minutes',
+    icon: '⚡',
+    unlocked: false,
+  },
+  {
+    id: 'ach-8',
+    name: 'Completion Master',
+    description: 'Fill 50% of all album slots',
+    icon: '🏆',
     unlocked: false,
   },
 ];
@@ -302,6 +342,10 @@ export const useAlbumStore = create<AlbumState>()(
       achievements: mockAchievements,
       games: mockGames,
       currentPage: 0,
+      packsOpened: 0,
+      visitedPages: new Set([0]),
+      stickerPlacementTimes: [],
+      lastUnlockedAchievement: null,
       
       initializeAlbum: () => {
         const state = get();
@@ -387,25 +431,53 @@ export const useAlbumStore = create<AlbumState>()(
           );
 
           const collectedStickers = [...state.collectedStickers, sticker];
+          const now = Date.now();
+          const stickerPlacementTimes = [...state.stickerPlacementTimes, now];
 
           // Determine if this page is now complete
           const updatedPage = pages.find((p) => p.id === pageId)!;
           const pageComplete = updatedPage.slots.length > 0 && updatedPage.slots.every((s) => s.sticker);
 
+          // Check total completion
+          const totalSlots = pages.reduce((acc, p) => acc + p.slots.length, 0);
+          const filledSlots = pages.reduce((acc, p) => acc + p.slots.filter((s) => s.sticker).length, 0);
+          const completionPercentage = totalSlots > 0 ? (filledSlots / totalSlots) * 100 : 0;
+
+          // Speed collector check (5 stickers in 5 minutes)
+          const fiveMinutesAgo = now - 5 * 60 * 1000;
+          const recentPlacements = stickerPlacementTimes.filter(time => time >= fiveMinutesAgo);
+
           // Achievements updates
           let achievements = state.achievements;
-          if (collectedStickers.length === 1 && !achievements.find((a) => a.id === 'ach-1')?.unlocked) {
-            achievements = achievements.map((a) =>
-              a.id === 'ach-1' ? { ...a, unlocked: true, unlockedAt: new Date() } : a
-            );
-          }
-          if (pageComplete && !achievements.find((a) => a.id === 'ach-2')?.unlocked) {
-            achievements = achievements.map((a) =>
-              a.id === 'ach-2' ? { ...a, unlocked: true, unlockedAt: new Date() } : a
-            );
-          }
+          let lastUnlockedAchievement: Achievement | null = null;
 
-          return { pages, collectedStickers, achievements };
+          const unlockAch = (id: string) => {
+            const ach = achievements.find((a) => a.id === id);
+            if (ach && !ach.unlocked) {
+              const unlockedAch = { ...ach, unlocked: true, unlockedAt: new Date() };
+              achievements = achievements.map((a) => (a.id === id ? unlockedAch : a));
+              lastUnlockedAchievement = unlockedAch;
+            }
+          };
+
+          // First sticker
+          if (collectedStickers.length === 1) unlockAch('ach-1');
+          
+          // Page complete
+          if (pageComplete) unlockAch('ach-2');
+          
+          // Rare hunter
+          if ((sticker.rarity === 'rare' || sticker.rarity === 'epic' || sticker.rarity === 'legendary')) {
+            unlockAch('ach-5');
+          }
+          
+          // Speed collector
+          if (recentPlacements.length >= 5) unlockAch('ach-7');
+          
+          // Completion master (50%)
+          if (completionPercentage >= 50) unlockAch('ach-8');
+
+          return { pages, collectedStickers, achievements, stickerPlacementTimes, lastUnlockedAchievement };
         });
       },
       
@@ -416,10 +488,29 @@ export const useAlbumStore = create<AlbumState>()(
       },
       
       openPack: (packId, stickers) => {
-        set((state) => ({
-          availablePacks: state.availablePacks.filter((pack) => pack.id !== packId),
-          unplacedStickers: [...state.unplacedStickers, ...stickers],
-        }));
+        set((state) => {
+          const packsOpened = state.packsOpened + 1;
+          let achievements = state.achievements;
+          let lastUnlockedAchievement: Achievement | null = null;
+
+          // Lucky opener achievement (5 packs)
+          if (packsOpened >= 5) {
+            const ach = achievements.find((a) => a.id === 'ach-4');
+            if (ach && !ach.unlocked) {
+              const unlockedAch = { ...ach, unlocked: true, unlockedAt: new Date() };
+              achievements = achievements.map((a) => (a.id === 'ach-4' ? unlockedAch : a));
+              lastUnlockedAchievement = unlockedAch;
+            }
+          }
+
+          return {
+            availablePacks: state.availablePacks.filter((pack) => pack.id !== packId),
+            unplacedStickers: [...state.unplacedStickers, ...stickers],
+            packsOpened,
+            achievements,
+            lastUnlockedAchievement,
+          };
+        });
       },
       
       removeUnplacedSticker: (stickerId) => {
@@ -467,7 +558,30 @@ export const useAlbumStore = create<AlbumState>()(
       },
       
       setCurrentPage: (page) => {
-        set({ currentPage: page });
+        set((state) => {
+          const visitedPages = new Set(state.visitedPages);
+          visitedPages.add(page);
+          
+          let achievements = state.achievements;
+          let lastUnlockedAchievement: Achievement | null = null;
+
+          // Album explorer (visit all pages)
+          const totalPages = state.pages.length;
+          if (visitedPages.size >= totalPages && totalPages > 0) {
+            const ach = achievements.find((a) => a.id === 'ach-6');
+            if (ach && !ach.unlocked) {
+              const unlockedAch = { ...ach, unlocked: true, unlockedAt: new Date() };
+              achievements = achievements.map((a) => (a.id === 'ach-6' ? unlockedAch : a));
+              lastUnlockedAchievement = unlockedAch;
+            }
+          }
+
+          return { currentPage: page, visitedPages, achievements, lastUnlockedAchievement };
+        });
+      },
+      
+      clearLastUnlockedAchievement: () => {
+        set({ lastUnlockedAchievement: null });
       },
       
       getProgress: () => {
@@ -489,9 +603,8 @@ export const useAlbumStore = create<AlbumState>()(
     }),
     {
       name: 'album-storage',
-      version: 5,
+      version: 6,
       partialize: (state) => ({
-        // NÃO persistir 'pages' para sempre recarregar layouts/imagens do código
         collectedStickers: state.collectedStickers,
         unplacedStickers: state.unplacedStickers,
         availablePacks: state.availablePacks,
@@ -499,15 +612,24 @@ export const useAlbumStore = create<AlbumState>()(
         games: state.games,
         currentPage: state.currentPage,
         assetsVersion: state.assetsVersion,
+        packsOpened: state.packsOpened,
+        visitedPages: Array.from(state.visitedPages),
+        stickerPlacementTimes: state.stickerPlacementTimes,
       }),
       migrate: (persistedState: any, version: number) => {
-        // Sempre atualizar as páginas para refletir novos layouts/imagens de fundo
-        // mantendo progresso/itens já coletados.
         if (!persistedState) return persistedState;
+        
+        const visitedPages = Array.isArray(persistedState.visitedPages)
+          ? new Set(persistedState.visitedPages)
+          : new Set([0]);
+        
         return {
           ...persistedState,
           pages: createMockData(),
-          currentPage: 0,
+          visitedPages,
+          packsOpened: persistedState.packsOpened || 0,
+          stickerPlacementTimes: persistedState.stickerPlacementTimes || [],
+          lastUnlockedAchievement: null,
         } as AlbumState;
       },
     }

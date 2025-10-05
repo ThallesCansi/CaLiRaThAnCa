@@ -3,12 +3,15 @@ import { motion } from "framer-motion";
 import { useAlbumStore } from "@/store/albumStore";
 import { StickerSlot } from "@/components/album/StickerSlot";
 import { StickerModal } from "@/components/album/StickerModal";
+import { AchievementNotification } from "@/components/album/AchievementNotification";
 import type { Sticker } from "@/types/album";
 
 const Collection = () => {
   const pages = useAlbumStore((state) => state.pages);
   const unplacedStickers = useAlbumStore((state) => state.unplacedStickers);
   const initializeAlbum = useAlbumStore((state) => state.initializeAlbum);
+  const lastUnlockedAchievement = useAlbumStore((state) => state.lastUnlockedAchievement);
+  const clearLastUnlockedAchievement = useAlbumStore((state) => state.clearLastUnlockedAchievement);
   const [selectedSticker, setSelectedSticker] = useState<Sticker | null>(null);
   
   // Initialize album on mount
@@ -147,6 +150,12 @@ const Collection = () => {
           )}
         </>
       )}
+
+      {/* Achievement notification */}
+      <AchievementNotification
+        achievement={lastUnlockedAchievement}
+        onClose={clearLastUnlockedAchievement}
+      />
     </div>
   );
 };
