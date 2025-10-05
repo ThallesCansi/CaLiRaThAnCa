@@ -60,28 +60,34 @@ export const AlbumSidebar = () => {
         {/* User Profile */}
         <SidebarGroup>
           <div className="p-4 border-b">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center shrink-0">
-                <User className="w-5 h-5 text-sidebar-accent-foreground" />
-              </div>
-              {open && (
-                <div className="min-w-0">
-                  <h3 className="font-bold text-sm truncate">Colecionador</h3>
-                  <p className="text-xs text-sidebar-foreground/70">Nível 1</p>
+            {open ? (
+              <>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center shrink-0">
+                    <User className="w-5 h-5 text-sidebar-accent-foreground" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-bold text-sm truncate">Colecionador</h3>
+                    <p className="text-xs text-sidebar-foreground/70">Nível 1</p>
+                  </div>
                 </div>
-              )}
-            </div>
-            
-            {open && (
-              <div className="space-y-2">
-                <div className="flex justify-between text-xs">
-                  <span>Progresso</span>
-                  <span className="font-semibold">{Math.round(completionPercentage)}%</span>
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs">
+                    <span>Progresso</span>
+                    <span className="font-semibold">{Math.round(completionPercentage)}%</span>
+                  </div>
+                  <Progress value={completionPercentage} className="h-2" />
+                  <p className="text-xs text-sidebar-foreground/60">
+                    {collectedStickers} / {totalStickers} figurinhas
+                  </p>
                 </div>
-                <Progress value={completionPercentage} className="h-2" />
-                <p className="text-xs text-sidebar-foreground/60">
-                  {collectedStickers} / {totalStickers} figurinhas
-                </p>
+              </>
+            ) : (
+              <div className="flex flex-col items-center">
+                <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center">
+                  <User className="w-5 h-5 text-sidebar-accent-foreground" />
+                </div>
               </div>
             )}
           </div>
