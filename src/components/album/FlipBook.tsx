@@ -10,6 +10,7 @@ interface FlipBookProps {
   onPageChange: (page: number) => void;
   onDropSticker?: (slot: StickerSlot, sticker: Sticker) => void;
   draggedSticker?: Sticker;
+  disableFlipByClick?: boolean;
 }
 
 export interface FlipBookHandle {
@@ -19,7 +20,7 @@ export interface FlipBookHandle {
 }
 
 export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
-  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker }, ref) => {
+  ({ pages, currentPage, onPageChange, onDropSticker, draggedSticker, disableFlipByClick = false }, ref) => {
     const bookRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     // Designer's exact dimensions: 1414x2000
@@ -29,6 +30,9 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
     const [dims, setDims] = useState({ width: PAGE_WIDTH, height: PAGE_HEIGHT });
 
     const isMobile = useIsMobile();
+
+    // Verificar se a página atual tem slots com figurinhas
+    const currentPageHasStickers = pages[currentPage]?.slots.some(slot => slot.sticker !== null) || false;
 
     useEffect(() => {
       const el = containerRef.current;
@@ -93,11 +97,11 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           usePortrait={isMobile}
           startZIndex={0}
           autoSize={true}
-          clickEventForward={true}
+          disableFlipByClick={currentPageHasStickers} // ← Desabilitar sempre quando há figurinhas
+          clickEventForward={true} // ← Sempre permitir eventos passarem
           useMouseEvents={true}
           swipeDistance={30}
           showPageCorners={true}
-          disableFlipByClick={false}
         >
           {pages.map((page) => (
             <div key={page.id} className="page">

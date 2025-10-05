@@ -4,6 +4,7 @@ import { useAlbumStore } from "@/store/albumStore";
 import { FlipBook, type FlipBookHandle } from "@/components/album/FlipBook";
 import { PackOpening } from "@/components/album/PackOpening";
 import { DraggableSticker } from "@/components/album/DraggableSticker";
+import { StickerModal } from "@/components/album/StickerModal";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Package } from "lucide-react";
 import type { Pack, Sticker } from "@/types/album";
@@ -12,6 +13,9 @@ import { toast } from "sonner";
 const Index = () => {
   const [openingPack, setOpeningPack] = useState<Pack | null>(null);
   const [draggedSticker, setDraggedSticker] = useState<Sticker | null>(null);
+  // Estado para controlar o modal globalmente
+  const [globalModalSticker, setGlobalModalSticker] = useState<Sticker | null>(null);
+  const [globalModalOpen, setGlobalModalOpen] = useState(false);
   const flipBookRef = useRef<FlipBookHandle>(null);
   
   const pages = useAlbumStore((state) => state.pages);
@@ -28,7 +32,23 @@ const Index = () => {
     initializeAlbum();
   }, []);
 
-  // Navegação com teclado (setas <- e ->)
+  // Event listener global para abrir modal de figurinha
+  useEffect(() => {
+    const handleOpenStickerModal = (e: CustomEvent) => {
+      console.log('🎭 Evento global capturado:', e.detail);
+      const { sticker } = e.detail;
+      if (sticker) {
+        setGlobalModalSticker(sticker);
+        setGlobalModalOpen(true);
+      }
+    };
+
+    document.addEventListener('openStickerModal', handleOpenStickerModal as EventListener);
+    return () => {
+      document.removeEventListener('openStickerModal', handleOpenStickerModal as EventListener);
+    };
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
@@ -41,6 +61,9 @@ const Index = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  // Verificar se a página atual tem slots com figurinhas
+  const currentPageHasStickers = pages[currentPage]?.slots.some(slot => slot.sticker !== null) || false;
 
   const handleNextPage = () => {
     flipBookRef.current?.flipNext();
@@ -60,7 +83,6 @@ const Index = () => {
     toast.success("Pacote aberto!", {
       description: `${stickers.length} novas figurinhas disponíveis para colar. Arraste para o álbum!`,
     });
-    setOpeningPack(null);
   };
 
   const handleDropSticker = (slot: any, sticker: Sticker) => {
@@ -208,6 +230,18 @@ const Index = () => {
           pack={openingPack}
           onComplete={handlePackComplete}
           onClose={() => setOpeningPack(null)}
+        />
+      )}
+
+      {/* Modal global para figurinhas */}
+      {globalModalSticker && (
+        <StickerModal
+          sticker={globalModalSticker}
+          open={globalModalOpen}
+          onClose={() => {
+            setGlobalModalOpen(false);
+            setGlobalModalSticker(null);
+          }}
         />
       )}
     </>
