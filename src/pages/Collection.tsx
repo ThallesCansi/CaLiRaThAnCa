@@ -1,11 +1,15 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useAlbumStore } from "@/store/albumStore";
 import { StickerSlot } from "@/components/album/StickerSlot";
+import { StickerModal } from "@/components/album/StickerModal";
+import type { Sticker } from "@/types/album";
 
 const Collection = () => {
   const pages = useAlbumStore((state) => state.pages);
+  const unplacedStickers = useAlbumStore((state) => state.unplacedStickers);
   const initializeAlbum = useAlbumStore((state) => state.initializeAlbum);
+  const [selectedSticker, setSelectedSticker] = useState<Sticker | null>(null);
   
   // Inicializar o álbum no mount
   useEffect(() => {
@@ -29,21 +33,30 @@ const Collection = () => {
   }, [pages]);
 
   const allCollectedStickers = useMemo(
-    () => pages.flatMap((page) => page.slots).filter((slot) => slot.sticker !== null),
+    () => {
+      const placed = pages.flatMap((page) => page.slots).filter((slot) => slot.sticker !== null);
+      return placed;
+    },
     [pages]
   );
 
+  const totalStickers = allCollectedStickers.length + unplacedStickers.length;
+
   return (
     <div className="p-8">
+      <StickerModal 
+        sticker={selectedSticker} 
+        onClose={() => setSelectedSticker(null)} 
+      />
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Minha Coleção</h1>
         <p className="text-muted-foreground">
-          {progress.collectedStickers} de {progress.totalStickers} figurinhas coletadas
-          ({Math.round(progress.completionPercentage)}%)
+          {totalStickers} figurinha(s) no total: {progress.collectedStickers} coladas no álbum, {unplacedStickers.length} não coladas
+          ({Math.round(progress.completionPercentage)}% do álbum completo)
         </p>
       </div>
 
-      {allCollectedStickers.length === 0 ? (
+      {totalStickers === 0 ? (
         <div className="text-center py-20">
           <div className="text-6xl mb-4">📦</div>
           <h2 className="text-2xl font-bold mb-2">Nenhuma figurinha ainda</h2>
@@ -52,18 +65,81 @@ const Collection = () => {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-          {allCollectedStickers.map((slot, index) => (
-            <motion.div
-              key={`${slot.id}-${index}`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.02 }}
-            >
-              <StickerSlot slot={slot} />
-            </motion.div>
-          ))}
-        </div>
+        <>
+          {allCollectedStickers.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold mb-4">Coladas no Álbum</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
+                {allCollectedStickers.map((slot, index) => (
+                  <motion.div
+                    key={`placed-${slot.id}-${index}`}
+                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    whileHover={{ 
+                      y: -8,
+                      transition: { duration: 0.2 }
+                    }}
+                    transition={{ 
+                      delay: index * 0.03,
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                    className="cursor-pointer"
+                    onClick={() => setSelectedSticker(slot.sticker)}
+                  >
+                    <div className="relative group">
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
+                      >
+                        <StickerSlot slot={slot} />
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {unplacedStickers.length > 0 && (
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Não Coladas (Aguardando)</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
+                {unplacedStickers.map((sticker, index) => (
+                  <motion.div
+                    key={`unplaced-${sticker.id}`}
+                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    whileHover={{ 
+                      y: -8,
+                      transition: { duration: 0.2 }
+                    }}
+                    transition={{ 
+                      delay: index * 0.03,
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                    onClick={() => setSelectedSticker(sticker)}
+                    className="cursor-pointer relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
+                  >
+                    {typeof sticker.image === "string" && /^(\/|https?:)/.test(sticker.image) ? (
+                      <img
+                        src={sticker.image}
+                        alt={sticker.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-6xl bg-gradient-to-br from-background to-muted">
+                        <span>{sticker.image as any}</span>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
