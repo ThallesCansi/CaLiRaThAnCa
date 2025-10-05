@@ -47,8 +47,8 @@ export const AlbumPage = ({ page, onDropSticker, draggedSticker, onPlayGame, sho
             style={{
               // Para ajustar manualmente a posição/tamanho do botão, edite os percentuais abaixo:
               // left/top controlam a posição; width/height controlam o tamanho relativo à página.
-              left: '20%',
-              top: '53%',
+              left: '30%',
+              top: '51%',
               transform: 'translate(-50%, -50%)',
               width: '28%',
               height: '9%',
@@ -63,7 +63,7 @@ export const AlbumPage = ({ page, onDropSticker, draggedSticker, onPlayGame, sho
               className="w-full h-full bg-primary hover:bg-primary/90 hover:scale-105 transition-all shadow-xl text-[1.2vw] font-bold"
             >
               <Package className="w-[20%] h-[20%] mr-[5%]" />
-              Start Mission
+              Start
             </Button>
           </motion.div>
         )}
