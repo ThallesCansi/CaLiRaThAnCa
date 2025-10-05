@@ -4,6 +4,7 @@ import type { Pack, Sticker } from "@/types/album";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import { Confetti } from "./Confetti";
+import { DraggableSticker } from "./DraggableSticker";
 
 interface PackOpeningProps {
   pack: Pack;
@@ -151,19 +152,14 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
                         : { scale: 0.8, rotateY: -180 }
                     }
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="aspect-[3/4] bg-gradient-to-br from-primary to-primary-glow rounded-lg shadow-pack flex items-center justify-center text-6xl relative"
+                    className="relative"
                   >
                     {revealedStickers[i] ? (
-                      <>
-                        <span>{revealedStickers[i].image}</span>
-                        <div className="absolute bottom-2 left-2 right-2 bg-black/70 rounded px-2 py-1">
-                          <p className="text-xs text-white font-semibold truncate text-center">
-                            {revealedStickers[i].name}
-                          </p>
-                        </div>
-                      </>
+                      <DraggableSticker sticker={revealedStickers[i]} />
                     ) : (
-                      <span className="text-white/30">?</span>
+                      <div className="aspect-[3/4] bg-gradient-to-br from-primary to-primary-glow rounded-lg shadow-pack flex items-center justify-center text-6xl">
+                        <span className="text-white/30">?</span>
+                      </div>
                     )}
                   </motion.div>
                 ))}

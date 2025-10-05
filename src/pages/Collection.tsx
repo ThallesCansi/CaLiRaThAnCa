@@ -52,15 +52,32 @@ const Collection = () => {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
           {allCollectedStickers.map((slot, index) => (
             <motion.div
               key={`${slot.id}-${index}`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.02 }}
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              whileHover={{ 
+                y: -8,
+                transition: { duration: 0.2 }
+              }}
+              transition={{ 
+                delay: index * 0.03,
+                type: "spring",
+                stiffness: 200
+              }}
+              className="cursor-pointer"
             >
-              <StickerSlot slot={slot} />
+              <div className="relative group">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
+                >
+                  <StickerSlot slot={slot} />
+                </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>

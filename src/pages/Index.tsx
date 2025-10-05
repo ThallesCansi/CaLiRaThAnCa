@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAlbumStore } from "@/store/albumStore";
 import { FlipBook, type FlipBookHandle } from "@/components/album/FlipBook";
 import { PackOpening } from "@/components/album/PackOpening";
+import { DraggableSticker } from "@/components/album/DraggableSticker";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Package } from "lucide-react";
 import type { Pack, Sticker } from "@/types/album";
@@ -125,49 +126,22 @@ const Index = () => {
                 className="p-4 border-t bg-background/60"
               >
                 <div className="max-w-6xl mx-auto">
-                  <p className="text-sm mb-2 font-medium">Arraste as figurinhas abaixo para os espaços corretos no álbum:</p>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                  <p className="text-sm mb-3 font-medium">Arraste as figurinhas abaixo para os espaços corretos no álbum:</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {recentStickers.map((s) => (
-                      <div
+                      <motion.div
                         key={s.id}
-                        className="aspect-[3/4] rounded-md bg-card border flex items-center justify-center text-3xl shadow-sticker select-none"
-                        draggable
-                        onDragStart={(e) => {
-                          e.dataTransfer.setData("application/json", JSON.stringify(s));
-                          e.dataTransfer.effectAllowed = "copyMove";
-                          setDraggedSticker(s);
-                          // drag preview: cria um "ghost" seguindo o cursor
-                          const ghost = document.createElement("div");
-                          ghost.style.position = "fixed";
-                          ghost.style.top = "0";
-                          ghost.style.left = "0";
-                          ghost.style.zIndex = "9999";
-                          ghost.style.width = "80px";
-                          ghost.style.height = "106px"; // 3:4
-                          ghost.style.borderRadius = "8px";
-                          ghost.style.background = "white";
-                          ghost.style.boxShadow = "0 6px 16px rgba(0,0,0,0.25)";
-                          ghost.style.display = "flex";
-                          ghost.style.alignItems = "center";
-                          ghost.style.justifyContent = "center";
-                          ghost.style.fontSize = "40px";
-                          ghost.style.pointerEvents = "none";
-                          ghost.textContent = s.image as string;
-                          document.body.appendChild(ghost);
-                          // offset para ficar "sob" o cursor
-                          const offsetX = 40;
-                          const offsetY = 53;
-                          e.dataTransfer.setDragImage(ghost, offsetX, offsetY);
-                          // limpar rapidamente após iniciar o drag
-                          setTimeout(() => {
-                            try { document.body.removeChild(ghost); } catch {}
-                          }, 0);
-                        }}
-                        onDragEnd={() => setDraggedSticker(null)}
-                        title={s.name}
+                        initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ type: "spring", stiffness: 200 }}
                       >
-                        <span>{s.image}</span>
-                      </div>
+                        <DraggableSticker 
+                          sticker={s}
+                          onDragStart={() => setDraggedSticker(s)}
+                          onDragEnd={() => setDraggedSticker(null)}
+                        />
+                      </motion.div>
                     ))}
                   </div>
                 </div>

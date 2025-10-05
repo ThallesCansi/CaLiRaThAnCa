@@ -3,6 +3,7 @@ import type { StickerSlot as StickerSlotType } from "@/types/album";
 import { cn } from "@/lib/utils";
 import type { Sticker } from "@/types/album";
 import { useState } from "react";
+import { StickerModal } from "./StickerModal";
 
 interface StickerSlotProps {
   slot: StickerSlotType;
@@ -27,6 +28,7 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
   const canDrop = Boolean(onDropSticker) && !hasSticker;
   const [isOver, setIsOver] = useState(false);
   const [rejectKey, setRejectKey] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const accepts = (sticker: Sticker) => {
     const hasIdRule = slot.acceptsStickerIds !== undefined;
@@ -47,13 +49,29 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
 
   const willAccept = !!draggedSticker && accepts(draggedSticker);
 
+  const handleClick = (e: React.MouseEvent) => {
+    // Se tem figurinha, abre o modal ao invés de propagar o clique
+    if (hasSticker) {
+      e.stopPropagation();
+      setModalOpen(true);
+    } else if (onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.03 }}
-      transition={{ delay: slot.position * 0.05 }}
-      onClick={onClick}
+    <>
+      <StickerModal 
+        sticker={slot.sticker} 
+        onClose={() => setModalOpen(false)} 
+      />
+      
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        whileHover={{ scale: hasSticker ? 1.05 : 1.03 }}
+        transition={{ delay: slot.position * 0.05 }}
+        onClick={handleClick}
       className={cn(
         "relative aspect-[3/4] rounded-lg transition-all",
         hasSticker
@@ -121,13 +139,22 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
           transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
           className="relative z-10 w-full h-full"
         >
-          <motion.div className="w-full h-full">
+          <motion.div 
+            className="w-full h-full"
+            animate={{
+              rotateZ: [0, computeAngle(), computeAngle()],
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
             {typeof slot.sticker!.image === "string" && /^(\/|https?:)/.test(slot.sticker!.image as string) ? (
-              <img
+              <motion.img
                 src={slot.sticker!.image as string}
                 alt={slot.sticker!.name || "sticker"}
                 className="w-full h-full object-cover pointer-events-none select-none"
                 draggable={false}
+                initial={{ filter: "brightness(1.2)" }}
+                animate={{ filter: "brightness(1)" }}
+                transition={{ duration: 0.3 }}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-4xl">
@@ -135,6 +162,14 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
               </div>
             )}
           </motion.div>
+          
+          {/* Efeito de brilho ao colar */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-yellow-200/40 via-transparent to-transparent pointer-events-none"
+            initial={{ opacity: 0.8, scale: 1.2 }}
+            animate={{ opacity: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
         </motion.div>
       ) : (
         <motion.div
@@ -163,6 +198,7 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
           )}
         </motion.div>
       )}
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
