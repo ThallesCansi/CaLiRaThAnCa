@@ -6,6 +6,7 @@ import { Sparkles } from "lucide-react";
 import { Confetti } from "./Confetti";
 import { DraggableSticker } from "./DraggableSticker";
 import packImage from "@/assets/pack.png";
+import { sfx } from "@/utils/sfx";
 
 interface PackOpeningProps {
   pack: Pack;
@@ -28,33 +29,41 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
   const [isOpening, setIsOpening] = useState(false);
   const [isTearing, setIsTearing] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [stickersToReveal, setStickersToReveal] = useState<Sticker[]>([]);
   const [revealedStickers, setRevealedStickers] = useState<Sticker[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleOpen = () => {
     setIsTearing(true);
-    
-    // Animação de rasgar o pacote
+    sfx.packOpen();
+
+    // Packet tear/open animation then reveal
     setTimeout(() => {
       setIsTearing(false);
       setIsOpening(true);
       setShowConfetti(true);
-      
-      const stickers: Sticker[] = (pack.stickers && pack.stickers.length > 0)
+      sfx.confetti();
+
+      const source: Sticker[] = (pack.stickers && pack.stickers.length > 0)
         ? pack.stickers
         : mockStickers(5, pack.rarity);
-      
+
+      const finalList = source.filter(Boolean).slice(0, 5);
+      setStickersToReveal(finalList);
+      setRevealedStickers([]);
+
       // Reveal stickers one by one
       let index = 0;
+      const total = finalList.length;
       const interval = setInterval(() => {
-        if (index < stickers.length) {
-          setRevealedStickers((prev) => [...prev, stickers[index]]);
+        if (index < total) {
+          setRevealedStickers((prev) => [...prev, finalList[index]]);
           setCurrentIndex(index);
           index++;
         } else {
           clearInterval(interval);
           setTimeout(() => {
-            onComplete(stickers);
+            onComplete(finalList);
           }, 1500);
         }
       }, 600);
@@ -147,7 +156,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
               </h2>
               
               <div className="grid grid-cols-5 gap-4">
-                {Array.from({ length: pack.stickers?.length ?? 5 }).map((_, i) => (
+                {Array.from({ length: stickersToReveal.length || 5 }).map((_, i) => (
                   <motion.div
                     key={i}
                     initial={{ scale: 0, rotateY: -180 }}
@@ -170,7 +179,7 @@ export const PackOpening = ({ pack, onComplete, onClose }: PackOpeningProps) => 
                 ))}
               </div>
               
-              {revealedStickers.length === (pack.stickers?.length ?? 5) && (
+              {stickersToReveal.length > 0 && revealedStickers.length === stickersToReveal.length && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

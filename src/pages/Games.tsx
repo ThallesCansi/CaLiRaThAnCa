@@ -7,6 +7,7 @@ import { useState } from "react";
 import { StickerModal } from "@/components/album/StickerModal";
 import { AchievementNotification } from "@/components/album/AchievementNotification";
 import type { Sticker } from "@/types/album";
+import { sfx } from "@/utils/sfx";
 
 const Games = () => {
   const games = useAlbumStore((state) => state.games);
@@ -136,7 +137,7 @@ const Games = () => {
                 </div>
 
                 <Button
-                  onClick={() => handlePlayGame(game.id, game.url)}
+                  onClick={() => { sfx.click(); handlePlayGame(game.id, game.url); }}
                   className="w-full"
                   variant={game.completed ? "secondary" : "default"}
                 >
