@@ -61,8 +61,15 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
       const ro = new ResizeObserver(compute);
       ro.observe(el);
       compute();
-      return () => ro.disconnect();
-    }, [isMobile]);
+      
+      // Força recálculo após um pequeno delay para garantir que container está no tamanho correto
+      const timeoutId = setTimeout(compute, 100);
+      
+      return () => {
+        ro.disconnect();
+        clearTimeout(timeoutId);
+      };
+    }, [isMobile, draggedSticker]);
 
     useImperativeHandle(ref, () => ({
       flipNext: () => bookRef.current?.pageFlip()?.flipNext(),
