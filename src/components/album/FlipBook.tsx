@@ -39,7 +39,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
       if (!el) return;
 
       const compute = () => {
-        const padding = 60; // padding extra para evitar cortes e sombras
+        const padding = 40; // padding para evitar cortes
         const availW = Math.max(320, el.clientWidth - padding);
         const availH = Math.max(360, el.clientHeight - padding);
 
@@ -75,12 +75,11 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           ref={bookRef}
           width={dims.width}
           height={dims.height}
-          minWidth={dims.width}
-          maxWidth={dims.width}
-          minHeight={dims.height}
-          maxHeight={dims.height}
-          size="fixed"
-          autoSize={false}
+          size="stretch"
+          minWidth={320}
+          maxWidth={2400}
+          minHeight={360}
+          maxHeight={3200}
           maxShadowOpacity={0.3}
           showCover={true}
           mobileScrollSupport={true}
@@ -92,6 +91,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           flippingTime={800}
           usePortrait={isMobile}
           startZIndex={0}
+          autoSize={true}
           disableFlipByClick={currentPageHasStickers} // ← Desabilitar sempre quando há figurinhas
           clickEventForward={true} // ← Sempre permitir eventos passarem
           useMouseEvents={true}
