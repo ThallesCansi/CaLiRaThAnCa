@@ -27,13 +27,22 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
     const timer = setTimeout(() => {
       setShow(false);
       setTimeout(() => {
-        onClose();
         setCurrent(null);
       }, 500);
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [achievement, onClose]);
+  }, [achievement]);
+
+  // Clear parent state when animation completes
+  useEffect(() => {
+    if (!show && current) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [show, current, onClose]);
 
   return (
     <AnimatePresence>

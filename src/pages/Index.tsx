@@ -11,6 +11,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, Package } from "lucide-react";
 import type { Pack, Sticker } from "@/types/album";
 import { toast } from "sonner";
+import { sfx } from "@/utils/sfx";
 
 const Index = () => {
   const [openingPack, setOpeningPack] = useState<Pack | null>(null);
@@ -93,10 +94,12 @@ const Index = () => {
   const currentPageHasStickers = pages[currentPage]?.slots.some(slot => slot.sticker !== null) || false;
 
   const handleNextPage = () => {
+    sfx.pageFlip();
     flipBookRef.current?.flipNext();
   };
 
   const handlePrevPage = () => {
+    sfx.pageFlip();
     flipBookRef.current?.flipPrev();
   };
 

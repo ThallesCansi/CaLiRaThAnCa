@@ -34,8 +34,10 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
 
     const isMobile = useIsMobile();
 
-    // Verificar se a página atual tem slots com figurinhas
-    const currentPageHasStickers = pages[currentPage]?.slots.some(slot => slot.sticker !== null) || false;
+    // Verificar se a página atual tem slots com figurinhas OU com jogos
+    const currentPageHasInteractive = pages[currentPage]?.slots.some(slot => 
+      slot.sticker !== null || slot.gameId !== undefined
+    ) || false;
 
     useEffect(() => {
       const el = containerRef.current;
@@ -99,10 +101,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           maxShadowOpacity={0.3}
           showCover={true}
           mobileScrollSupport={true}
-          onFlip={(e) => {
-            sfx.pageFlip();
-            onPageChange(e.data);
-          }}
+          onFlip={(e) => onPageChange(e.data)}
           className="flip-book"
           style={{}}
           startPage={currentPage}
@@ -111,7 +110,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           usePortrait={isMobile}
           startZIndex={0}
           autoSize={true}
-          disableFlipByClick={currentPageHasStickers} // ← Desabilitar sempre quando há figurinhas
+          disableFlipByClick={currentPageHasInteractive} // ← Desabilitar quando há figurinhas ou jogos
           clickEventForward={true} // ← Sempre permitir eventos passarem
           useMouseEvents={true}
           swipeDistance={30}
