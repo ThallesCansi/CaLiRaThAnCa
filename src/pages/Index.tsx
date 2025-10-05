@@ -98,10 +98,10 @@ const Index = () => {
   return (
     <>
       <div 
-        className="flex-1 flex flex-col overflow-hidden bg-background"
+        className="flex-1 min-h-0 flex flex-col overflow-hidden bg-background"
         style={{ cursor: draggedSticker ? 'grabbing' : 'default' }}
       >
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 min-h-0 flex flex-col">
           {/* Header with pack notification */}
           {availablePacks.length > 0 && (
             <motion.div
@@ -120,7 +120,7 @@ const Index = () => {
           )}
 
           {/* Album Pages - FlipBook */}
-          <div className={`${unplacedStickers.length > 0 ? "h-[62vh]" : "flex-1"} flex items-center justify-center p-4 relative overflow-hidden`}>
+          <div className="flex-1 flex items-center justify-center p-4 relative overflow-hidden min-h-0">
             {/* Indicação de virar página na capa */}
             {currentPage === 0 && (
               <motion.div
@@ -200,7 +200,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="p-4 border-t bg-background/60"
+                className="p-4 border-t bg-background/60 max-h-[34vh] overflow-y-auto"
               >
                 <div className="max-w-6xl mx-auto">
                   <p className="text-sm mb-3 font-medium">Drag the stickers below to the correct spaces in the album:</p>
