@@ -462,6 +462,42 @@ const mockGames: Game[] = [
     },
     completed: false,
   },
+  {
+    id: 'game-3',
+    name: 'Meteor Dodge',
+    description: 'Desvie dos meteoros e colete pontos!',
+    thumbnail: '/placeholder.svg',
+    url: '/gdevelop/sample/index.html',
+    packReward: {
+      id: 'pack-3',
+      name: 'Pacote Épico',
+      rarity: 'epic',
+      stickers: [
+        { id: 'sticker-0020', name: 'Figurinha #20', image: '/stickers/sticker-0001.jpg', rarity: 'rare', category: 'Diversos' },
+        { id: 'sticker-0021', name: 'Figurinha #21', image: '/stickers/sticker-0002.jpg', rarity: 'epic', category: 'Diversos' },
+        { id: 'sticker-0022', name: 'Figurinha #22', image: '/stickers/sticker-0003.jpg', rarity: 'rare', category: 'Diversos' },
+      ],
+    },
+    completed: false,
+  },
+  {
+    id: 'game-4',
+    name: 'Comet Runner',
+    description: 'Corra pelo espaço desviando de cometas!',
+    thumbnail: '/placeholder.svg',
+    url: '/gdevelop/sample/index.html',
+    packReward: {
+      id: 'pack-4',
+      name: 'Pacote Lendário',
+      rarity: 'legendary',
+      stickers: [
+        { id: 'sticker-0023', name: 'Figurinha #23', image: '/stickers/sticker-0004.jpg', rarity: 'epic', category: 'Diversos' },
+        { id: 'sticker-0024', name: 'Figurinha #24', image: '/stickers/sticker-0005.jpg', rarity: 'legendary', category: 'Diversos' },
+        { id: 'sticker-0025', name: 'Figurinha #25', image: '/stickers/sticker-0006.jpg', rarity: 'epic', category: 'Diversos' },
+      ],
+    },
+    completed: false,
+  },
 ];
 
 const mockAchievements: Achievement[] = [

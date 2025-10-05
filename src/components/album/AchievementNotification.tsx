@@ -15,6 +15,7 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
 
   const hideTimerRef = useRef<number | null>(null);
   const finalizeTimerRef = useRef<number | null>(null);
+  const lastIdRef = useRef<string | null>(null);
 
   const clearTimers = () => {
     if (hideTimerRef.current) {
@@ -29,8 +30,11 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
 
   useEffect(() => {
     if (!achievement) return;
+    const nextId = achievement.id;
+    if (lastIdRef.current === nextId) return; // ignore same achievement re-renders
+    lastIdRef.current = nextId;
 
-    // Start/Restart notification
+    // Start notification once per achievement id
     setCurrent(achievement);
     setShow(true);
 
@@ -44,9 +48,10 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
     }, 5000);
 
     return () => {
+      // do not reset lastIdRef here to avoid retrigger loops
       clearTimers();
     };
-  }, [achievement]);
+  }, [achievement?.id]);
 
   useEffect(() => {
     if (!show && current) {
@@ -66,9 +71,9 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
   }, [show, current, onClose]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait" initial={false}>
       {show && current && (
-        <motion.div
+        <motion.div key={current?.id}
           initial={{ opacity: 0, y: -100, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -50, scale: 0.9 }}
