@@ -136,19 +136,21 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker, onPl
             animate={isOver && !willAccept ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
             transition={{ duration: 0.35 }}
           >
-            <motion.span
-              animate={{ opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="text-3xl text-muted-foreground/30"
-            >
-              ?
-            </motion.span>
+            {!slot.gameId && (
+              <motion.span
+                animate={{ opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-3xl text-muted-foreground/30"
+              >
+                ?
+              </motion.span>
+            )}
             {slot.gameId && (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0.4, 0.7, 0.4] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="text-[0.5rem] sm:text-xs text-center text-muted-foreground/50 mt-1 px-1"
+                className="absolute bottom-2 left-0 right-0 text-xs sm:text-sm text-center text-muted-foreground/60 px-1 font-medium"
               >
                 Play to win
               </motion.p>

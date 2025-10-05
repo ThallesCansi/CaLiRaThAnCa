@@ -7,6 +7,7 @@ import { DraggableSticker } from "@/components/album/DraggableSticker";
 import { StickerModal } from "@/components/album/StickerModal";
 import { AchievementNotification } from "@/components/album/AchievementNotification";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, Package } from "lucide-react";
 import type { Pack, Sticker } from "@/types/album";
 import { toast } from "sonner";
@@ -17,6 +18,8 @@ const Index = () => {
   // Estado para controlar o modal globalmente
   const [globalModalSticker, setGlobalModalSticker] = useState<Sticker | null>(null);
   const [globalModalOpen, setGlobalModalOpen] = useState(false);
+  const [gameModalOpen, setGameModalOpen] = useState(false);
+  const [currentGameUrl, setCurrentGameUrl] = useState<string>("");
   const flipBookRef = useRef<FlipBookHandle>(null);
   
   const pages = useAlbumStore((state) => state.pages);
@@ -97,7 +100,8 @@ const Index = () => {
   const handlePlayGame = (gameId: string) => {
     const game = useAlbumStore.getState().games.find(g => g.id === gameId);
     if (game) {
-      window.open(game.url, '_blank');
+      setCurrentGameUrl(game.url);
+      setGameModalOpen(true);
     }
   };
 
@@ -261,6 +265,20 @@ const Index = () => {
         achievement={lastUnlockedAchievement}
         onClose={clearLastUnlockedAchievement}
       />
+
+      {/* Game Modal */}
+      <Dialog open={gameModalOpen} onOpenChange={setGameModalOpen}>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-2">
+          {currentGameUrl && (
+            <iframe
+              src={currentGameUrl}
+              className="w-full h-full border-0 rounded-lg"
+              allowFullScreen
+              title="Game"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
