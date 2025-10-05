@@ -193,9 +193,9 @@ const Index = () => {
                     });
                   }}
                   size="lg"
-                  className="bg-gradient-to-r from-primary to-primary-glow hover:scale-110 transition-transform text-lg px-8 py-6 shadow-[0_0_30px_rgba(var(--primary),0.5)] animate-pulse"
+                  className="bg-primary hover:bg-primary/90 hover:scale-105 transition-all text-xl px-12 py-8 shadow-xl"
                 >
-                  <Package className="w-6 h-6 mr-2" />
+                  <Package className="w-8 h-8 mr-3" />
                   Start Mission
                 </Button>
               </motion.div>

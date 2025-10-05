@@ -26,9 +26,6 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
     // Auto close after 5 seconds
     const timer = setTimeout(() => {
       setShow(false);
-      setTimeout(() => {
-        setCurrent(null);
-      }, 500);
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -37,8 +34,9 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
   useEffect(() => {
     if (!show && current) {
       const timer = setTimeout(() => {
+        setCurrent(null);
         onClose();
-      }, 600);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [show, current, onClose]);

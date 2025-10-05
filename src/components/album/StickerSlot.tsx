@@ -41,9 +41,26 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker, onPl
       });
       document.dispatchEvent(customEvent);
     } else if (slot.gameId && onPlayGame) {
-      // Slot vazio com jogo associado - prevenir virar página
+      // Slot vazio com jogo associado - prevenir virar página completamente
       e.nativeEvent.stopImmediatePropagation();
+      e.nativeEvent.stopPropagation();
       onPlayGame(slot.gameId);
+    }
+  };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (slot.gameId && !hasSticker) {
+      e.nativeEvent.stopImmediatePropagation();
+    }
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (slot.gameId && !hasSticker) {
+      e.nativeEvent.stopImmediatePropagation();
     }
   };
 
@@ -55,9 +72,15 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker, onPl
           hasSticker ? "z-50" : "z-10"
         )}
         onClick={handleClick}
-        onMouseDown={(e) => { if (hasSticker) { e.stopPropagation(); e.preventDefault(); } }}
-        onPointerDown={(e) => { if (hasSticker) { e.stopPropagation(); e.preventDefault(); } }}
-        onTouchStart={(e) => { if (hasSticker) { e.stopPropagation(); e.preventDefault(); } }}
+        onMouseDown={handleMouseDown}
+        onPointerDown={handlePointerDown}
+        onTouchStart={(e) => { 
+          e.stopPropagation(); 
+          e.preventDefault();
+          if (slot.gameId && !hasSticker) {
+            e.nativeEvent.stopImmediatePropagation();
+          }
+        }}
         data-sticker-slot
         style={{
           ...(slot.x !== undefined && slot.y !== undefined
