@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 
 export const AlbumSidebar = () => {
-  const { open } = useSidebar();
+  const { open, isMobile } = useSidebar();
   const pages = useAlbumStore((state) => state.pages);
   const availablePacks = useAlbumStore((state) => state.availablePacks);
   const games = useAlbumStore((state) => state.games);
@@ -46,6 +46,30 @@ export const AlbumSidebar = () => {
   ];
 
   const unlockedAchievements = achievements.filter(a => a.unlocked).length;
+
+  // Mobile: renderizar uma BottomBar fixa
+  if (isMobile) {
+    return (
+      <nav className="fixed bottom-0 inset-x-0 z-50 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70 md:hidden">
+        <ul className="grid grid-cols-5 gap-1 px-2 py-2">
+          {navItems.slice(0,5).map((item) => (
+            <li key={item.to} className="flex items-center justify-center">
+              <NavLink
+                to={item.to}
+                end={item.to === "/"}
+                className={({ isActive }) =>
+                  `flex flex-col items-center justify-center gap-1 px-2 py-1 text-xs ${isActive ? "text-primary font-medium" : "text-muted-foreground"}`
+                }
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="truncate max-w-[5rem]">{item.label}</span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    );
+  }
 
   return (
     <Sidebar collapsible="icon">

@@ -1,4 +1,5 @@
 import { useRef, forwardRef, useImperativeHandle, useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import HTMLFlipBook from "react-pageflip";
 import type { AlbumPage as AlbumPageType, Sticker, StickerSlot } from "@/types/album";
 import { AlbumPage } from "./AlbumPage";
@@ -27,6 +28,8 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
     const PAGE_AR = PAGE_WIDTH / PAGE_HEIGHT; // 0.707
     const [dims, setDims] = useState({ width: PAGE_WIDTH, height: PAGE_HEIGHT });
 
+    const isMobile = useIsMobile();
+
     useEffect(() => {
       const el = containerRef.current;
       if (!el) return;
@@ -37,7 +40,8 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
         const availH = Math.max(360, el.clientHeight - padding);
 
         // Calcula o fator de escala mantendo a proporção exata 1414x2000
-        const scaleByWidth = availW / (PAGE_WIDTH * 2);
+        const pagesWide = isMobile ? 1 : 2;
+        const scaleByWidth = availW / (PAGE_WIDTH * pagesWide);
         const scaleByHeight = availH / PAGE_HEIGHT;
 
         const base = Math.min(scaleByWidth, scaleByHeight);
@@ -58,7 +62,7 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
       ro.observe(el);
       compute();
       return () => ro.disconnect();
-    }, []);
+    }, [isMobile]);
 
     useImperativeHandle(ref, () => ({
       flipNext: () => bookRef.current?.pageFlip()?.flipNext(),
@@ -86,9 +90,9 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           startPage={currentPage}
           drawShadow={true}
           flippingTime={800}
-          usePortrait={false}
+          usePortrait={isMobile}
           startZIndex={0}
-          autoSize={false}
+          autoSize={true}
           clickEventForward={true}
           useMouseEvents={true}
           swipeDistance={30}
