@@ -291,7 +291,13 @@ const Index = () => {
 
       {/* Game Modal */}
       <Dialog open={gameModalOpen} onOpenChange={setGameModalOpen}>
-        <DialogContent className="w-[85vw] h-[70vh] max-w-[1100px] max-h-[80vh] p-2 sm:p-3 md:p-4">
+        <DialogContent className="w-[80vw] h-[65vh] max-w-[1000px] max-h-[75vh] p-8">
+          <button
+            onClick={() => setGameModalOpen(false)}
+            className="absolute -top-3 -right-3 z-50 w-12 h-12 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-lg flex items-center justify-center font-bold text-2xl transition-all hover:scale-110"
+          >
+            ×
+          </button>
           {currentGameUrl && (
             <iframe
               src={currentGameUrl}

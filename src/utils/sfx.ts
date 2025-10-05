@@ -125,6 +125,17 @@ class SFX {
       this.playTone({ frequency: 320, duration: 0.05, type: "square" });
     })();
   }
+
+  pageFlip() {
+    this.ensureStart();
+    (async () => {
+      const ok = await this.playFromPublic("page-flip", 0.5);
+      if (ok) return;
+      // Fallback to synthesized page flip sound
+      this.playNoise({ duration: 0.15, gain: 0.04, color: "white" });
+      setTimeout(() => this.playTone({ frequency: 180, duration: 0.08, type: "triangle", gain: 0.05 }), 20);
+    })();
+  }
 }
 
 export const sfx = new SFX();

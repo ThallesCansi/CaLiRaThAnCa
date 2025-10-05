@@ -41,7 +41,8 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker, onPl
       });
       document.dispatchEvent(customEvent);
     } else if (slot.gameId && onPlayGame) {
-      // Slot vazio com jogo associado
+      // Slot vazio com jogo associado - prevenir virar página
+      e.nativeEvent.stopImmediatePropagation();
       onPlayGame(slot.gameId);
     }
   };

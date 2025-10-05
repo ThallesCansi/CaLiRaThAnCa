@@ -3,6 +3,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import HTMLFlipBook from "react-pageflip";
 import type { AlbumPage as AlbumPageType, Sticker, StickerSlot } from "@/types/album";
 import { AlbumPage } from "./AlbumPage";
+import { sfx } from "@/utils/sfx";
 
 interface FlipBookProps {
   pages: AlbumPageType[];
@@ -98,7 +99,10 @@ export const FlipBook = forwardRef<FlipBookHandle, FlipBookProps>(
           maxShadowOpacity={0.3}
           showCover={true}
           mobileScrollSupport={true}
-          onFlip={(e) => onPageChange(e.data)}
+          onFlip={(e) => {
+            sfx.pageFlip();
+            onPageChange(e.data);
+          }}
           className="flip-book"
           style={{}}
           startPage={currentPage}

@@ -23,14 +23,14 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
     // Play achievement sound (customizável via /audios/achievement.*)
     sfx.confetti();
 
-    // Auto close after 8 seconds
+    // Auto close after 5 seconds
     const timer = setTimeout(() => {
       setShow(false);
       setTimeout(() => {
         onClose();
         setCurrent(null);
       }, 500);
-    }, 8000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [achievement, onClose]);
