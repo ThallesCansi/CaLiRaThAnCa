@@ -120,7 +120,7 @@ const Index = () => {
           )}
 
           {/* Album Pages - FlipBook */}
-          <div className="flex-1 flex items-center justify-center p-4 relative overflow-hidden min-h-0">
+          <div className="flex-1 flex items-center justify-center p-4 relative min-h-0">
             {/* Indicação de virar página na capa */}
             {currentPage === 0 && (
               <motion.div
