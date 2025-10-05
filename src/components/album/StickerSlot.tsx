@@ -29,66 +29,11 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
 
   const willAccept = !!draggedSticker && accepts(draggedSticker);
 
-  // Event listener global ultra-agressivo
-  useEffect(() => {
-    if (!hasSticker) return;
-
-    const handleAnyClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('[data-sticker-slot]')) {
-        // Se é um slot com figurinha, prevenir QUALQUER propagação
-        e.stopPropagation();
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        if (e.cancelBubble !== undefined) {
-          e.cancelBubble = true;
-        }
-
-        if (e as any) {
-          (e as any).returnValue = false;
-        }
-
-        // Não deixar o evento continuar de forma alguma
-        return false;
-      }
-    };
-
-    // Capturar em todas as fases possíveis
-    document.addEventListener('click', handleAnyClick, true);
-    document.addEventListener('mousedown', handleAnyClick, true);
-    document.addEventListener('mouseup', handleAnyClick, true);
-
-    return () => {
-      document.removeEventListener('click', handleAnyClick, true);
-      document.removeEventListener('mousedown', handleAnyClick, true);
-      document.removeEventListener('mouseup', handleAnyClick, true);
-    };
-  }, [hasSticker]);
-
-  const handleInteraction = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
     if (hasSticker) {
-      // Abordagem FINAL: Usar um evento customizado
       e.stopPropagation();
       e.preventDefault();
-      e.nativeEvent.stopImmediatePropagation();
-
-      // Disparar evento customizado para máxima prioridade
-      const customEvent = new CustomEvent('openStickerModal', {
-        bubbles: false,
-        cancelable: false,
-        detail: { sticker: slot.sticker, slotId: slot.id }
-      });
-
-      // Disparar no document para que possa ser capturado globalmente
-      document.dispatchEvent(customEvent);
-
-      // Também definir o estado local como backup
-      setTimeout(() => {
-        setModalOpen(true);
-      }, 0);
-
-      return false;
+      setModalOpen(true);
     }
   };
 
@@ -104,8 +49,7 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
           "relative aspect-[3/4] rounded-lg transition-all cursor-pointer",
           hasSticker ? "z-50" : "z-10"
         )}
-        onMouseDown={handleInteraction}
-        onClick={handleInteraction}
+        onClick={handleClick}
         data-sticker-slot
         style={{
           ...(slot.x !== undefined && slot.y !== undefined

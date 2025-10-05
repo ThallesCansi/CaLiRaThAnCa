@@ -45,7 +45,8 @@ const Collection = () => {
   return (
     <div className="p-8">
       <StickerModal 
-        sticker={selectedSticker} 
+        sticker={selectedSticker}
+        open={!!selectedSticker}
         onClose={() => setSelectedSticker(null)} 
       />
       <div className="mb-8">
