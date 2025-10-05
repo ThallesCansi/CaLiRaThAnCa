@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Achievement } from "@/types/album";
+import { sfx } from "@/utils/sfx";
 
 interface AchievementNotificationProps {
   achievement: Achievement | null;
@@ -10,31 +11,33 @@ interface AchievementNotificationProps {
 
 export const AchievementNotification = ({ achievement, onClose }: AchievementNotificationProps) => {
   const [show, setShow] = useState(false);
+  const [current, setCurrent] = useState<Achievement | null>(null);
 
   useEffect(() => {
-    if (achievement) {
-      setShow(true);
-      
-      // Play achievement sound
-      const audio = new Audio();
-      audio.src = "data:audio/wav;base64,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";
-      audio.play().catch(() => {
-        // Ignore audio play errors (e.g., user hasn't interacted with page yet)
-      });
+    if (!achievement) return;
 
-      // Auto close after 8 seconds
-      const timer = setTimeout(() => {
-        setShow(false);
-        setTimeout(onClose, 500);
-      }, 8000);
+    // Capture the achievement locally so it persists even if the prop changes.
+    setCurrent(achievement);
+    setShow(true);
 
-      return () => clearTimeout(timer);
-    }
+    // Play achievement sound (customizável via /audios/achievement.*)
+    sfx.confetti();
+
+    // Auto close after 8 seconds
+    const timer = setTimeout(() => {
+      setShow(false);
+      setTimeout(() => {
+        onClose();
+        setCurrent(null);
+      }, 500);
+    }, 8000);
+
+    return () => clearTimeout(timer);
   }, [achievement, onClose]);
 
   return (
     <AnimatePresence>
-      {show && achievement && (
+      {show && current && (
         <motion.div
           initial={{ opacity: 0, y: -100, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -85,10 +88,10 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
                     </p>
                   </div>
                   <h3 className="text-xl font-bold text-white mb-1">
-                    {achievement.name}
+                    {current?.name}
                   </h3>
                   <p className="text-yellow-200 text-sm">
-                    {achievement.description}
+                    {current?.description}
                   </p>
                 </div>
 
@@ -103,7 +106,7 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
                   }}
                   className="text-6xl opacity-20 absolute -right-4 -bottom-4"
                 >
-                  {achievement.icon}
+                  {current?.icon}
                 </motion.div>
               </div>
 

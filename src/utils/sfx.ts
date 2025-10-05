@@ -74,24 +74,56 @@ class SFX {
     noise.stop(now + duration + 0.02);
   }
 
+  private async playFromPublic(baseName: string, volume = 0.6): Promise<boolean> {
+    try {
+      const exts = ["mp3", "wav", "ogg"];
+      for (const ext of exts) {
+        const url = `/audios/${baseName}.${ext}`;
+        const audio = new Audio(url);
+        audio.volume = volume;
+        try {
+          await audio.play();
+          return true;
+        } catch {
+          // try next extension
+        }
+      }
+    } catch {
+      // ignore failures and fall back to synthesized audio
+    }
+    return false;
+  }
+
   // Public APIs
   packOpen() {
     this.ensureStart();
-    // Two quick descending tones to mimic a tear/open
-    this.playTone({ frequency: 740, duration: 0.08, type: "triangle" });
-    setTimeout(() => this.playTone({ frequency: 520, duration: 0.1, type: "triangle" }), 70);
+    (async () => {
+      const ok = await this.playFromPublic("pack-open", 0.8);
+      if (ok) return;
+      // Fallback to synthesized effect
+      this.playTone({ frequency: 740, duration: 0.08, type: "triangle" });
+      setTimeout(() => this.playTone({ frequency: 520, duration: 0.1, type: "triangle" }), 70);
+    })();
   }
 
   confetti() {
     this.ensureStart();
-    // Pop with a sparkly sprinkle
-    this.playNoise({ duration: 0.2, gain: 0.06, color: "pink" });
-    setTimeout(() => this.playTone({ frequency: 1200, duration: 0.07, type: "square" }), 30);
+    (async () => {
+      const ok = (await this.playFromPublic("achievement", 0.8)) || (await this.playFromPublic("confetti", 0.8));
+      if (ok) return;
+      // Fallback to synthesized effect
+      this.playNoise({ duration: 0.2, gain: 0.06, color: "pink" });
+      setTimeout(() => this.playTone({ frequency: 1200, duration: 0.07, type: "square" }), 30);
+    })();
   }
 
   click() {
     this.ensureStart();
-    this.playTone({ frequency: 320, duration: 0.05, type: "square" });
+    (async () => {
+      const ok = await this.playFromPublic("click", 0.6);
+      if (ok) return;
+      this.playTone({ frequency: 320, duration: 0.05, type: "square" });
+    })();
   }
 }
 
