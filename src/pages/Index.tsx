@@ -183,7 +183,7 @@ const Index = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute top-[42%] left-1/2 -translate-x-1/2 z-40"
+                className="absolute top-[53%] left-[20%] -translate-x-1/2 z-40"
               >
                 <Button
                   onClick={() => {
