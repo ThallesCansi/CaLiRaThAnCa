@@ -3,7 +3,7 @@ import { useAlbumStore } from "@/store/albumStore";
 import { Button } from "@/components/ui/button";
 import { Play, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import type { Pack, Sticker } from "@/types/album";
+// No immediate pack grant here; rewards come from GameEmbed completion event
 
 
 const Games = () => {
@@ -12,34 +12,7 @@ const Games = () => {
   const navigate = useNavigate();
 
   const handlePlayGame = (gameId: string, url: string) => {
-    // 1) Concede um pacote imediatamente para testes
-    const game = games.find((g) => g.id === gameId);
-    if (game) {
-      const baseRarity = game.packReward.rarity;
-      const now = Date.now();
-      const stickers: Sticker[] = [
-        {
-          id: "sticker-0001", // garante compat com slot-1-1
-          name: "Sticker 0001",
-          image: "/stickers/sticker-0001.jpg",
-          rarity: baseRarity as any,
-          category: "clima",
-        },
-        { id: `sticker-${now}-1`, name: "Bônus 1", image: "🌍" as any, rarity: baseRarity as any, category: "diversos" },
-        { id: `sticker-${now}-2`, name: "Bônus 2", image: "☀️" as any, rarity: baseRarity as any, category: "diversos" },
-        { id: `sticker-${now}-3`, name: "Bônus 3", image: "🌧️" as any, rarity: baseRarity as any, category: "diversos" },
-        { id: `sticker-${now}-4`, name: "Bônus 4", image: "🌪️" as any, rarity: baseRarity as any, category: "diversos" },
-      ];
-      const testPack: Pack = {
-        id: `test-pack-${gameId}-${now}`,
-        name: `${game.packReward.name} (Teste)`,
-        rarity: baseRarity,
-        stickers,
-      } as any;
-      addPack(testPack);
-    }
-
-    // 2) Segue para o jogo
+    // Segue para o jogo; recompensa virá do evento de conclusão em GameEmbed
     // Usa game.url como src; suporta absoluto (https://gd.games/...) ou relativo (/gdevelop/...) 
     let src = url || "/gdevelop/sample/index.html";
     let originParam = "";
@@ -51,6 +24,19 @@ const Games = () => {
       }
     } catch {}
     navigate(`/games/play?src=${encodeURIComponent(src)}&gameId=${encodeURIComponent(gameId)}${originParam}`);
+  };
+
+  // Helper: resolve path in public/ with BASE_URL
+  const resolvePublicUrl = (p: string) => {
+    let path = p || "";
+    // Normalize leading slash
+    if (path && !/^https?:\/\//i.test(path)) {
+      if (!path.startsWith("/")) path = "/" + path;
+      const base = (import.meta as any).env?.BASE_URL || "/";
+      const baseClean = String(base).endsWith("/") ? String(base).slice(0, -1) : String(base);
+      return `${baseClean}${path}`;
+    }
+    return path;
   };
 
   return (
@@ -71,8 +57,20 @@ const Games = () => {
             transition={{ delay: index * 0.1 }}
             className="bg-card rounded-xl shadow-lg overflow-hidden border border-border"
           >
-            <div className="aspect-video bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-8xl">
-              {game.thumbnail}
+            <div className="aspect-video bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center">
+              {typeof game.thumbnail === "string" && /(\/|\.png|\.jpg|\.jpeg|\.gif|\.webp|\.svg)$/i.test(game.thumbnail) ? (
+                <img
+                  src={resolvePublicUrl(game.thumbnail)}
+                  alt={game.name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback: remove image and render emoji-like placeholder
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              ) : (
+                <span className="text-8xl">{game.thumbnail}</span>
+              )}
             </div>
             
             <div className="p-6">
@@ -89,25 +87,20 @@ const Games = () => {
               <div className="bg-muted/50 rounded-lg p-4 mb-4">
                 <p className="text-sm font-semibold mb-1">Recompensa:</p>
                 <p className="text-sm text-muted-foreground">{game.packReward.name}</p>
+                {game.completed && (
+                  <p className="text-xs text-green-600 mt-1">✓ Concluído - Pode jogar novamente</p>
+                )}
               </div>
 
               <Button
                 onClick={() => handlePlayGame(game.id, game.url)}
-                disabled={game.completed}
                 className="w-full"
                 variant={game.completed ? "secondary" : "default"}
               >
-                {game.completed ? (
-                  <>
-                    <CheckCircle className="mr-2 h-4 w-4" />
-                    Concluído
-                  </>
-                ) : (
-                  <>
-                    <Play className="mr-2 h-4 w-4" />
-                    Jogar Agora
-                  </>
-                )}
+                <>
+                  <Play className="mr-2 h-4 w-4" />
+                  Jogar Agora
+                </>
               </Button>
             </div>
           </motion.div>

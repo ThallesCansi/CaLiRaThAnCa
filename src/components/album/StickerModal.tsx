@@ -10,6 +10,7 @@ import {
 
 interface StickerModalProps {
   sticker: Sticker | null;
+  open?: boolean;
   onClose: () => void;
 }
 
@@ -27,11 +28,11 @@ const rarityGlow = {
   legendary: "shadow-[0_0_60px_rgba(234,179,8,0.8)]",
 };
 
-export const StickerModal = ({ sticker, onClose }: StickerModalProps) => {
+export const StickerModal = ({ sticker, open = false, onClose }: StickerModalProps) => {
   if (!sticker) return null;
 
   return (
-    <Dialog open={!!sticker} onOpenChange={(open) => !open && onClose()}>
+    <Dialog open={open} onOpenChange={(openState) => !openState && onClose()}>
       <DialogContent className="max-w-md bg-background/95 backdrop-blur-xl border-2">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold flex items-center gap-2">

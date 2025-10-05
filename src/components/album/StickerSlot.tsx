@@ -53,6 +53,7 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
     // Se já tem figurinha, abre o modal ao invés de executar onClick
     if (hasSticker) {
       e.stopPropagation();
+      e.preventDefault();
       setModalOpen(true);
       return;
     }
@@ -64,10 +65,12 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
 
   return (
     <>
-      <StickerModal 
-        sticker={slot.sticker} 
-        onClose={() => setModalOpen(false)} 
-      />
+      {modalOpen && (
+        <StickerModal 
+          sticker={slot.sticker} 
+          onClose={() => setModalOpen(false)} 
+        />
+      )}
       
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -75,17 +78,17 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
         whileHover={{ scale: hasSticker ? 1.05 : 1.03 }}
         transition={{ delay: slot.position * 0.05 }}
         onClick={handleClick}
-      className={cn(
-        "relative aspect-[3/4] rounded-lg transition-all",
-        hasSticker
-          ? "border-0 shadow-none"
-          : cn(
-              "border border-dashed border-muted-foreground/30",
-              // removemos mudanças de cor; mantemos apenas leve feedback de over
-              isOver && "border-muted-foreground/50"
-            ),
-        draggedSticker ? (willAccept ? "cursor-copy" : "cursor-not-allowed") : "cursor-pointer"
-      )}
+        className={cn(
+          "relative aspect-[3/4] rounded-lg transition-all z-20", // ← Adicionei z-20
+          hasSticker
+            ? "border-0 shadow-none"
+            : cn(
+                "border border-dashed border-muted-foreground/30",
+                // removemos mudanças de cor; mantemos apenas leve feedback de over
+                isOver && "border-muted-foreground/50"
+              ),
+          draggedSticker ? (willAccept ? "cursor-copy" : "cursor-not-allowed") : "cursor-pointer"
+        )}
       style={{
         ...(slot.x !== undefined && slot.y !== undefined
           ? {
@@ -144,8 +147,9 @@ export const StickerSlot = ({ slot, onClick, onDropSticker, draggedSticker }: St
         >
           <motion.div 
             className="w-full h-full"
+            style={{ pointerEvents: hasSticker ? 'auto' : 'none' }} // ← Garante que o clique seja capturado
             animate={{
-              rotateZ: [0, computeAngle(), computeAngle()],
+              rotateZ: hasSticker ? 0 : [0, computeAngle(), 0], // Só anima no início, depois fica reto
             }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
