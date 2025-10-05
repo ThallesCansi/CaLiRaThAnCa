@@ -31,7 +31,7 @@ export const StickerModal = ({ sticker, onClose }: StickerModalProps) => {
   if (!sticker) return null;
 
   return (
-    <Dialog open={!!sticker} onOpenChange={onClose}>
+    <Dialog open={!!sticker} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-md bg-background/95 backdrop-blur-xl border-2">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold flex items-center gap-2">

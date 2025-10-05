@@ -58,7 +58,10 @@ const Index = () => {
 
   return (
     <>
-      <div className="flex-1 flex flex-col overflow-hidden bg-background">
+      <div 
+        className="flex-1 flex flex-col overflow-hidden bg-background"
+        style={{ cursor: draggedSticker ? 'grabbing' : 'default' }}
+      >
         <div className="flex-1 flex flex-col">
           {/* Header with pack notification */}
           {availablePacks.length > 0 && (
@@ -79,6 +82,50 @@ const Index = () => {
 
           {/* Album Pages - FlipBook */}
           <div className="flex-1 flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Indicação de virar página na capa */}
+            {currentPage === 0 && (
+              <motion.div
+                className="absolute right-32 top-1/2 -translate-y-1/2 z-40 pointer-events-none"
+                animate={{
+                  x: [0, 10, 0],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <ChevronRight className="h-16 w-16 text-primary drop-shadow-lg" />
+              </motion.div>
+            )}
+            
+            {/* Overlay de loading ao arrastar */}
+            <AnimatePresence>
+              {draggedSticker && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 z-30 pointer-events-none"
+                >
+                  <div className="absolute inset-0 bg-primary/5 backdrop-blur-[1px]" />
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    animate={{
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <div className="text-6xl opacity-20">📋</div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             <Button
               onClick={handlePrevPage}
               variant="ghost"

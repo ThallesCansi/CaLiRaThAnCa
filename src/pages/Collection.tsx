@@ -1,12 +1,15 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useAlbumStore } from "@/store/albumStore";
 import { StickerSlot } from "@/components/album/StickerSlot";
+import { StickerModal } from "@/components/album/StickerModal";
+import type { Sticker } from "@/types/album";
 
 const Collection = () => {
   const pages = useAlbumStore((state) => state.pages);
   const unplacedStickers = useAlbumStore((state) => state.unplacedStickers);
   const initializeAlbum = useAlbumStore((state) => state.initializeAlbum);
+  const [selectedSticker, setSelectedSticker] = useState<Sticker | null>(null);
   
   // Inicializar o álbum no mount
   useEffect(() => {
@@ -41,6 +44,10 @@ const Collection = () => {
 
   return (
     <div className="p-8">
+      <StickerModal 
+        sticker={selectedSticker} 
+        onClose={() => setSelectedSticker(null)} 
+      />
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Minha Coleção</h1>
         <p className="text-muted-foreground">
@@ -78,6 +85,7 @@ const Collection = () => {
                       stiffness: 200
                     }}
                     className="cursor-pointer"
+                    onClick={() => setSelectedSticker(slot.sticker)}
                   >
                     <div className="relative group">
                       <motion.div
@@ -112,6 +120,7 @@ const Collection = () => {
                       type: "spring",
                       stiffness: 200
                     }}
+                    onClick={() => setSelectedSticker(sticker)}
                     className="cursor-pointer relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
                   >
                     {typeof sticker.image === "string" && /^(\/|https?:)/.test(sticker.image) ? (
