@@ -15,6 +15,7 @@ interface AlbumState {
   visitedPages: Set<number>;
   stickerPlacementTimes: number[];
   lastUnlockedAchievement: Achievement | null;
+  tutorialPackClaimed: boolean;
   
   // Actions
   addStickerToSlot: (pageId: string, slotId: string, sticker: Sticker) => void;
@@ -27,6 +28,7 @@ interface AlbumState {
   getProgress: () => PlayerProgress;
   initializeAlbum: () => void;
   clearLastUnlockedAchievement: () => void;
+  claimTutorialPack: () => void;
 }
 
 const createMockData = () => {
@@ -234,6 +236,44 @@ const createMockData = () => {
   });
   
   return pages;
+};
+
+const tutorialStickers: Sticker[] = [
+  {
+    id: 'sticker-tutorial1',
+    name: 'Tutorial #1',
+    image: '/stickers/sticker-tutorial1.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-tutorial2',
+    name: 'Tutorial #2',
+    image: '/stickers/sticker-tutorial2.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-tutorial3',
+    name: 'Tutorial #3',
+    image: '/stickers/sticker-tutorial3.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-tutorial4',
+    name: 'Tutorial #4',
+    image: '/stickers/sticker-tutorial4.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+];
+
+const tutorialPack: Pack = {
+  id: 'pack-tutorial',
+  name: 'Tutorial Pack',
+  rarity: 'common',
+  stickers: tutorialStickers,
 };
 
 const mockGames: Game[] = [
@@ -497,6 +537,7 @@ export const useAlbumStore = create<AlbumState>()(
       visitedPages: new Set([0]),
       stickerPlacementTimes: [],
       lastUnlockedAchievement: null,
+      tutorialPackClaimed: false,
       
       initializeAlbum: () => {
         const state = get();
@@ -735,6 +776,16 @@ export const useAlbumStore = create<AlbumState>()(
         set({ lastUnlockedAchievement: null });
       },
       
+      claimTutorialPack: () => {
+        set((state) => {
+          if (state.tutorialPackClaimed) return state;
+          return {
+            tutorialPackClaimed: true,
+            availablePacks: [...state.availablePacks, tutorialPack],
+          };
+        });
+      },
+      
       getProgress: () => {
         const state = get();
         const totalSlots = state.pages.reduce((acc, page) => acc + page.slots.length, 0);
@@ -766,6 +817,7 @@ export const useAlbumStore = create<AlbumState>()(
         packsOpened: state.packsOpened,
         visitedPages: Array.from(state.visitedPages),
         stickerPlacementTimes: state.stickerPlacementTimes,
+        tutorialPackClaimed: state.tutorialPackClaimed,
       }),
       migrate: (persistedState: any, version: number) => {
         if (!persistedState) return persistedState;
@@ -781,6 +833,7 @@ export const useAlbumStore = create<AlbumState>()(
           packsOpened: persistedState.packsOpened || 0,
           stickerPlacementTimes: persistedState.stickerPlacementTimes || [],
           lastUnlockedAchievement: null,
+          tutorialPackClaimed: persistedState.tutorialPackClaimed || false,
         } as AlbumState;
       },
     }

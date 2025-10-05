@@ -36,6 +36,8 @@ const Index = () => {
   const lastUnlockedAchievement = useAlbumStore((state) => state.lastUnlockedAchievement);
   const clearLastUnlockedAchievement = useAlbumStore((state) => state.clearLastUnlockedAchievement);
   const completeGame = useAlbumStore((state) => state.completeGame);
+  const tutorialPackClaimed = useAlbumStore((state) => state.tutorialPackClaimed);
+  const claimTutorialPack = useAlbumStore((state) => state.claimTutorialPack);
 
   useEffect(() => {
     initializeAlbum();
@@ -172,6 +174,30 @@ const Index = () => {
                 }}
               >
                 <ChevronRight className="h-16 w-16 text-primary drop-shadow-lg" />
+              </motion.div>
+            )}
+            
+            {/* Botão de pacote inicial na página 1 */}
+            {currentPage === 1 && !tutorialPackClaimed && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="absolute top-[42%] left-1/2 -translate-x-1/2 z-40"
+              >
+                <Button
+                  onClick={() => {
+                    claimTutorialPack();
+                    toast.success("First mission pack unlocked!", {
+                      description: "Click the notification above to open your pack!",
+                    });
+                  }}
+                  size="lg"
+                  className="bg-gradient-to-r from-primary to-primary-glow hover:scale-110 transition-transform text-lg px-8 py-6 shadow-[0_0_30px_rgba(var(--primary),0.5)] animate-pulse"
+                >
+                  <Package className="w-6 h-6 mr-2" />
+                  Start Mission
+                </Button>
               </motion.div>
             )}
             
