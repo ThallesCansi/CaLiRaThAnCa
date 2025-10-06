@@ -121,7 +121,7 @@ gdjs.MenuCode.eventsList2 = function(runtimeScene) {
 
 let isConditionTrue_0 = false;
 isConditionTrue_0 = false;
-{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(11754964);
+{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(10990004);
 }
 if (isConditionTrue_0) {
 gdjs.copyArray(gdjs.MenuCode.GDAuthorLinkObjects2, gdjs.MenuCode.GDAuthorLinkObjects3);
@@ -177,7 +177,7 @@ isConditionTrue_0 = false;
 isConditionTrue_0 = gdjs.evtTools.input.cursorOnObject(gdjs.MenuCode.mapOfGDgdjs_9546MenuCode_9546GDAuthorLinkObjects1Objects, runtimeScene, true, true);
 if (isConditionTrue_0) {
 isConditionTrue_0 = false;
-{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(11756436);
+{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(10991996);
 }
 }
 if (isConditionTrue_0) {

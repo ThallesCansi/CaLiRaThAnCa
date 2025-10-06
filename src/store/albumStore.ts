@@ -143,7 +143,7 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[7],
     slots: [
-      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 8.5, y: 67, width: 31.5, height: 29, acceptsStickerIds: ['sticker-00010'], gameId: 'game-2' },
+      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 8.5, y: 67, width: 31.5, height: 29, acceptsStickerIds: ['sticker-00010'], gameId: 'game-3' },
     ],
   });
 
@@ -163,8 +163,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[9],
     slots: [
-      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 15, y: 68, width: 43, height: 22, acceptsStickerIds: ['sticker-00011'], gameId: 'game-2' },
-      { id: 'slot-9-2', pageId: 'page-9', position: 0, sticker: null, x: 59, y: 4, width: 41, height: 22, acceptsStickerIds: ['sticker-00012'], gameId: 'game-2' },
+      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 15, y: 68, width: 43, height: 22, acceptsStickerIds: ['sticker-00011'], gameId: 'game-3' },
+      { id: 'slot-9-2', pageId: 'page-9', position: 0, sticker: null, x: 59, y: 4, width: 41, height: 22, acceptsStickerIds: ['sticker-00012'], gameId: 'game-3' },
     ],
   });
 
@@ -175,7 +175,7 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[10],
     slots: [
-      { id: 'slot-10-1', pageId: 'page-10', position: 0, sticker: null, x: 49, y: 44, width: 31, height: 30, acceptsStickerIds: ['sticker-00013'], gameId: 'game-2' },
+      { id: 'slot-10-1', pageId: 'page-10', position: 0, sticker: null, x: 49, y: 44, width: 31, height: 30, acceptsStickerIds: ['sticker-00013'], gameId: 'game-3' },
       { id: 'slot-10-2', pageId: 'page-10', position: 0, sticker: null, x: 43, y: 7, width: 43, height: 22, acceptsStickerIds: ['sticker-00014'], gameId: 'game-2' },
     ],
   });
@@ -323,6 +323,21 @@ const mockGames: Game[] = [
           rarity: 'common',
           category: 'Diversos',
         },
+      ],
+    },
+    completed: false,
+  },
+  {
+    id: 'game-2',
+    name: 'Escaping Flares',
+    description: 'Alguma descrição para o jogo Escaping Flares',
+    thumbnail: 'thumbnails/EscapingFlares.png',
+    url: '/gdevelop/EscapingFlares/index.html',
+    packReward: {
+      id: 'pack-2',
+      name: 'Pacote Raro',
+      rarity: 'rare',
+      stickers: [
         {
           id: 'sticker-0006',
           name: 'Figurinha #6',
@@ -363,15 +378,15 @@ const mockGames: Game[] = [
     completed: false,
   },
   {
-    id: 'game-2',
-    name: 'Escaping Flares',
-    description: 'Alguma descrição para o jogo Escaping Flares',
-    thumbnail: 'thumbnails/EscapingFlares.png',
-    url: '/gdevelop/EscapingFlares/index.html',
+    id: 'game-3',
+    name: 'Quiz',
+    description: 'Resolva os desafios!',
+    thumbnail: 'thumbnails/SolarQuiz.png',
+    url: '/gdevelop/SolarQuiz/index.html',
     packReward: {
-      id: 'pack-2',
-      name: 'Pacote Raro',
-      rarity: 'rare',
+      id: 'pack-3',
+      name: 'Pacote Épico',
+      rarity: 'epic',
       stickers: [
         {
           id: 'sticker-00010',
@@ -397,11 +412,25 @@ const mockGames: Game[] = [
         {
           id: 'sticker-00013',
           name: 'Figurinha #13',
-          image: '/stickers/sticker-0009.jpg',
+          image: '/stickers/sticker-00013.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
-        
+      ],
+    },
+    completed: false,
+  },
+  {
+    id: 'game-4',
+    name: 'Comet Runner',
+    description: 'Corra pelo espaço desviando de cometas!',
+    thumbnail: '/placeholder.svg',
+    url: '/gdevelop/sample/index.html',
+    packReward: {
+      id: 'pack-4',
+      name: 'Pacote Lendário',
+      rarity: 'legendary',
+      stickers: [
         {
           id: 'sticker-0014',
           name: 'Figurinha #14',
@@ -458,42 +487,6 @@ const mockGames: Game[] = [
           rarity: 'common',
           category: 'Diversos',
         },
-      ],
-    },
-    completed: false,
-  },
-  {
-    id: 'game-3',
-    name: 'Meteor Dodge',
-    description: 'Desvie dos meteoros e colete pontos!',
-    thumbnail: '/placeholder.svg',
-    url: '/gdevelop/sample/index.html',
-    packReward: {
-      id: 'pack-3',
-      name: 'Pacote Épico',
-      rarity: 'epic',
-      stickers: [
-        { id: 'sticker-0020', name: 'Figurinha #20', image: '/stickers/sticker-0001.jpg', rarity: 'rare', category: 'Diversos' },
-        { id: 'sticker-0021', name: 'Figurinha #21', image: '/stickers/sticker-0002.jpg', rarity: 'epic', category: 'Diversos' },
-        { id: 'sticker-0022', name: 'Figurinha #22', image: '/stickers/sticker-0003.jpg', rarity: 'rare', category: 'Diversos' },
-      ],
-    },
-    completed: false,
-  },
-  {
-    id: 'game-4',
-    name: 'Comet Runner',
-    description: 'Corra pelo espaço desviando de cometas!',
-    thumbnail: '/placeholder.svg',
-    url: '/gdevelop/sample/index.html',
-    packReward: {
-      id: 'pack-4',
-      name: 'Pacote Lendário',
-      rarity: 'legendary',
-      stickers: [
-        { id: 'sticker-0023', name: 'Figurinha #23', image: '/stickers/sticker-0004.jpg', rarity: 'epic', category: 'Diversos' },
-        { id: 'sticker-0024', name: 'Figurinha #24', image: '/stickers/sticker-0005.jpg', rarity: 'legendary', category: 'Diversos' },
-        { id: 'sticker-0025', name: 'Figurinha #25', image: '/stickers/sticker-0006.jpg', rarity: 'epic', category: 'Diversos' },
       ],
     },
     completed: false,
