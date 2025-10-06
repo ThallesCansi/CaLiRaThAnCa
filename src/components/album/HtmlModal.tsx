@@ -12,7 +12,7 @@ interface HtmlModalProps {
 export const HtmlModal = ({ isOpen, onClose, htmlPath, description }: HtmlModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 gap-0 flex flex-col">
+      <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 gap-0 flex flex-col overflow-hidden">
         <Button
           onClick={onClose}
           variant="ghost"
@@ -21,18 +21,18 @@ export const HtmlModal = ({ isOpen, onClose, htmlPath, description }: HtmlModalP
         >
           <X className="h-4 w-4" />
         </Button>
-        <iframe
-          src={htmlPath}
-          className="w-full flex-1 border-0 rounded-t-lg"
-          title="HTML Content"
-        />
-        {description && (
-          <div className="p-6 bg-card/95 backdrop-blur-sm border-t">
-            <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-              {description}
-            </p>
-          </div>
-        )}
+        <div className="flex-1 overflow-hidden">
+          <iframe
+            src={htmlPath}
+            className="w-full h-full border-0"
+            title="HTML Content"
+          />
+        </div>
+        <div className="p-6 bg-background border-t shrink-0">
+          <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+            {description || "No description available"}
+          </p>
+        </div>
       </DialogContent>
     </Dialog>
   );
