@@ -8,7 +8,7 @@ if (typeof gdjs.evtsExt__TopDownCornerSliding__DefineJavaScriptForTopDown !== "u
 gdjs.evtsExt__TopDownCornerSliding__DefineJavaScriptForTopDown = {};
 
 
-gdjs.evtsExt__TopDownCornerSliding__DefineJavaScriptForTopDown.userFunc0x988788 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
+gdjs.evtsExt__TopDownCornerSliding__DefineJavaScriptForTopDown.userFunc0x13295a0 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
 "use strict";
 if (gdjs.__topDownCornerSlidingExtension) {
   return;
@@ -1243,7 +1243,7 @@ gdjs.evtsExt__TopDownCornerSliding__DefineJavaScriptForTopDown.eventsList0 = fun
 {
 
 
-gdjs.evtsExt__TopDownCornerSliding__DefineJavaScriptForTopDown.userFunc0x988788(runtimeScene, eventsFunctionContext);
+gdjs.evtsExt__TopDownCornerSliding__DefineJavaScriptForTopDown.userFunc0x13295a0(runtimeScene, eventsFunctionContext);
 
 }
 

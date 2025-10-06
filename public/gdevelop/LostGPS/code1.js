@@ -1574,7 +1574,7 @@ if (isConditionTrue_0) {
 }
 
 
-};gdjs.GameCode.asyncCallback15019204 = function (runtimeScene, asyncObjectsList) {
+};gdjs.GameCode.asyncCallback16175900 = function (runtimeScene, asyncObjectsList) {
 asyncObjectsList.restoreLocalVariablesContainers(gdjs.GameCode.localVariables);
 
 { //Subevents
@@ -1591,14 +1591,14 @@ const parentAsyncObjectsList = asyncObjectsList;
 {
 const asyncObjectsList = gdjs.LongLivedObjectsList.from(parentAsyncObjectsList);
 asyncObjectsList.backupLocalVariablesContainers(gdjs.GameCode.localVariables);
-runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(1.5), (runtimeScene) => (gdjs.GameCode.asyncCallback15019204(runtimeScene, asyncObjectsList)));
+runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(1.5), (runtimeScene) => (gdjs.GameCode.asyncCallback16175900(runtimeScene, asyncObjectsList)));
 }
 }
 
 }
 
 
-};gdjs.GameCode.asyncCallback15000436 = function (runtimeScene, asyncObjectsList) {
+};gdjs.GameCode.asyncCallback16174524 = function (runtimeScene, asyncObjectsList) {
 asyncObjectsList.restoreLocalVariablesContainers(gdjs.GameCode.localVariables);
 gdjs.copyArray(asyncObjectsList.getObjects("Juca"), gdjs.GameCode.GDJucaObjects2);
 
@@ -1625,14 +1625,14 @@ gdjs.GameCode.eventsList16 = function(runtimeScene) {
 const asyncObjectsList = new gdjs.LongLivedObjectsList();
 asyncObjectsList.backupLocalVariablesContainers(gdjs.GameCode.localVariables);
 for (const obj of gdjs.GameCode.GDJucaObjects1) asyncObjectsList.addObject("Juca", obj);
-runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(1), (runtimeScene) => (gdjs.GameCode.asyncCallback15000436(runtimeScene, asyncObjectsList)));
+runtimeScene.getAsyncTasksManager().addTask(gdjs.evtTools.runtimeScene.wait(1), (runtimeScene) => (gdjs.GameCode.asyncCallback16174524(runtimeScene, asyncObjectsList)));
 }
 }
 
 }
 
 
-};gdjs.GameCode.userFunc0xcba2c0 = function GDJSInlineCode(runtimeScene) {
+};gdjs.GameCode.userFunc0xbc59a8 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 runtimeScene.setBackgroundColor(100,100,240);
 
@@ -1649,7 +1649,7 @@ gdjs.GameCode.eventsList17 = function(runtimeScene) {
 {
 
 
-gdjs.GameCode.userFunc0xcba2c0(runtimeScene);
+gdjs.GameCode.userFunc0xbc59a8(runtimeScene);
 
 }
 
@@ -1757,7 +1757,7 @@ isConditionTrue_0 = isConditionTrue_1;
 }
 if (isConditionTrue_0) {
 isConditionTrue_0 = false;
-{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(15138828);
+{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(16174172);
 }
 }
 if (isConditionTrue_0) {

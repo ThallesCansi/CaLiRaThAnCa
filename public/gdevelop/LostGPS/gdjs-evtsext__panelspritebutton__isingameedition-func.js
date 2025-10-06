@@ -8,7 +8,7 @@ if (typeof gdjs.evtsExt__PanelSpriteButton__IsInGameEdition !== "undefined") {
 gdjs.evtsExt__PanelSpriteButton__IsInGameEdition = {};
 
 
-gdjs.evtsExt__PanelSpriteButton__IsInGameEdition.userFunc0xb58db0 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
+gdjs.evtsExt__PanelSpriteButton__IsInGameEdition.userFunc0x1339770 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
 "use strict";
 const game = runtimeScene.getGame();
 eventsFunctionContext.returnValue = game.isInGameEdition && game.isInGameEdition();
@@ -18,7 +18,7 @@ gdjs.evtsExt__PanelSpriteButton__IsInGameEdition.eventsList0 = function(runtimeS
 {
 
 
-gdjs.evtsExt__PanelSpriteButton__IsInGameEdition.userFunc0xb58db0(runtimeScene, eventsFunctionContext);
+gdjs.evtsExt__PanelSpriteButton__IsInGameEdition.userFunc0x1339770(runtimeScene, eventsFunctionContext);
 
 }
 

@@ -20,7 +20,7 @@ gdjs.JucaCode.GDJucaObjects1= [];
 gdjs.JucaCode.GDJucaObjects2= [];
 
 
-gdjs.JucaCode.userFunc0xcc5a28 = function GDJSInlineCode(runtimeScene) {
+gdjs.JucaCode.userFunc0x7e5608 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 runtimeScene.setBackgroundColor(100,100,240);
 
@@ -45,7 +45,7 @@ gdjs.JucaCode.eventsList0 = function(runtimeScene) {
 {
 
 
-gdjs.JucaCode.userFunc0xcc5a28(runtimeScene);
+gdjs.JucaCode.userFunc0x7e5608(runtimeScene);
 
 }
 
@@ -62,7 +62,7 @@ let isConditionTrue_0 = false;
 }
 
 
-};gdjs.JucaCode.userFunc0xd08fd0 = function GDJSInlineCode(runtimeScene) {
+};gdjs.JucaCode.userFunc0x11c70f0 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 runtimeScene.setBackgroundColor(100,100,240);
 
@@ -87,7 +87,7 @@ gdjs.JucaCode.eventsList1 = function(runtimeScene) {
 {
 
 
-gdjs.JucaCode.userFunc0xd08fd0(runtimeScene);
+gdjs.JucaCode.userFunc0x11c70f0(runtimeScene);
 
 }
 

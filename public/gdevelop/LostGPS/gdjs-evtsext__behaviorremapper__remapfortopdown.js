@@ -296,7 +296,7 @@ gdjs.evtsExt__BehaviorRemapper__RemapForTopdown.RemapForTopdown.prototype.SetCus
 
 let isConditionTrue_0 = false;
 isConditionTrue_0 = false;
-{isConditionTrue_0 = eventsFunctionContext.getOnceTriggers().triggerOnce(12073108);
+{isConditionTrue_0 = eventsFunctionContext.getOnceTriggers().triggerOnce(18196228);
 }
 if (isConditionTrue_0) {
 gdjs.copyArray(eventsFunctionContext.getObjects("Object"), gdjs.evtsExt__BehaviorRemapper__RemapForTopdown.RemapForTopdown.prototype.SetCustomContext.GDObjectObjects1);

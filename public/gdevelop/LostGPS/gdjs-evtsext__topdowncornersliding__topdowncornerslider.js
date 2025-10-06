@@ -85,7 +85,7 @@ gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prot
 gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prototype.onCreatedContext.GDObjectObjects2= [];
 
 
-gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prototype.onCreatedContext.userFunc0xe25c08 = function GDJSInlineCode(runtimeScene, objects, eventsFunctionContext) {
+gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prototype.onCreatedContext.userFunc0xa438b8 = function GDJSInlineCode(runtimeScene, objects, eventsFunctionContext) {
 "use strict";
 
 const object = objects[0];
@@ -119,7 +119,7 @@ let isConditionTrue_0 = false;
 gdjs.copyArray(eventsFunctionContext.getObjects("Object"), gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prototype.onCreatedContext.GDObjectObjects1);
 
 const objects = gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prototype.onCreatedContext.GDObjectObjects1;
-gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prototype.onCreatedContext.userFunc0xe25c08(runtimeScene, objects, eventsFunctionContext);
+gdjs.evtsExt__TopDownCornerSliding__TopDownCornerSlider.TopDownCornerSlider.prototype.onCreatedContext.userFunc0xa438b8(runtimeScene, objects, eventsFunctionContext);
 
 }
 
