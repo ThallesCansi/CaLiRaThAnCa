@@ -143,7 +143,7 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[7],
     slots: [
-      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 8.5, y: 67, width: 31.5, height: 29, acceptsStickerIds: ['sticker-00010'], gameId: 'game-2' },
+      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 8.5, y: 67, width: 31.5, height: 29, acceptsStickerIds: ['sticker-0010'], gameId: 'game-2' },
     ],
   });
 
@@ -163,8 +163,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[9],
     slots: [
-      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 15, y: 68, width: 43, height: 22, acceptsStickerIds: ['sticker-00011'], gameId: 'game-1' },
-      { id: 'slot-9-2', pageId: 'page-9', position: 0, sticker: null, x: 59, y: 4, width: 41, height: 22, acceptsStickerIds: ['sticker-00012'], gameId: 'game-1' },
+      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 15, y: 68, width: 43, height: 22, acceptsStickerIds: ['sticker-0011'], gameId: 'game-1' },
+      { id: 'slot-9-2', pageId: 'page-9', position: 0, sticker: null, x: 59, y: 4, width: 41, height: 22, acceptsStickerIds: ['sticker-0012'], gameId: 'game-1' },
     ],
   });
 
@@ -175,8 +175,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[10],
     slots: [
-      { id: 'slot-10-1', pageId: 'page-10', position: 0, sticker: null, x: 49, y: 44, width: 31, height: 30, acceptsStickerIds: ['sticker-00013'], gameId: 'game-1' },
-      { id: 'slot-10-2', pageId: 'page-10', position: 0, sticker: null, x: 43, y: 7, width: 43, height: 22, acceptsStickerIds: ['sticker-00014'], gameId: 'game-1' },
+      { id: 'slot-10-1', pageId: 'page-10', position: 0, sticker: null, x: 49, y: 44, width: 31, height: 30, acceptsStickerIds: ['sticker-0013'], gameId: 'game-1' },
+      { id: 'slot-10-2', pageId: 'page-10', position: 0, sticker: null, x: 43, y: 7, width: 43, height: 22, acceptsStickerIds: ['sticker-0014'], gameId: 'game-1' },
     ],
   });
 
@@ -187,8 +187,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[11],
     slots: [
-      { id: 'slot-11-1', pageId: 'page-11', position: 0, sticker: null, x: 10, y: 13, width: 43, height: 22, acceptsStickerIds: ['sticker-00015'], gameId: 'game-4' },
-      { id: 'slot-11-2', pageId: 'page-11', position: 0, sticker: null, x: 37, y: 69.5, width: 43, height: 22, acceptsStickerIds: ['sticker-00016'], gameId: 'game-4' },
+      { id: 'slot-11-1', pageId: 'page-11', position: 0, sticker: null, x: 10, y: 13, width: 43, height: 22, acceptsStickerIds: ['sticker-0015'], gameId: 'game-4' },
+      { id: 'slot-11-2', pageId: 'page-11', position: 0, sticker: null, x: 37, y: 69.5, width: 43, height: 22, acceptsStickerIds: ['sticker-0016'], gameId: 'game-4' },
     ],
   });
 
@@ -199,8 +199,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[12],
     slots: [
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 10, y: 5, width: 44, height: 22, acceptsStickerIds: ['sticker-00017'], gameId: 'game-4' },
-      { id: 'slot-12-2', pageId: 'page-12', position: 0, sticker: null, x: 60, y: 24, width: 31, height: 31, acceptsStickerIds: ['sticker-00018'], gameId: 'game-4' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 10, y: 5, width: 44, height: 22, acceptsStickerIds: ['sticker-0017'], gameId: 'game-4' },
+      { id: 'slot-12-2', pageId: 'page-12', position: 0, sticker: null, x: 60, y: 24, width: 31, height: 31, acceptsStickerIds: ['sticker-0018'], gameId: 'game-4' },
     ],
   });
 
@@ -211,9 +211,9 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[13],
     slots: [
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 19, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019A'], gameId: 'game-3' },
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 41, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019B'], gameId: 'game-3' },
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 63, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019C'], gameId: 'game-3' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 19, width: 41.5, height: 22, acceptsStickerIds: ['sticker-0019A'], gameId: 'game-3' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 41, width: 41.5, height: 22, acceptsStickerIds: ['sticker-0019B'], gameId: 'game-3' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 63, width: 41.5, height: 22, acceptsStickerIds: ['sticker-0019C'], gameId: 'game-3' },
     ],
   });
 
