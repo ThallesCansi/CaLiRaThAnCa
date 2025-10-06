@@ -180,6 +180,7 @@ const createMockData = () => {
     ],
     htmlButton: {
       htmlPath: '/maps/drap.html',
+      description: "D Region Absorption Predictions (D-RAP) is a NOAA/SWPC tool (a U.S. center that monitors space weather) used to forecast the effects of solar energy outburst, such as solar X-rays and energetic particles, on the ionosphere.\n\nIt shows how these outbursts change the ionosphere's D-layer over time, increasing radio-signal absorption.\n\nWhy does this matter? Because these changes can degrade high-frequency (HF) radio communications (widely used by aviation, maritime operations, and remote stations) and, in some situations, impair the performance of satellite-based systems (such as GNSS/GPS, TV, and internet), especially during intense solar events.",
       left: '50%',
       top: '80%',
       width: '30%',

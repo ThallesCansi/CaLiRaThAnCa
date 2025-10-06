@@ -42,6 +42,7 @@ export interface AlbumPage {
   theme?: "light" | "dark"; // Tema da página para contraste
   htmlButton?: {
     htmlPath: string;
+    description?: string;
     left: string;
     top: string;
     width: string;

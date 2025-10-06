@@ -109,6 +109,7 @@ export const AlbumPage = ({ page, onDropSticker, draggedSticker, onPlayGame, sho
           isOpen={htmlModalOpen}
           onClose={() => setHtmlModalOpen(false)}
           htmlPath={page.htmlButton.htmlPath}
+          description={page.htmlButton.description}
         />
       )}
     </>
