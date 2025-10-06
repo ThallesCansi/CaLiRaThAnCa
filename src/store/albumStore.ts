@@ -179,9 +179,9 @@ const createMockData = () => {
       { id: 'slot-10-2', pageId: 'page-10', position: 0, sticker: null, x: 43, y: 7, width: 43, height: 22, acceptsStickerIds: ['sticker-0014'], gameId: 'game-1' },
     ],
     htmlButton: {
-      htmlPath: '/maps/mapa-page10.html',
+      htmlPath: '/maps/drap.html',
       left: '50%',
-      top: '70%',
+      top: '80%',
       width: '30%',
       height: '8%',
     },
