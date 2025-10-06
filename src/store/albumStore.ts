@@ -448,21 +448,21 @@ const mockGames: Game[] = [
       rarity: 'epic',
       stickers: [
         {
-          id: 'sticker-00019A',
+          id: 'sticker-0019A',
           name: 'Sticker #19A',
           image: '/stickers/sticker-0019A.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
-          id: 'sticker-00019B',
+          id: 'sticker-0019B',
           name: 'Sticker #19B',
           image: '/stickers/sticker-0019B.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
-          id: 'sticker-00019C',
+          id: 'sticker-0019C',
           name: 'Sticker #19C',
           image: '/stickers/sticker-0019C.jpg',
           rarity: 'common',
