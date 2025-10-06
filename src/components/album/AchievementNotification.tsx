@@ -43,8 +43,16 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
 
     // Reset timers and schedule hide
     clearTimers();
+    // Hide slightly before the hard removal to allow exit animation
     hideTimerRef.current = window.setTimeout(() => {
       setShow(false);
+    }, 4500);
+
+    // Hard kill switch: ensure removal exactly at 5s
+    finalizeTimerRef.current = window.setTimeout(() => {
+      setShow(false);
+      setCurrent(null);
+      onClose();
     }, 5000);
 
     return () => {
@@ -56,11 +64,13 @@ export const AchievementNotification = ({ achievement, onClose }: AchievementNot
   useEffect(() => {
     if (!show && current) {
       // finalize and notify parent slightly after exit animation
-      if (finalizeTimerRef.current) clearTimeout(finalizeTimerRef.current);
-      finalizeTimerRef.current = window.setTimeout(() => {
-        setCurrent(null);
-        onClose();
-      }, 500);
+      // Only schedule if no hard kill timer is already set
+      if (!finalizeTimerRef.current) {
+        finalizeTimerRef.current = window.setTimeout(() => {
+          setCurrent(null);
+          onClose();
+        }, 500);
+      }
     }
     return () => {
       if (finalizeTimerRef.current) {
