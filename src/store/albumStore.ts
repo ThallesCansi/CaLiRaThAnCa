@@ -181,7 +181,7 @@ const createMockData = () => {
     htmlButton: {
       htmlPath: '/maps/mapa-page10.html',
       left: '50%',
-      top: '50%',
+      top: '70%',
       width: '30%',
       height: '8%',
     },
