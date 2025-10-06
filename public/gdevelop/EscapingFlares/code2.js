@@ -26,7 +26,7 @@ gdjs.FalaJucaCode.GDExplosionObjects1= [];
 gdjs.FalaJucaCode.GDExplosionObjects2= [];
 
 
-gdjs.FalaJucaCode.userFunc0xd59bb0 = function GDJSInlineCode(runtimeScene) {
+gdjs.FalaJucaCode.userFunc0x7a1e20 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 runtimeScene.setBackgroundColor(100,100,240);
 
@@ -43,7 +43,7 @@ gdjs.FalaJucaCode.eventsList0 = function(runtimeScene) {
 {
 
 
-gdjs.FalaJucaCode.userFunc0xd59bb0(runtimeScene);
+gdjs.FalaJucaCode.userFunc0x7a1e20(runtimeScene);
 
 }
 
