@@ -74,7 +74,7 @@ export const AlbumSidebar = () => {
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b p-4">
         <div className="flex items-center justify-between">
-          {open && <span className="font-bold text-lg">Arena do Clima</span>}
+          {open && <span className="font-bold text-lg">Stranded</span>}
           <SidebarTrigger />
         </div>
       </SidebarHeader>
@@ -90,7 +90,7 @@ export const AlbumSidebar = () => {
                     <User className="w-5 h-5 text-sidebar-accent-foreground" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-bold text-sm truncate">Collector</h3>
+                    <h3 className="font-bold text-sm truncate">Astronaut</h3>
                     <p className="text-xs text-sidebar-foreground/70">Level 1</p>
                   </div>
                 </div>

@@ -34,7 +34,7 @@ const GameEmbed = () => {
           // Sempre usar o gameId da URL para evitar confusão entre jogos
           // O gameId da URL é confiável pois vem do store via Games.tsx
           completeGame(gameId);
-          toast.success("Jogo concluído! Pacote adicionado.");
+          toast.success("Game completed! Pack added.");
         } else if (data.action === "ALBUM") {
           // Navegar de volta para o álbum
           navigate("/");

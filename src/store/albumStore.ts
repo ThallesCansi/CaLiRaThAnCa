@@ -57,7 +57,7 @@ const createMockData = () => {
   pages.push({
     id: 'page-0',
     pageNumber: 0,
-    title: 'Arena do Clima',
+    title: 'Stranded',
     theme: 'dark',
     backgroundImage: backgroundByPage[0],
     slots: [],
@@ -316,14 +316,14 @@ const tutorialStickers2: Sticker[] = [
 
 const tutorialPack1: Pack = {
   id: 'pack-tutorial-1',
-  name: 'Pacote Tutorial 1',
+  name: 'Tutorial Pack 1',
   rarity: 'common',
   stickers: tutorialStickers1,
 };
 
 const tutorialPack2: Pack = {
   id: 'pack-tutorial-2',
-  name: 'Pacote Tutorial 2',
+  name: 'Tutorial Pack 2',
   rarity: 'common',
   stickers: tutorialStickers2,
 };
@@ -337,33 +337,33 @@ const mockGames: Game[] = [
     url: '/gdevelop/TappyAstro/index.html',
     packReward: {
       id: 'pack-1',
-      name: 'Pacote Iniciante',
+      name: 'Starter Pack',
       rarity: 'common',
       stickers: [
         {
           id: 'sticker-0011',
-          name: 'Figurinha #11',
+          name: 'Sticker #11',
           image: '/stickers/sticker-0011.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0012',
-          name: 'Figurinha #12',
+          name: 'Sticker #12',
           image: '/stickers/sticker-0012.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0013',
-          name: 'Figurinha #13',
+          name: 'Sticker #13',
           image: '/stickers/sticker-0013.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0014',
-          name: 'Figurinha #14',
+          name: 'Sticker #14',
           image: '/stickers/sticker-0014.jpg',
           rarity: 'common',
           category: 'Diversos',
@@ -380,40 +380,40 @@ const mockGames: Game[] = [
     url: '/gdevelop/EscapingFlares/index.html',
     packReward: {
       id: 'pack-2',
-      name: 'Pacote Raro',
+      name: 'Rare Pack',
       rarity: 'rare',
       stickers: [
         {
           id: 'sticker-0007',
-          name: 'Figurinha #7',
+          name: 'Sticker #7',
           image: '/stickers/sticker-0007.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0008A',
-          name: 'Figurinha #8A',
+          name: 'Sticker #8A',
           image: '/stickers/sticker-0008A.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0008B',
-          name: 'Figurinha #8B',
+          name: 'Sticker #8B',
           image: '/stickers/sticker-0008B.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0009',
-          name: 'Figurinha #9',
+          name: 'Sticker #9',
           image: '/stickers/sticker-0009.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0010',
-          name: 'Figurinha #10',
+          name: 'Sticker #10',
           image: '/stickers/sticker-0010.jpg',
           rarity: 'common',
           category: 'Diversos',
@@ -425,31 +425,31 @@ const mockGames: Game[] = [
   {
     id: 'game-3',
     name: 'Quiz',
-    description: 'Resolva os desafios!',
+    description: 'Solve the challenges!',
     thumbnail: 'thumbnails/SolarQuiz.png',
     url: '/gdevelop/SolarQuiz/index.html',
     packReward: {
       id: 'pack-3',
-      name: 'Pacote Épico',
+      name: 'Epic Pack',
       rarity: 'epic',
       stickers: [
         {
           id: 'sticker-00019A',
-          name: 'Figurinha #19A',
+          name: 'Sticker #19A',
           image: '/stickers/sticker-0019A.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-00019B',
-          name: 'Figurinha #19B',
+          name: 'Sticker #19B',
           image: '/stickers/sticker-0019B.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-00019C',
-          name: 'Figurinha #19C',
+          name: 'Sticker #19C',
           image: '/stickers/sticker-0019C.jpg',
           rarity: 'common',
           category: 'Diversos',
@@ -466,33 +466,33 @@ const mockGames: Game[] = [
     url: '/gdevelop/LostGPS/index.html',
     packReward: {
       id: 'pack-4',
-      name: 'Pacote Lendário',
+      name: 'Legendary Pack',
       rarity: 'legendary',
       stickers: [
         {
           id: 'sticker-0015',
-          name: 'Figurinha #15',
+          name: 'Sticker #15',
           image: '/stickers/sticker-0015.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0016',
-          name: 'Figurinha #16',
+          name: 'Sticker #16',
           image: '/stickers/sticker-0016.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0017',
-          name: 'Figurinha #17',
+          name: 'Sticker #17',
           image: '/stickers/sticker-0017.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
           id: 'sticker-0018',
-          name: 'Figurinha #18',
+          name: 'Sticker #18',
           image: '/stickers/sticker-0018.jpg',
           rarity: 'common',
           category: 'Diversos',
