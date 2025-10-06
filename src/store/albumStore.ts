@@ -178,6 +178,13 @@ const createMockData = () => {
       { id: 'slot-10-1', pageId: 'page-10', position: 0, sticker: null, x: 49, y: 44, width: 31, height: 30, acceptsStickerIds: ['sticker-0013'], gameId: 'game-1' },
       { id: 'slot-10-2', pageId: 'page-10', position: 0, sticker: null, x: 43, y: 7, width: 43, height: 22, acceptsStickerIds: ['sticker-0014'], gameId: 'game-1' },
     ],
+    htmlButton: {
+      htmlPath: '/maps/mapa-page10.html',
+      left: '50%',
+      top: '50%',
+      width: '30%',
+      height: '8%',
+    },
   });
 
   pages.push({
