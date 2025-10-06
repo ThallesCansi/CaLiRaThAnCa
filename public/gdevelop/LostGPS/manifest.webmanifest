@@ -1,0 +1,12 @@
+{
+  "name": "GPS off",
+  "short_name": "GPS off",
+  "id": "com.example.goosebomberman",
+  "description": "This is a game example to show how to do a Bomberman clone with GDevelop. The source can be found directly in GDevelop in the examples list.\n\nControls are:\n\n- arrows and RShift\n- ESDF and LShift\n- IJKL and H\n- 8456 and 0\n- or gamepads",
+  "orientation": "landscape",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "black",
+  "categories": ["games", "entertainment"],
+  "icons": []
+}
