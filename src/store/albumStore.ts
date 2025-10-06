@@ -79,10 +79,10 @@ const createMockData = () => {
     theme: 'light',
     backgroundImage: backgroundByPage[2],
     slots: [
-      { id: 'slot-2-1', pageId: 'page-2', position: 0, sticker: null, x: 50.5, y: 11, width: 41, height: 20, acceptsStickerIds: ['sticker-tutorial1'], gameId: 'game-1' },
-      { id: 'slot-2-2', pageId: 'page-2', position: 0, sticker: null, x: 50.5, y: 36, width: 41, height: 20, acceptsStickerIds: ['sticker-tutorial2'], gameId: 'game-1' },
-      { id: 'slot-2-3', pageId: 'page-2', position: 0, sticker: null, x: 28.5, y: 61, width: 28, height: 27.5, acceptsStickerIds: ['sticker-tutorial3'], gameId: 'game-1' },
-      { id: 'slot-2-4', pageId: 'page-2', position: 0, sticker: null, x: 63, y: 61, width: 28, height: 27.5, acceptsStickerIds: ['sticker-tutorial4'], gameId: 'game-1' },
+      { id: 'slot-2-1', pageId: 'page-2', position: 0, sticker: null, x: 50.5, y: 11, width: 41, height: 20, acceptsStickerIds: ['sticker-tutorial1'], gameId: '' },
+      { id: 'slot-2-2', pageId: 'page-2', position: 0, sticker: null, x: 50.5, y: 36, width: 41, height: 20, acceptsStickerIds: ['sticker-tutorial2'], gameId: '' },
+      { id: 'slot-2-3', pageId: 'page-2', position: 0, sticker: null, x: 28.5, y: 61, width: 28, height: 27.5, acceptsStickerIds: ['sticker-tutorial3'], gameId: '' },
+      { id: 'slot-2-4', pageId: 'page-2', position: 0, sticker: null, x: 63, y: 61, width: 28, height: 27.5, acceptsStickerIds: ['sticker-tutorial4'], gameId: '' },
     ],
   });
 
@@ -93,9 +93,9 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[3],
     slots: [
-      { id: 'slot-3-1', pageId: 'page-3', position: 0, sticker: null, x: 10, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0001'], gameId: 'game-1' },
-      { id: 'slot-3-2', pageId: 'page-3', position: 0, sticker: null, x: 65, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0002'], gameId: 'game-1' },
-      { id: 'slot-3-3', pageId: 'page-3', position: 0, sticker: null, x: 9, y: 70, width: 42, height: 22.5, acceptsStickerIds: ['sticker-0003'], gameId: 'game-1' },
+      { id: 'slot-3-1', pageId: 'page-3', position: 0, sticker: null, x: 10, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0001'], gameId: '' },
+      { id: 'slot-3-2', pageId: 'page-3', position: 0, sticker: null, x: 65, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0002'], gameId: '' },
+      { id: 'slot-3-3', pageId: 'page-3', position: 0, sticker: null, x: 9, y: 70, width: 42, height: 22.5, acceptsStickerIds: ['sticker-0003'], gameId: '' },
     ],
   });
 
@@ -106,9 +106,9 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[4],
     slots: [
-      { id: 'slot-4-1', pageId: 'page-4', position: 0, sticker: null, x: 5, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0004'], gameId: 'game-1' },
-      { id: 'slot-4-2', pageId: 'page-4', position: 0, sticker: null, x: 5, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0005'], gameId: 'game-1' },
-      { id: 'slot-4-3', pageId: 'page-4', position: 0, sticker: null, x: 61, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0006'], gameId: 'game-2' },
+      { id: 'slot-4-1', pageId: 'page-4', position: 0, sticker: null, x: 5, y: 5, width: 31, height: 29, acceptsStickerIds: ['sticker-0004'], gameId: '' },
+      { id: 'slot-4-2', pageId: 'page-4', position: 0, sticker: null, x: 5, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0005'], gameId: '' },
+      { id: 'slot-4-3', pageId: 'page-4', position: 0, sticker: null, x: 61, y: 35.5, width: 31, height: 29, acceptsStickerIds: ['sticker-0006'], gameId: '' },
     ],
   });
 
@@ -143,7 +143,7 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[7],
     slots: [
-      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 8.5, y: 67, width: 31.5, height: 29, acceptsStickerIds: ['sticker-00010'], gameId: 'game-3' },
+      { id: 'slot-7-1', pageId: 'page-7', position: 0, sticker: null, x: 8.5, y: 67, width: 31.5, height: 29, acceptsStickerIds: ['sticker-00010'], gameId: 'game-2' },
     ],
   });
 
@@ -163,8 +163,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[9],
     slots: [
-      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 15, y: 68, width: 43, height: 22, acceptsStickerIds: ['sticker-00011'], gameId: 'game-3' },
-      { id: 'slot-9-2', pageId: 'page-9', position: 0, sticker: null, x: 59, y: 4, width: 41, height: 22, acceptsStickerIds: ['sticker-00012'], gameId: 'game-3' },
+      { id: 'slot-9-1', pageId: 'page-9', position: 0, sticker: null, x: 15, y: 68, width: 43, height: 22, acceptsStickerIds: ['sticker-00011'], gameId: 'game-1' },
+      { id: 'slot-9-2', pageId: 'page-9', position: 0, sticker: null, x: 59, y: 4, width: 41, height: 22, acceptsStickerIds: ['sticker-00012'], gameId: 'game-1' },
     ],
   });
 
@@ -175,8 +175,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[10],
     slots: [
-      { id: 'slot-10-1', pageId: 'page-10', position: 0, sticker: null, x: 49, y: 44, width: 31, height: 30, acceptsStickerIds: ['sticker-00013'], gameId: 'game-3' },
-      { id: 'slot-10-2', pageId: 'page-10', position: 0, sticker: null, x: 43, y: 7, width: 43, height: 22, acceptsStickerIds: ['sticker-00014'], gameId: 'game-2' },
+      { id: 'slot-10-1', pageId: 'page-10', position: 0, sticker: null, x: 49, y: 44, width: 31, height: 30, acceptsStickerIds: ['sticker-00013'], gameId: 'game-1' },
+      { id: 'slot-10-2', pageId: 'page-10', position: 0, sticker: null, x: 43, y: 7, width: 43, height: 22, acceptsStickerIds: ['sticker-00014'], gameId: 'game-1' },
     ],
   });
 
@@ -187,8 +187,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[11],
     slots: [
-      { id: 'slot-11-1', pageId: 'page-11', position: 0, sticker: null, x: 10, y: 13, width: 43, height: 22, acceptsStickerIds: ['sticker-00015'], gameId: 'game-2' },
-      { id: 'slot-11-2', pageId: 'page-11', position: 0, sticker: null, x: 37, y: 69.5, width: 43, height: 22, acceptsStickerIds: ['sticker-00016'], gameId: 'game-2' },
+      { id: 'slot-11-1', pageId: 'page-11', position: 0, sticker: null, x: 10, y: 13, width: 43, height: 22, acceptsStickerIds: ['sticker-00015'], gameId: 'game-4' },
+      { id: 'slot-11-2', pageId: 'page-11', position: 0, sticker: null, x: 37, y: 69.5, width: 43, height: 22, acceptsStickerIds: ['sticker-00016'], gameId: 'game-4' },
     ],
   });
 
@@ -199,8 +199,8 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[12],
     slots: [
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 10, y: 5, width: 44, height: 22, acceptsStickerIds: ['sticker-00017'], gameId: 'game-2' },
-      { id: 'slot-12-2', pageId: 'page-12', position: 0, sticker: null, x: 60, y: 24, width: 31, height: 31, acceptsStickerIds: ['sticker-00018'], gameId: 'game-2' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 10, y: 5, width: 44, height: 22, acceptsStickerIds: ['sticker-00017'], gameId: 'game-4' },
+      { id: 'slot-12-2', pageId: 'page-12', position: 0, sticker: null, x: 60, y: 24, width: 31, height: 31, acceptsStickerIds: ['sticker-00018'], gameId: 'game-4' },
     ],
   });
 
@@ -211,9 +211,9 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[13],
     slots: [
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 19, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019A'], gameId: 'game-2' },
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 41, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019B'], gameId: 'game-2' },
-      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 63, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019C'], gameId: 'game-2' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 19, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019A'], gameId: 'game-3' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 41, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019B'], gameId: 'game-3' },
+      { id: 'slot-12-1', pageId: 'page-12', position: 0, sticker: null, x: 30.5, y: 63, width: 41.5, height: 22, acceptsStickerIds: ['sticker-00019C'], gameId: 'game-3' },
     ],
   });
 
@@ -267,6 +267,48 @@ const tutorialStickers: Sticker[] = [
     rarity: 'common',
     category: 'Tutorial',
   },
+  {
+    id: 'sticker-0001',
+    name: 'Sticker #1',
+    image: '/stickers/sticker-0001.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-0002',
+    name: 'Sticker #2',
+    image: '/stickers/sticker-0002.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-0003',
+    name: 'Sticker #3',
+    image: '/stickers/sticker-0003.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-0004',
+    name: 'Sticker #4',
+    image: '/stickers/sticker-0004.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-0005',
+    name: 'Sticker #5',
+    image: '/stickers/sticker-0005.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
+  {
+    id: 'sticker-0006',
+    name: 'Sticker #6',
+    image: '/stickers/sticker-0006.jpg',
+    rarity: 'common',
+    category: 'Tutorial',
+  },
 ];
 
 const tutorialPack: Pack = {
@@ -289,40 +331,33 @@ const mockGames: Game[] = [
       rarity: 'common',
       stickers: [
         {
-          id: 'sticker-0001',
-          name: 'Figurinha #1',
-          image: '/stickers/sticker-0001.jpg',
+          id: 'sticker-0011',
+          name: 'Figurinha #11',
+          image: '/stickers/sticker-0011.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
-          id: 'sticker-0002',
-          name: 'Figurinha #2',
-          image: '/stickers/sticker-0002.jpg',
+          id: 'sticker-0012',
+          name: 'Figurinha #12',
+          image: '/stickers/sticker-0012.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
-          id: 'sticker-0003',
-          name: 'Figurinha #3',
-          image: '/stickers/sticker-0003.jpg',
+          id: 'sticker-0013',
+          name: 'Figurinha #13',
+          image: '/stickers/sticker-0013.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
-          id: 'sticker-0004',
-          name: 'Figurinha #4',
-          image: '/stickers/sticker-0004.jpg',
+          id: 'sticker-0014',
+          name: 'Figurinha #14',
+          image: '/stickers/sticker-0014.jpg',
           rarity: 'common',
           category: 'Diversos',
-        },
-        {
-          id: 'sticker-0005',
-          name: 'Figurinha #5',
-          image: '/stickers/sticker-0005.jpg',
-          rarity: 'common',
-          category: 'Diversos',
-        },
+        }
       ],
     },
     completed: false,
@@ -338,13 +373,6 @@ const mockGames: Game[] = [
       name: 'Pacote Raro',
       rarity: 'rare',
       stickers: [
-        {
-          id: 'sticker-0006',
-          name: 'Figurinha #6',
-          image: '/stickers/sticker-0006.jpg',
-          rarity: 'common',
-          category: 'Diversos',
-        },
         {
           id: 'sticker-0007',
           name: 'Figurinha #7',
@@ -373,6 +401,13 @@ const mockGames: Game[] = [
           rarity: 'common',
           category: 'Diversos',
         },
+        {
+          id: 'sticker-0010',
+          name: 'Figurinha #10',
+          image: '/stickers/sticker-0010.jpg',
+          rarity: 'common',
+          category: 'Diversos',
+        },
       ],
     },
     completed: false,
@@ -389,30 +424,23 @@ const mockGames: Game[] = [
       rarity: 'epic',
       stickers: [
         {
-          id: 'sticker-00010',
-          name: 'Figurinha #10',
-          image: '/stickers/sticker-0010.jpg',
+          id: 'sticker-00019A',
+          name: 'Figurinha #19A',
+          image: '/stickers/sticker-0019A.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
-          id: 'sticker-00011',
-          name: 'Figurinha #11',
-          image: '/stickers/sticker-0011.jpg',
+          id: 'sticker-00019B',
+          name: 'Figurinha #19B',
+          image: '/stickers/sticker-0019B.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
         {
-          id: 'sticker-00012',
-          name: 'Figurinha #12',
-          image: '/stickers/sticker-0012.jpg',
-          rarity: 'common',
-          category: 'Diversos',
-        },
-        {
-          id: 'sticker-00013',
-          name: 'Figurinha #13',
-          image: '/stickers/sticker-0013.jpg',
+          id: 'sticker-00019C',
+          name: 'Figurinha #19C',
+          image: '/stickers/sticker-0019C.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
@@ -422,22 +450,15 @@ const mockGames: Game[] = [
   },
   {
     id: 'game-4',
-    name: 'Comet Runner',
-    description: 'Corra pelo espaço desviando de cometas!',
-    thumbnail: '/placeholder.svg',
-    url: '/gdevelop/sample/index.html',
+    name: 'LostGPS',
+    description: 'Connect the wires!',
+    thumbnail: 'thumbnails/LostGPS.png',
+    url: '/gdevelop/LostGPS/index.html',
     packReward: {
       id: 'pack-4',
       name: 'Pacote Lendário',
       rarity: 'legendary',
       stickers: [
-        {
-          id: 'sticker-0014',
-          name: 'Figurinha #14',
-          image: '/stickers/sticker-0014.jpg',
-          rarity: 'common',
-          category: 'Diversos',
-        },
         {
           id: 'sticker-0015',
           name: 'Figurinha #15',
@@ -463,27 +484,6 @@ const mockGames: Game[] = [
           id: 'sticker-0018',
           name: 'Figurinha #18',
           image: '/stickers/sticker-0018.jpg',
-          rarity: 'common',
-          category: 'Diversos',
-        },
-        {
-          id: 'sticker-0019A',
-          name: 'Figurinha #19A',
-          image: '/stickers/sticker-0019A.jpg',
-          rarity: 'common',
-          category: 'Diversos',
-        },
-        {
-          id: 'sticker-0019B',
-          name: 'Figurinha #19B',
-          image: '/stickers/sticker-0019B.jpg',
-          rarity: 'common',
-          category: 'Diversos',
-        },
-        {
-          id: 'sticker-0019C',
-          name: 'Figurinha #19C',
-          image: '/stickers/sticker-0019C.jpg',
           rarity: 'common',
           category: 'Diversos',
         },
