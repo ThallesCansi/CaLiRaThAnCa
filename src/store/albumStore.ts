@@ -238,7 +238,7 @@ const createMockData = () => {
   return pages;
 };
 
-const tutorialStickers: Sticker[] = [
+const tutorialStickers1: Sticker[] = [
   {
     id: 'sticker-tutorial1',
     name: 'Tutorial #1',
@@ -267,6 +267,9 @@ const tutorialStickers: Sticker[] = [
     rarity: 'common',
     category: 'Tutorial',
   },
+];
+
+const tutorialStickers2: Sticker[] = [
   {
     id: 'sticker-0001',
     name: 'Sticker #1',
@@ -311,11 +314,18 @@ const tutorialStickers: Sticker[] = [
   },
 ];
 
-const tutorialPack: Pack = {
-  id: 'pack-tutorial',
-  name: 'Tutorial Pack',
+const tutorialPack1: Pack = {
+  id: 'pack-tutorial-1',
+  name: 'Pacote Tutorial 1',
   rarity: 'common',
-  stickers: tutorialStickers,
+  stickers: tutorialStickers1,
+};
+
+const tutorialPack2: Pack = {
+  id: 'pack-tutorial-2',
+  name: 'Pacote Tutorial 2',
+  rarity: 'common',
+  stickers: tutorialStickers2,
 };
 
 const mockGames: Game[] = [
@@ -810,7 +820,7 @@ export const useAlbumStore = create<AlbumState>()(
           if (state.tutorialPackClaimed) return state;
           return {
             tutorialPackClaimed: true,
-            availablePacks: [...state.availablePacks, tutorialPack],
+            availablePacks: [...state.availablePacks, tutorialPack1, tutorialPack2],
           };
         });
       },
