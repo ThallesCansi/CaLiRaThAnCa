@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAlbumStore } from "@/store/albumStore";
 import { toast } from "sonner";
 
@@ -9,11 +9,13 @@ How to use:
 - Navigate to: /games/play?src=/gdevelop/<gameName>/index.html&gameId=<game-id>
 - Inside the GDevelop game, post completion with:
   window.parent.postMessage({ type: 'GDEVELOP_EVENT', action: 'COMPLETED' }, '*')
-  (gameId will be taken from URL parameter)
+- To navigate back to album:
+  window.parent.postMessage({ type: 'GDEVELOP_EVENT', action: 'ALBUM' }, '*')
 */
 
 const GameEmbed = () => {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const completeGame = useAlbumStore((s) => s.completeGame);
 
   const rawSrc = params.get("src") || "/gdevelop/sample/index.html"; // placeholder
@@ -27,17 +29,22 @@ const GameEmbed = () => {
       if (!event.data || !sameOrigin) return;
 
       const data = event.data as any;
-      if (data.type === "GDEVELOP_EVENT" && data.action === "COMPLETED") {
-        // Sempre usar o gameId da URL para evitar confusão entre jogos
-        // O gameId da URL é confiável pois vem do store via Games.tsx
-        completeGame(gameId);
-        toast.success("Jogo concluído! Pacote adicionado.");
+      if (data.type === "GDEVELOP_EVENT") {
+        if (data.action === "COMPLETED") {
+          // Sempre usar o gameId da URL para evitar confusão entre jogos
+          // O gameId da URL é confiável pois vem do store via Games.tsx
+          completeGame(gameId);
+          toast.success("Jogo concluído! Pacote adicionado.");
+        } else if (data.action === "ALBUM") {
+          // Navegar de volta para o álbum
+          navigate("/");
+        }
       }
     };
 
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
-  }, [completeGame, gameId]);
+  }, [completeGame, gameId, navigate]);
 
   const finalSrc = useMemo(() => {
     // Se for absoluto (http/https), passa direto
