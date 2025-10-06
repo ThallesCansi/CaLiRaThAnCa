@@ -225,7 +225,7 @@ const createMockData = () => {
     backgroundImage: backgroundByPage[14],
     slots: [],
     htmlButton: {
-      htmlPath: '/maps/exemplo.html',
+      htmlPath: '/maps/aurora.html',
       left: '50%',
       top: '50%',
       width: '30%',
