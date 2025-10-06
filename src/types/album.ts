@@ -40,6 +40,13 @@ export interface AlbumPage {
   backgroundImage?: string; // URL da imagem A4 de fundo
   slots: StickerSlot[];
   theme?: "light" | "dark"; // Tema da página para contraste
+  htmlButton?: {
+    htmlPath: string;
+    left: string;
+    top: string;
+    width: string;
+    height: string;
+  };
 }
 
 export interface Pack {

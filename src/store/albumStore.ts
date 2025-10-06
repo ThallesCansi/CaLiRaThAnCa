@@ -224,6 +224,13 @@ const createMockData = () => {
     theme: 'dark',
     backgroundImage: backgroundByPage[14],
     slots: [],
+    htmlButton: {
+      htmlPath: '/maps/exemplo.html',
+      left: '50%',
+      top: '50%',
+      width: '30%',
+      height: '10%',
+    },
   });
   
   pages.push({
